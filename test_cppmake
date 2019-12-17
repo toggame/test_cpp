@@ -1,0 +1,25 @@
+CXX = mingw32-g++
+BM_LIB = -L"C:\Program Files (x86)\BUSMASTER_v3.2.2\SimulatedSystems\OBJ" -lWrapper_CAN
+
+BM_INCLUDES = -I"C:\Program Files (x86)\BUSMASTER_v3.2.2\SimulatedSystems\Include"
+
+CXXFLAGS = -Wall -c
+#$(BM_INCLUDE)
+
+dll = test_cpp.dll
+
+DBOBJFILE = "C:\ProgramData\BUSMASTER\General\DBCache\E19A_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\1B188_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\1E8F8_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\116F4_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\766A_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\9B3A_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\9E7E_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\12917_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\1EFFB_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\A604_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\19ABA_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\D8B7_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\192BE_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\9944_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\15B7E_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\1FB92_gcc5.1.0.obj" "C:\ProgramData\BUSMASTER\General\DBCache\AB59_gcc5.1.0.obj" 
+
+DBINCLUDES = -include"C:\ProgramData\BUSMASTER\General\DBCache\E19A.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\1B188.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\1E8F8.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\116F4.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\766A.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\9B3A.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\9E7E.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\12917.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\1EFFB.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\A604.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\19ABA.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\D8B7.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\192BE.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\9944.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\15B7E.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\1FB92.h" -include"C:\ProgramData\BUSMASTER\General\DBCache\AB59.h" 
+
+
+all: $(dll)
+
+$(dll): test_cpp.o
+	$(CXX) -shared -Wl,--dll  test_cpp.o $(DBOBJFILE) $(BM_LIB) -o $@
+
+test_cpp.o: D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp
+	$(CXX) $(DBINCLUDES) $(CXXFLAGS) $(BM_INCLUDES) $< -o $@
+
+clean: 
+	del /f test_cpp.o
