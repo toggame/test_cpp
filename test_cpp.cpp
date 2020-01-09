@@ -2077,7 +2077,9 @@ void Utils_getInformation()
                 for (int i = 0; i < IUPR[0]-2; ++i) {
                     IUPR[i+3] = str[2*i+4] << 8 | str[2*i+5];
                 }
-                Trace("0908 iupt: 诊断数=%d, 通用分母=%d, 点火数=%d, 催化器1=%d/%d, 催化器2=%d/%d, 前氧传感器1=%d/%d, 前氧传感器2=%d/%d, EGR/VVT=%d/%d, 二次空气系统=%d/%d, 蒸发泄露诊断=%d/%d, 后氧传感器1=%d/%d, 后氧传感器2=%d/%d, 空燃比1=%d/%d, 空燃比2=%d/%d, GPF1=%d/%d, GPF2=%d/%d",
+                Trace("0908 iupt: 诊断数=%d, 通用分母=%d, 点火数=%d, 催化器1=%d/%d, 催化器2=%d/%d, 前氧传感器1=%d/%d, "
+                      "前氧传感器2=%d/%d, EGR/VVT=%d/%d, 二次空气系统=%d/%d, 蒸发泄露诊断=%d/%d, 后氧传感器1=%d/%d, "
+                      "后氧传感器2=%d/%d, 空燃比1=%d/%d, 空燃比2=%d/%d, GPF1=%d/%d, GPF2=%d/%d",
                         IUPR[0], IUPR[1], IUPR[2], IUPR[3], IUPR[4], IUPR[5], IUPR[6], IUPR[7], IUPR[8], IUPR[9],
                         IUPR[10], IUPR[11], IUPR[12], IUPR[13], IUPR[14], IUPR[15], IUPR[16], IUPR[17], IUPR[18],
                         IUPR[19], IUPR[20], IUPR[21], IUPR[22], IUPR[23], IUPR[24], IUPR[25], IUPR[26], IUPR[27],
