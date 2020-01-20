@@ -737,7 +737,7 @@ void OnTimer_msgSend_30()
 {
     StopTimer(msgSend_30);
 //    Utils_SendMsg();//会影响mSID和Options的校验
-    if (mSID != 0x00) {//增加判断，放置连接时自动发送
+    if (msgCount != 0) {//增加判断，放置连接时自动发送
         SendMsg(rstMsg_EMS);
     }
 }
