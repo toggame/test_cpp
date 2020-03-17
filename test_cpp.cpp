@@ -26,64 +26,100 @@ GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_3E();
 GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_1001();
 GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_1003();
 GCC_EXTERN void GCC_EXPORT OnTimer_msgSend();
-GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_CF( );
-GCC_EXTERN void GCC_EXPORT OnTimer_checkDTC( );
+GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_CF();
+GCC_EXTERN void GCC_EXPORT OnTimer_checkDTC();
 GCC_EXTERN void GCC_EXPORT OnTimer_waiting();
-GCC_EXTERN void GCC_EXPORT OnTimer_checkInformation( );
-GCC_EXTERN void GCC_EXPORT OnTimer_WaitForRespTimer_Options( );
-GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_1101( );
-GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_IGON( );
-GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_IGOFF( );
+GCC_EXTERN void GCC_EXPORT OnTimer_checkInformation();
+GCC_EXTERN void GCC_EXPORT OnTimer_WaitForRespTimer_Options();
+GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_1101();
+GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_IGON();
+GCC_EXTERN void GCC_EXPORT OnTimer_msgSend_IGOFF();
 
 void Utils_Stop();
+
 void Utils_SendMsg();
+
 void Utils_Seed2Key_EMS(const unsigned char seedArr[], unsigned char keyArr[]);
+
 void Utils_Seed2Key_PEPS(const unsigned char seedArr[], unsigned char keyArr[]);
+
 void Utils_Seed2Key_TCU(const unsigned char seedArr[], unsigned char keyArr[]);
+
 void Utils_Seed2Key_BCM(const unsigned char seedArr[], unsigned char keyArr[]);
+
 void Utils_getNRCInfo(short NRC, char strNRC[]);
+
 void Utils_getRoutineInfo(unsigned short RoutingStatus, char strInfo[]);
+
 void Utils_getVehicleInfo(unsigned short VehicleStatus, char strInfo[]);
+
 void Utils_getDTCInfo(long DTCInfo, char strInfo[]);
+
 void Utils_getDTCStatus(long DTCStatus);
+
 void Utils_getDTC();
+
 void Utils_getInformation();
-void Utils_checkMessage(STCAN_MSG & msg);
+
+void Utils_checkMessage(STCAN_MSG &msg);
+
 void Utils_RunFlowControl();
+
 void Utils_setTimerWithResp(char *t, long duration, unsigned short wSID);
+
 void Utils_setTimerWithRespOptions(char *t, long duration, unsigned short wSID, unsigned long wOptions);
+
 void Utils_setTimerWaiting(char *t, long duration, unsigned short wSID, unsigned long wOptions, unsigned char jS);
+
 short Utils_ReadVIN();
+
 short Utils_VINtoPIN(const char rVin[], unsigned char rstPIN[]);
+
 short Utils_VINtoESK(const char rVin[], unsigned char rstESK[], char BCcode[]);
+
 short Utils_VINtoESK_H33D(const char rVin[], unsigned char rstESK[]);
+
+void Utils_ascii2hex(const unsigned char chr[], unsigned char hexnumber[]);
+
 void Utils_doSecAccess();
+
 short Utils_checkVIN();
+
 void Utils_doWriteVIN();
+
 void Utils_doClearSC_H32B();
+
 void Utils_doLearnSC_H32B();
+
 void Utils_doEOL_H40D();
+
 void Utils_doClearEMSLearning_H40D();
+
 void Utils_doReLearningEMS_H40D();
+
 void Utils_doEOLKEY_H40D();
+
 void Utils_doReLearningKey_H40D();
+
 void Utils_doGetInformation();
+
 void Utils_initialize();
+
 void Utils_PreStart();
 
 GCC_EXTERN void GCC_EXPORT OnBus_Connect();
-GCC_EXTERN void GCC_EXPORT OnKey_o(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_p(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_q(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_r(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_s(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_t(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_u(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_v(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_w(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_x(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_y(unsigned char KeyValue);
-GCC_EXTERN void GCC_EXPORT OnKey_z(unsigned char KeyValue);
+GCC_EXTERN void GCC_EXPORT OnKey_o();
+GCC_EXTERN void GCC_EXPORT OnKey_p();
+GCC_EXTERN void GCC_EXPORT OnKey_q();
+GCC_EXTERN void GCC_EXPORT OnKey_r();
+GCC_EXTERN void GCC_EXPORT OnKey_s();
+GCC_EXTERN void GCC_EXPORT OnKey_t();
+GCC_EXTERN void GCC_EXPORT OnKey_u();
+GCC_EXTERN void GCC_EXPORT OnKey_v();
+GCC_EXTERN void GCC_EXPORT OnKey_w();
+GCC_EXTERN void GCC_EXPORT OnKey_x();
+GCC_EXTERN void GCC_EXPORT OnKey_y();
+GCC_EXTERN void GCC_EXPORT OnKey_z();
 /* End BUSMASTER Function Prototype  */
 
 /* Start BUSMASTER Function Wrapper Prototype  */
@@ -91,8 +127,7 @@ GCC_EXTERN void GCC_EXPORT OnKey_z(unsigned char KeyValue);
 
 /* Start BUSMASTER global variable */
 
-namespace global
-{
+namespace global {
     const static short False = 0;
     const static short True = 1;
     static char VIN[20];
@@ -159,124 +194,90 @@ using namespace global;
 /* End BUSMASTER global variable */
 
 /* Start BUSMASTER generated function - OnMsgID_07e8 */
-void OnMsgID_07e8(STCAN_MSG RxMsg)
-{
+void OnMsgID_07e8(STCAN_MSG RxMsg) {
     static unsigned char btSeed[4];
     static unsigned char btKey[4];
-    //static char NRCinfoOuput[200];
+    //static char NRCinfoOutput[200];
 
     static char NRCinfo[100];
     static short NRCcode;
     //static char RespInfo[100];
-    // static char RespInfoOuput[200];
+    // static char RespInfoOutput[200];
 
-    if (RxMsg.data[1] != 0x7e)
-    {
-        rstMsg_EMS.id = 0x7e0;//防止ID错误
-        Utils_checkMessage(RxMsg);
-        switch (mSID) {
-            /* 7F反馈 */
-            case 0x7f:
-                NRCcode = RxMsg.data[3];
-                Utils_getNRCInfo(NRCcode, NRCinfo);
-                Trace(">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n", RxMsg.data[2], NRCcode, NRCinfo);
-                //ReSendMsg = True;
+    if (RxMsg.data[1] == 0x7e) { return; }
+    rstMsg_EMS.id = 0x7e0;//防止ID错误
+    Utils_checkMessage(RxMsg);
+    switch (mSID) {
+        /* 7F反馈 */
+        case 0x7f:
+            NRCcode = RxMsg.data[3];
+            Utils_getNRCInfo(NRCcode, NRCinfo);
+            Trace(">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n", RxMsg.data[2], NRCcode, NRCinfo);
+            //ReSendMsg = True;
 //                mSID = 0x00;//重置mSID,防止连续帧一直报错
-                return;
+            return;
 
             /*  27反馈 */
-            case 0x67:
-                Options = RxMsg.data[2];
-                switch (Options) {
-                    /* 27 01响应，解密 */
-                    case 0x01:
-                        btSeed[0] = (unsigned char) RxMsg.data[3];
-                        btSeed[1] = (unsigned char) RxMsg.data[4];
-                        btSeed[2] = (unsigned char) RxMsg.data[5];
-                        btSeed[3] = (unsigned char) RxMsg.data[6];
-                        Utils_Seed2Key_EMS(btSeed, btKey);
-                        rstMsg_EMS.dlc = 8;
-                        rstMsg_EMS.id = 0x7e0;
-                        rstMsg_EMS.data[0] = 0x06;
-                        rstMsg_EMS.data[1] = 0x27;
-                        rstMsg_EMS.data[2] = 0x02;
-                        rstMsg_EMS.data[3] = btKey[0];
-                        rstMsg_EMS.data[4] = btKey[1];
-                        rstMsg_EMS.data[5] = btKey[2];
-                        rstMsg_EMS.data[6] = btKey[3];
-                        rstMsg_EMS.data[7] = 0xFF;
-                        Utils_SendMsg();
-                        return;
+        case 0x67:
+            Options = RxMsg.data[2];
+            switch (Options) {
+                /* 27 01响应，解密 */
+                case 0x01:
+                    btSeed[0] = (unsigned char) RxMsg.data[3];
+                    btSeed[1] = (unsigned char) RxMsg.data[4];
+                    btSeed[2] = (unsigned char) RxMsg.data[5];
+                    btSeed[3] = (unsigned char) RxMsg.data[6];
+                    Utils_Seed2Key_EMS(btSeed, btKey);
+                    rstMsg_EMS.dlc = 8;
+                    rstMsg_EMS.id = 0x7e0;
+                    rstMsg_EMS.data[0] = 0x06;
+                    rstMsg_EMS.data[1] = 0x27;
+                    rstMsg_EMS.data[2] = 0x02;
+                    rstMsg_EMS.data[3] = btKey[0];
+                    rstMsg_EMS.data[4] = btKey[1];
+                    rstMsg_EMS.data[5] = btKey[2];
+                    rstMsg_EMS.data[6] = btKey[3];
+                    rstMsg_EMS.data[7] = 0xFF;
+                    Utils_SendMsg();
+                    return;
 
-                        /* 27 02响应，解密通过 */
-                    case 0x02:
-                        Trace(">>安全认证通过");
+                    /* 27 02响应，解密通过 */
+                case 0x02:
+                    Trace(">>安全认证通过");
+                    return;
+                default:
+                    return;
+            }
+
+            /*22反馈*/
+        case 0x62:
+            memset(rInformation, 0, sizeof(rInformation));
+            if (RxMsg.data[0] < 0x08) {
+                Options = RxMsg.data[2] << 8 | RxMsg.data[3];
+            } else {
+                Options = RxMsg.data[3] << 8 | RxMsg.data[4];
+                mSID = 0x00;//防止30重复调用,0605
+            }
+            rInformation_type = 0x62;
+            rInformation_Options = Options;
+//            Trace("Options:%X",Options);
+            if (Options == 0x0605) {
+                IMMO_Status = RxMsg.data[4];
+                switch (IMMO_Status) {
+                    case 0x01:
+                        Trace("ECU防盗状态：Learnt");
+                        return;
+                    case 0x00:
+                        Trace("ECU防盗状态：Virgin");
                         return;
                     default:
                         return;
                 }
-
-            /*22反馈*/
-            case 0x62:
-                memset(rInformation,0, sizeof(rInformation));
-                if (RxMsg.data[0] < 0x08) {
-                    Options = RxMsg.data[2] << 8 | RxMsg.data[3];
-                } else {
-                    Options = RxMsg.data[3] << 8 | RxMsg.data[4];
-                    mSID = 0x00;//防止30重复调用,0605
-                }
-                rInformation_type = 0x62;
-                rInformation_Options = Options;
-//            Trace("Options:%X",Options);
-                if (Options == 0x0605) {
-                    IMMO_Status = RxMsg.data[4];
-                    switch (IMMO_Status) {
-                        case 0x01:
-                            Trace("ECU防盗状态：Learnt");
-                            return;
-                        case 0x00:
-                            Trace("ECU防盗状态：Virgin");
-                            return;
-                        default:
-                            return;
-                    }
-                }
-                if (Options >= 0xf187 && Options <= 0xf199 ) {
-                    if (RxMsg.data[0] > 0x08) {
-                        for (int i = 0; i < 6; i++) {
-                            rInformation[i] = RxMsg.data[2+i];
-                        }
-//                    Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
-                        rInformation_rst = True;
-//                        byteCount = RxMsg.data[1];
-//                    Trace("rInformation_rst=%02X",rInformation_rst);
-//                    Trace("byteCount=%02X",byteCount);
-//                    Trace("Options:%02X",Options);
-                    } else {
-                        for (int i = 0; i < byteCount ; i++) {
-                            rInformation[i] = RxMsg.data[1+i];
-                        }
-//                        Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
-                    }
-                    settimer_CAPL(MSEC_TIMER,checkInformation,300);
-                }
-
-                return;
-
-                /*49反馈*/
-            case 0x49:
-                memset(rInformation,0, sizeof(rInformation));
-                if (RxMsg.data[0] < 0x08) {
-                    Options = RxMsg.data[2];
-                } else {
-                    Options = RxMsg.data[3];
-                    mSID = 0x00;//防止30重复调用
-                }
-                rInformation_type = 0x49;
-                rInformation_Options = Options;
+            }
+            if (Options >= 0xf100 && Options <= 0xf1ff) {
                 if (RxMsg.data[0] > 0x08) {
                     for (int i = 0; i < 6; i++) {
-                        rInformation[i] = RxMsg.data[2+i];
+                        rInformation[i] = RxMsg.data[2 + i];
                     }
 //                    Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
                     rInformation_rst = True;
@@ -285,133 +286,163 @@ void OnMsgID_07e8(STCAN_MSG RxMsg)
 //                    Trace("byteCount=%02X",byteCount);
 //                    Trace("Options:%02X",Options);
                 } else {
-                    for (int i = 0; i < byteCount ; i++) {
-                        rInformation[i] = RxMsg.data[1+i];
+                    for (int i = 0; i < byteCount; i++) {
+                        rInformation[i] = RxMsg.data[1 + i];
                     }
 //                        Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
                 }
-                settimer_CAPL(MSEC_TIMER,checkInformation,300);
-                return;
+                settimer_CAPL(MSEC_TIMER, checkInformation, 300);
+            }
+            return;
+
+            /*49反馈*/
+        case 0x49:
+            memset(rInformation, 0, sizeof(rInformation));
+            if (RxMsg.data[0] < 0x08) {
+                Options = RxMsg.data[2];
+            } else {
+                Options = RxMsg.data[3];
+                mSID = 0x00;//防止30重复调用
+            }
+            rInformation_type = 0x49;
+            rInformation_Options = Options;
+            if (RxMsg.data[0] > 0x08) {
+                for (int i = 0; i < 6; i++) {
+                    rInformation[i] = RxMsg.data[2 + i];
+                }
+//                    Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
+                rInformation_rst = True;
+//                        byteCount = RxMsg.data[1];
+//                    Trace("rInformation_rst=%02X",rInformation_rst);
+//                    Trace("byteCount=%02X",byteCount);
+//                    Trace("Options:%02X",Options);
+            } else {
+                for (int i = 0; i < byteCount; i++) {
+                    rInformation[i] = RxMsg.data[1 + i];
+                }
+//                        Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
+            }
+            settimer_CAPL(MSEC_TIMER, checkInformation, 300);
+            return;
 
             /*2E反馈*/
-            case 0x6E :
-            /*31反馈*/
-            case 0x71:
-                Options = (RxMsg.data[2] << 16) | (RxMsg.data[3] << 8) | RxMsg.data[4];
-//            Trace("Options:%X",Options);
-                return;
+        case 0x6E:
+            Options = (RxMsg.data[2] << 8) | RxMsg.data[3];
+//              Trace("Options:%X",Options);
+            return;
 
-            case 0x59:
+            /*31反馈*/
+        case 0x71:
+            Options = (RxMsg.data[2] << 16) | (RxMsg.data[3] << 8) | RxMsg.data[4];
+//            Trace("Options:%X",Options);
+            return;
+
+        case 0x59:
 //                DTC_info[100] = {};//C++11无效
 //                for (int i = 0; i < 100 ; ++i) {
 //                    DTC_info[i] = 0;
 //                }
-                memset(DTC_info,0, sizeof(DTC_info));
-                if (RxMsg.data[0] > 0x08) {
-                    mSID = 0x00;//防止30重复调用
-                    Options = RxMsg.data[3];
-                    for (int i = 0; i < 6; i++) {
-                        DTC_info[i] = RxMsg.data[2+i];
-                    }
+            memset(DTC_info, 0, sizeof(DTC_info));
+            if (RxMsg.data[0] > 0x08) {
+                mSID = 0x00;//防止30重复调用
+                Options = RxMsg.data[3];
+                for (int i = 0; i < 6; i++) {
+                    DTC_info[i] = RxMsg.data[2 + i];
+                }
 //                    Trace("DTC:%02X %02X %02X %02X %02X %02X", DTC_info[0], DTC_info[1], DTC_info[2], DTC_info[3], DTC_info[4], DTC_info[5]);
-                    DTC_rst = True;
-                    DTC_bytes = RxMsg.data[1];
+                DTC_rst = True;
+                DTC_bytes = RxMsg.data[1];
 //                    Trace("DTC_rst=%02X",DTC_rst);
 //                    Trace("DTC_bytes=%02X",DTC_bytes);
-                    settimer_CAPL(MSEC_TIMER,checkDTC,300);
+                settimer_CAPL(MSEC_TIMER, checkDTC, 300);
 //                    Trace("Options:%02X",Options);
+            } else {
+                Options = RxMsg.data[2];
+                if (byteCount < 0x07) {
+                    Trace(">> 未发现DTC");
                 } else {
-                    Options = RxMsg.data[2];
-                    if (byteCount < 0x07) {
-                        Trace(">> 未发现DTC");
-                    } else  {
-                        for (int i = 0; i < byteCount ; i++) {
-                            DTC_info[i] = RxMsg.data[1+i];
-                        }
-                        DTC_bytes = byteCount;
-                        settimer_CAPL(MSEC_TIMER,checkDTC,300);
+                    for (int i = 0; i < byteCount; i++) {
+                        DTC_info[i] = RxMsg.data[1 + i];
                     }
+                    DTC_bytes = byteCount;
+                    settimer_CAPL(MSEC_TIMER, checkDTC, 300);
                 }
-                return;
+            }
+            return;
 
-            default:
-                return;
-        }
+        default:
+            return;
     }
 }
 /* End BUSMASTER generated function - OnMsgID_07e8 */
 
 /* Start BUSMASTER generated function - OnMsgID_7a5 */
-void OnMsgID_7a5(STCAN_MSG RxMsg)
-{
+void OnMsgID_7a5(STCAN_MSG RxMsg) {
     static unsigned char btSeed[4];
     static unsigned char btKey[4];
-    //static char NRCinfoOuput[200];
+    //static char NRCinfoOutput[200];
 
     static char NRCinfo[100];
     static short NRCcode;
     //static char RespInfo[100];
-    // static char RespInfoOuput[200];
+    // static char RespInfoOutput[200];
 
-    if  (RxMsg.data[1] != 0x7e)
-    {
-        rstMsg_EMS.id = 0x725;//防止ID错误
-        Utils_checkMessage(RxMsg);
-        switch (mSID)
-        {
-            /* 7F反馈 */
-            case 0x7f:
-                NRCcode = RxMsg.data[3];
-                Utils_getNRCInfo(NRCcode, NRCinfo);
-                Trace(">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n", RxMsg.data[2], NRCcode, NRCinfo);
-                //ReSendMsg = True;
+    if (RxMsg.data[1] == 0x7e) { return; }
+    rstMsg_EMS.id = 0x725;//防止ID错误
+    Utils_checkMessage(RxMsg);
+    switch (mSID) {
+        /* 7F反馈 */
+        case 0x7f:
+            NRCcode = RxMsg.data[3];
+            Utils_getNRCInfo(NRCcode, NRCinfo);
+            Trace(">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n", RxMsg.data[2], NRCcode, NRCinfo);
+            //ReSendMsg = True;
 //                mSID = 0x00;
-                return;
+            return;
 
             /*  27反馈 */
-            case 0x67:
-                Options = RxMsg.data[2];
-                switch (Options) {
-                    /* 27 01响应，解密 */
-                    case 0x01:
-                        btSeed[0] = (unsigned char) RxMsg.data[3];
-                        btSeed[1] = (unsigned char) RxMsg.data[4];
-                        btSeed[2] = (unsigned char) RxMsg.data[5];
-                        btSeed[3] = (unsigned char) RxMsg.data[6];
-                        Utils_Seed2Key_BCM(btSeed, btKey);
-                        rstMsg_EMS.dlc = 8;
-                        rstMsg_EMS.id = 0x725;
-                        rstMsg_EMS.data[0] = 0x06;
-                        rstMsg_EMS.data[1] = 0x27;
-                        rstMsg_EMS.data[2] = 0x02;
-                        rstMsg_EMS.data[3] = btKey[0];
-                        rstMsg_EMS.data[4] = btKey[1];
-                        rstMsg_EMS.data[5] = btKey[2];
-                        rstMsg_EMS.data[6] = btKey[3];
-                        rstMsg_EMS.data[7] = 0xFF;
-                        Utils_SendMsg();
-                        return;
+        case 0x67:
+            Options = RxMsg.data[2];
+            switch (Options) {
+                /* 27 01响应，解密 */
+                case 0x01:
+                    btSeed[0] = (unsigned char) RxMsg.data[3];
+                    btSeed[1] = (unsigned char) RxMsg.data[4];
+                    btSeed[2] = (unsigned char) RxMsg.data[5];
+                    btSeed[3] = (unsigned char) RxMsg.data[6];
+                    Utils_Seed2Key_BCM(btSeed, btKey);
+                    rstMsg_EMS.dlc = 8;
+                    rstMsg_EMS.id = 0x725;
+                    rstMsg_EMS.data[0] = 0x06;
+                    rstMsg_EMS.data[1] = 0x27;
+                    rstMsg_EMS.data[2] = 0x02;
+                    rstMsg_EMS.data[3] = btKey[0];
+                    rstMsg_EMS.data[4] = btKey[1];
+                    rstMsg_EMS.data[5] = btKey[2];
+                    rstMsg_EMS.data[6] = btKey[3];
+                    rstMsg_EMS.data[7] = 0xFF;
+                    Utils_SendMsg();
+                    return;
 
                     /* 27 02响应，解密通过 */
-                    case 0x02:
-                        Trace(">>安全认证通过");
-                        return;
-                    default:
-                        return;
-                }
-            default:
-                return;
-        }
+                case 0x02:
+                    Trace(">>安全认证通过");
+                    return;
+                default:
+                    return;
+            }
+        default:
+            return;
     }
+    //
 }
 /* End BUSMASTER generated function - OnMsgID_7a5 */
 
 /* Start BUSMASTER generated function - OnMsgID_7a9 */
-void OnMsgID_7a9(STCAN_MSG RxMsg)
-{
+void OnMsgID_7a9(STCAN_MSG RxMsg) {
     static unsigned char btSeed[2];
     static unsigned char btKey[2];
-//    static char NRCinfoOuput[200];
+//    static char NRCinfoOutput[200];
 
     static char NRCinfo[100];
     static short NRCcode;
@@ -419,285 +450,276 @@ void OnMsgID_7a9(STCAN_MSG RxMsg)
     static char vehicleInfo[100];
 //    static short routineCode;
 //    static char RespInfo[100];
-//    static char RespInfoOuput[200];
-    if (RxMsg.data[1] != 0x7e)
-    {
-        rstMsg_EMS.id = 0x729;//防止ID错误
-        Utils_checkMessage(RxMsg);
-        switch(mSID)
-        {
-            /* 7F反馈 */
-            case 0x7f:
-                NRCcode = RxMsg.data[3];
-                Utils_getNRCInfo(NRCcode, NRCinfo);
-                Trace (">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n",RxMsg.data[2],NRCcode,NRCinfo);
+//    static char RespInfoOutput[200];
+    if (RxMsg.data[1] == 0x7e) { return; }
+    rstMsg_EMS.id = 0x729;//防止ID错误
+    Utils_checkMessage(RxMsg);
+    switch (mSID) {
+        /* 7F反馈 */
+        case 0x7f:
+            NRCcode = RxMsg.data[3];
+            Utils_getNRCInfo(NRCcode, NRCinfo);
+            Trace(">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n", RxMsg.data[2], NRCcode, NRCinfo);
 //                ReSendMsg = True;
 //                mSID = 0x00;
-                return;
+            return;
 
             /*  27反馈 */
-            case 0x67:
-                Options = RxMsg.data[2];
-                switch(Options)
-                {
-                    /* 27 01响应，解密 */
-                    case 0x01:
-                        btSeed[0] =( unsigned char )RxMsg.data[3];
-                        btSeed[1] =( unsigned char )RxMsg.data[4];
+        case 0x67:
+            Options = RxMsg.data[2];
+            switch (Options) {
+                /* 27 01响应，解密 */
+                case 0x01:
+                    btSeed[0] = (unsigned char) RxMsg.data[3];
+                    btSeed[1] = (unsigned char) RxMsg.data[4];
 //                        btSeed[2] =( unsigned char )RxMsg.data[5];
 //                        btSeed[3] =( unsigned char )RxMsg.data[6];
-                        Utils_Seed2Key_PEPS( btSeed, btKey);
-                        rstMsg_EMS.dlc = 8;
-                        rstMsg_EMS.id = 0x729;
-                        rstMsg_EMS.data[0] = 0x04;
-                        rstMsg_EMS.data[1] = 0x27;
-                        rstMsg_EMS.data[2] = 0x02;
-                        rstMsg_EMS.data[3] = btKey[0];
-                        rstMsg_EMS.data[4] = btKey[1];
-                        rstMsg_EMS.data[5] = 0xFF;
-                        rstMsg_EMS.data[6] = 0xFF;
-                        rstMsg_EMS.data[7] = 0xFF;
-                        Utils_SendMsg();
-                        return;
+                    Utils_Seed2Key_PEPS(btSeed, btKey);
+                    rstMsg_EMS.dlc = 8;
+                    rstMsg_EMS.id = 0x729;
+                    rstMsg_EMS.data[0] = 0x04;
+                    rstMsg_EMS.data[1] = 0x27;
+                    rstMsg_EMS.data[2] = 0x02;
+                    rstMsg_EMS.data[3] = btKey[0];
+                    rstMsg_EMS.data[4] = btKey[1];
+                    rstMsg_EMS.data[5] = 0xFF;
+                    rstMsg_EMS.data[6] = 0xFF;
+                    rstMsg_EMS.data[7] = 0xFF;
+                    Utils_SendMsg();
+                    return;
 
                     /* 27 02响应，解密通过 */
-                    case 0x02:
-                        Trace (">>安全认证通过");
-                        return;
-                    default:
-                        return;
-                }
+                case 0x02:
+                    Trace(">>安全认证通过");
+                    return;
+                default:
+                    return;
+            }
 
             /*22反馈*/
-            case 0x62:
-                memset(rInformation,0, sizeof(rInformation));
-                if (RxMsg.data[0] < 0x08) {
-                    Options = RxMsg.data[2] << 8 | RxMsg.data[3];
-                } else {
-                    Options = RxMsg.data[3] << 8 | RxMsg.data[4];
-                    mSID = 0x00;//防止30重复调用,0605
-                }
-                rInformation_type = 0x62;
-                rInformation_Options = Options;
+        case 0x62:
+            memset(rInformation, 0, sizeof(rInformation));
+            if (RxMsg.data[0] < 0x08) {
+                Options = RxMsg.data[2] << 8 | RxMsg.data[3];
+            } else {
+                Options = RxMsg.data[3] << 8 | RxMsg.data[4];
+                mSID = 0x00;//防止30重复调用,0605
+            }
+            rInformation_type = 0x62;
+            rInformation_Options = Options;
 //            Trace("Options:%X",Options);
-                switch (Options)
-                {
-                    case 0x5C15:
-                        Vehicle_Status = (RxMsg.data[4] >> 4) & 0x03;
-                        Utils_getVehicleInfo(Vehicle_Status,vehicleInfo);
-                        Trace("Vehicle_Status：%s",vehicleInfo);
-                        return;
-                    case 0x5C14:
-                        IMMO_Status = RxMsg.data[4];
+            switch (Options) {
+                case 0x5C15:
+                    Vehicle_Status = (RxMsg.data[4] >> 4) & 0x03;
+                    Utils_getVehicleInfo(Vehicle_Status, vehicleInfo);
+                    Trace("Vehicle_Status：%s", vehicleInfo);
+                    return;
+                case 0x5C14:
+                    IMMO_Status = RxMsg.data[4];
 //                      routineCode = RxMsg.data[4];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5C14 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    case 0xf190:
-                        if (RxMsg.data[0] > 0x08) {
-                            for (int i = 0; i < 6; i++) {
-                                rInformation[i] = RxMsg.data[2+i];
-                            }
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5C14 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                case 0xf190:
+                    if (RxMsg.data[0] > 0x08) {
+                        for (int i = 0; i < 6; i++) {
+                            rInformation[i] = RxMsg.data[2 + i];
+                        }
 //                    Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
-                            rInformation_rst = True;
+                        rInformation_rst = True;
 //                        byteCount = RxMsg.data[1];
 //                    Trace("rInformation_rst=%02X",rInformation_rst);
 //                    Trace("byteCount=%02X",byteCount);
 //                    Trace("Options:%02X",Options);
-                        } else {
-                            for (int i = 0; i < byteCount ; i++) {
-                                rInformation[i] = RxMsg.data[1+i];
-                            }
-//                        Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
+                    } else {
+                        for (int i = 0; i < byteCount; i++) {
+                            rInformation[i] = RxMsg.data[1 + i];
                         }
-                        settimer_CAPL(MSEC_TIMER,checkInformation,300);
+//                        Trace("Information:%02X %02X %02X %02X %02X %02X", rInformation[0], rInformation[1], rInformation[2], rInformation[3], rInformation[4], rInformation[5]);
+                    }
+                    settimer_CAPL(MSEC_TIMER, checkInformation, 300);
 
-                    default:
-                        return;
-                }
+                default:
+                    return;
+            }
 
             /*2E反馈*/
-            case 0x6E:
+        case 0x6E:
             /*2F反馈*/
-            case 0x6F:
-                Options = (RxMsg.data[2] <<8) | RxMsg.data[3];
+        case 0x6F:
+            Options = (RxMsg.data[2] << 8) | RxMsg.data[3];
 //              Trace("Options:%X",Options);
-                return;
+            return;
 
             /*31反馈*/
-            case 0x71:
-                Options = (RxMsg.data[2] << 16) | (RxMsg.data[3] << 8) | RxMsg.data[4];
+        case 0x71:
+            Options = (RxMsg.data[2] << 16) | (RxMsg.data[3] << 8) | RxMsg.data[4];
 //              Trace("Options:%X",Options);
-                switch (Options)
-                {
-                    case 0x035CC0:
-                        IMMO_Status = RxMsg.data[5];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5CC0 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    case 0x035CC1:
-                        IMMO_Status = RxMsg.data[5];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5CC1 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    case 0x035CC2:
-                        IMMO_Status = RxMsg.data[5];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5CC2 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    case 0x035CC3:
-                        IMMO_Status = RxMsg.data[5];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5CC3 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    case 0x035CC5:
-                        IMMO_Status = RxMsg.data[5];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5CC5 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    case 0x035CC7:
-                        IMMO_Status = RxMsg.data[5];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5CC7 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    case 0x035CC9:
-                        IMMO_Status = RxMsg.data[5];
-                        Utils_getRoutineInfo(IMMO_Status,routineInfo);
-                        Trace (">> 5CC9 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n",IMMO_Status,routineInfo);
-                        return;
-                    default:
-                        return;
-                }
-            default:
-                return;
-        }
+            switch (Options) {
+                case 0x035CC0:
+                    IMMO_Status = RxMsg.data[5];
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5CC0 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                case 0x035CC1:
+                    IMMO_Status = RxMsg.data[5];
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5CC1 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                case 0x035CC2:
+                    IMMO_Status = RxMsg.data[5];
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5CC2 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                case 0x035CC3:
+                    IMMO_Status = RxMsg.data[5];
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5CC3 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                case 0x035CC5:
+                    IMMO_Status = RxMsg.data[5];
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5CC5 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                case 0x035CC7:
+                    IMMO_Status = RxMsg.data[5];
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5CC7 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                case 0x035CC9:
+                    IMMO_Status = RxMsg.data[5];
+                    Utils_getRoutineInfo(IMMO_Status, routineInfo);
+                    Trace(">> 5CC9 IMMO状态反馈: routineCode=%02X,\nroutineInfo=%s.\n", IMMO_Status, routineInfo);
+                    return;
+                default:
+                    return;
+            }
+        default:
+            return;
     }
-
 }
 /* End BUSMASTER generated function - OnMsgID_7a9 */
 
 /* Start BUSMASTER generated function - OnMsgID_7e9 */
-void OnMsgID_7e9(STCAN_MSG RxMsg)
-{
+void OnMsgID_7e9(STCAN_MSG RxMsg) {
     static unsigned char btSeed[4];
     static unsigned char btKey[4];
-//    static char NRCinfoOuput[200];
+//    static char NRCinfoOutput[200];
 
     static char NRCinfo[100];
     static short NRCcode;
 //    static short routineCode;
 //    static char RespInfo[100];
-//    static char RespInfoOuput[200];
-    if (RxMsg.data[1] != 0x7e) {
-        if (RxMsg.data[1] == 0x7f || RxMsg.data[1] == 0x67 || RxMsg.data[1] == 0x59 || RxMsg.data[2] == 0x59 || RxMsg.data[0] >> 4 == 0x02) //仅对7F、67、59、59多帧、多帧响应
-        {
-            rstMsg_EMS.id = 0x7e1;//防止ID错误
-            Utils_checkMessage(RxMsg);
-            switch (mSID) {
-                /* 7F反馈 */
-                case 0x7f:
-                    NRCcode = RxMsg.data[3];
-                    Utils_getNRCInfo(NRCcode, NRCinfo);
-                    Trace(">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n", RxMsg.data[2], NRCcode, NRCinfo);
+//    static char RespInfoOutput[200];
+    if (RxMsg.data[1] == 0x7e) { return; }
+    if (RxMsg.data[1] == 0x7f || RxMsg.data[1] == 0x67 || RxMsg.data[1] == 0x59 || RxMsg.data[2] == 0x59 ||
+        RxMsg.data[0] >> 4 == 0x02) //仅对7F、67、59、59多帧、多帧响应
+    {
+        rstMsg_EMS.id = 0x7e1;//防止ID错误
+        Utils_checkMessage(RxMsg);
+        switch (mSID) {
+            /* 7F反馈 */
+            case 0x7f:
+                NRCcode = RxMsg.data[3];
+                Utils_getNRCInfo(NRCcode, NRCinfo);
+                Trace(">> 检测到负响应:SID=%02X,NRCcode=%02X,\nNRCinfo=%s.\n", RxMsg.data[2], NRCcode, NRCinfo);
 //                    ReSendMsg = True;
 //                    mSID = 0x00;
-                    return;
+                return;
 
-                    /*  27反馈 */
-                case 0x67:
-                    Options = RxMsg.data[2];
-                    switch (Options) {
-                        /* 27 01响应，解密 */
-                        case 0x01:
-                            if (RxMsg.data[0] == 0x04) {
-                                btSeed[0] = (unsigned char) RxMsg.data[3];
-                                btSeed[1] = (unsigned char) RxMsg.data[4];
-                                btSeed[2] = 0x00;
-                                btSeed[3] = 0x00;
-                                Utils_Seed2Key_TCU(btSeed, btKey);
-                                rstMsg_EMS.dlc = 8;
-                                rstMsg_EMS.id = 0x7e1;
-                                rstMsg_EMS.data[0] = 0x04;
-                                rstMsg_EMS.data[1] = 0x27;
-                                rstMsg_EMS.data[2] = 0x02;
-                                rstMsg_EMS.data[3] = btKey[0];
-                                rstMsg_EMS.data[4] = btKey[1];
-                                rstMsg_EMS.data[5] = 0xFF;
-                                rstMsg_EMS.data[6] = 0xFF;
-                                rstMsg_EMS.data[7] = 0xFF;
-                                Utils_SendMsg();
-                                rstMsg_EMS.id = 0x7e0;
-                                return;
-                            }
-                            if (RxMsg.data[0] == 0x06) {
-                                btSeed[0] = (unsigned char) RxMsg.data[3];
-                                btSeed[1] = (unsigned char) RxMsg.data[4];
-                                btSeed[2] = (unsigned char) RxMsg.data[5];
-                                btSeed[3] = (unsigned char) RxMsg.data[6];
-                                Utils_Seed2Key_TCU(btSeed, btKey);
-                                rstMsg_EMS.dlc = 8;
-                                rstMsg_EMS.id = 0x7e1;
-                                rstMsg_EMS.data[0] = 0x06;
-                                rstMsg_EMS.data[1] = 0x27;
-                                rstMsg_EMS.data[2] = 0x02;
-                                rstMsg_EMS.data[3] = btKey[0];
-                                rstMsg_EMS.data[4] = btKey[1];
-                                rstMsg_EMS.data[5] = btKey[2];
-                                rstMsg_EMS.data[6] = btKey[3];
-                                rstMsg_EMS.data[7] = 0xFF;
-                                Utils_SendMsg();
-                                rstMsg_EMS.id = 0x7e0;
-                                return;
-                            }
-
-
-                            /* 27 02响应，解密通过 */
-                        case 0x02:
-                            Trace(">>安全认证通过");
+                /*  27反馈 */
+            case 0x67:
+                Options = RxMsg.data[2];
+                switch (Options) {
+                    /* 27 01响应，解密 */
+                    case 0x01:
+                        if (RxMsg.data[0] == 0x04) {
+                            btSeed[0] = (unsigned char) RxMsg.data[3];
+                            btSeed[1] = (unsigned char) RxMsg.data[4];
+                            btSeed[2] = 0x00;
+                            btSeed[3] = 0x00;
+                            Utils_Seed2Key_TCU(btSeed, btKey);
+                            rstMsg_EMS.dlc = 8;
+                            rstMsg_EMS.id = 0x7e1;
+                            rstMsg_EMS.data[0] = 0x04;
+                            rstMsg_EMS.data[1] = 0x27;
+                            rstMsg_EMS.data[2] = 0x02;
+                            rstMsg_EMS.data[3] = btKey[0];
+                            rstMsg_EMS.data[4] = btKey[1];
+                            rstMsg_EMS.data[5] = 0xFF;
+                            rstMsg_EMS.data[6] = 0xFF;
+                            rstMsg_EMS.data[7] = 0xFF;
+                            Utils_SendMsg();
+                            rstMsg_EMS.id = 0x7e0;
                             return;
-                        default:
+                        }
+                        if (RxMsg.data[0] == 0x06) {
+                            btSeed[0] = (unsigned char) RxMsg.data[3];
+                            btSeed[1] = (unsigned char) RxMsg.data[4];
+                            btSeed[2] = (unsigned char) RxMsg.data[5];
+                            btSeed[3] = (unsigned char) RxMsg.data[6];
+                            Utils_Seed2Key_TCU(btSeed, btKey);
+                            rstMsg_EMS.dlc = 8;
+                            rstMsg_EMS.id = 0x7e1;
+                            rstMsg_EMS.data[0] = 0x06;
+                            rstMsg_EMS.data[1] = 0x27;
+                            rstMsg_EMS.data[2] = 0x02;
+                            rstMsg_EMS.data[3] = btKey[0];
+                            rstMsg_EMS.data[4] = btKey[1];
+                            rstMsg_EMS.data[5] = btKey[2];
+                            rstMsg_EMS.data[6] = btKey[3];
+                            rstMsg_EMS.data[7] = 0xFF;
+                            Utils_SendMsg();
+                            rstMsg_EMS.id = 0x7e0;
                             return;
-                    }
-                case 0x59:
+                        }
+
+
+                        /* 27 02响应，解密通过 */
+                    case 0x02:
+                        Trace(">>安全认证通过");
+                        return;
+                    default:
+                        return;
+                }
+            case 0x59:
 //                DTC_info[100] = {};//C++11无效
 //                for (int i = 0; i < 100 ; ++i) {
 //                    DTC_info[i] = 0;
 //                }
-                    memset(DTC_info,0, sizeof(DTC_info));
-                    Trace("TCU DTC:");
-                    if (RxMsg.data[0] > 0x08) {
-                        mSID = 0x00;//防止30重复调用
-                        Options = RxMsg.data[3];
-                        for (int i = 0; i < 6; i++) {
-                            DTC_info[i] = RxMsg.data[2+i];
-                        }
+                memset(DTC_info, 0, sizeof(DTC_info));
+                Trace("TCU DTC:");
+                if (RxMsg.data[0] > 0x08) {
+                    mSID = 0x00;//防止30重复调用
+                    Options = RxMsg.data[3];
+                    for (int i = 0; i < 6; i++) {
+                        DTC_info[i] = RxMsg.data[2 + i];
+                    }
 //                    Trace("DTC:%02X %02X %02X %02X %02X %02X", DTC_info[0], DTC_info[1], DTC_info[2], DTC_info[3], DTC_info[4], DTC_info[5]);
-                        DTC_rst = True;
-                        DTC_bytes = RxMsg.data[1];
+                    DTC_rst = True;
+                    DTC_bytes = RxMsg.data[1];
 //                    Trace("DTC_rst=%02X",DTC_rst);
 //                    Trace("DTC_bytes=%02X",DTC_bytes);
-                        settimer_CAPL(MSEC_TIMER,checkDTC,300);
+                    settimer_CAPL(MSEC_TIMER, checkDTC, 300);
 //                    Trace("Options:%02X",Options);
+                } else {
+                    Options = RxMsg.data[2];
+                    if (byteCount < 0x07) {
+                        Trace(">> 未发现DTC");
                     } else {
-                        Options = RxMsg.data[2];
-                        if (byteCount < 0x07) {
-                            Trace(">> 未发现DTC");
-                        } else  {
-                            for (int i = 0; i < byteCount ; i++) {
-                                DTC_info[i] = RxMsg.data[1+i];
-                            }
-                            DTC_bytes = byteCount;
-                            settimer_CAPL(MSEC_TIMER,checkDTC,300);
+                        for (int i = 0; i < byteCount; i++) {
+                            DTC_info[i] = RxMsg.data[1 + i];
                         }
+                        DTC_bytes = byteCount;
+                        settimer_CAPL(MSEC_TIMER, checkDTC, 300);
                     }
-                    return;
+                }
+                return;
 
-                default:
-                    return;
-            }
+            default:
+                return;
         }
     }
-
 }
 /* End BUSMASTER generated function - OnMsgID_7e9 */
 
@@ -710,11 +732,9 @@ void OnMsgID_7e9(STCAN_MSG RxMsg)
 
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_2701 */
-void OnTimer_msgSend_2701()
-{
+void OnTimer_msgSend_2701() {
     StopTimer(msgSend_2701);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         rstMsg_EMS.dlc = 8;
         rstMsg_EMS.data[0] = 0x02;
         rstMsg_EMS.data[1] = 0x27;
@@ -733,8 +753,7 @@ void OnTimer_msgSend_2701()
 /* End BUSMASTER generated function - OnTimer_msgSend_2701 */
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_30 */
-void OnTimer_msgSend_30()
-{
+void OnTimer_msgSend_30() {
     StopTimer(msgSend_30);
 //    Utils_SendMsg();//会影响mSID和Options的校验
     if (msgCount != 0) {//增加判断，放置连接时自动发送
@@ -744,8 +763,7 @@ void OnTimer_msgSend_30()
 /* End BUSMASTER generated function - OnTimer_msgSend_30 */
 
 /* Start BUSMASTER generated function - OnTimer_timer_Stop */
-void OnTimer_timer_Stop()
-{
+void OnTimer_timer_Stop() {
     StopTimer(timer_Stop);
     Trace("超时，请重试");
 //    StopTimer(msgSend_3E);
@@ -757,49 +775,39 @@ void OnTimer_timer_Stop()
 /* End BUSMASTER generated function - OnTimer_timer_Stop */
 
 /* Start BUSMASTER generated function - OnTimer_WaitForRespTimer */
-void OnTimer_WaitForRespTimer()
-{
+void OnTimer_WaitForRespTimer() {
     StopTimer(WaitForRespTimer);
     //Trace ("mSID=%02X,WaitForRespSID=%02X",mSID,WaitForRespSID);//测试使用
-    if (Mode != 0x00)
-    {
-        if (WaitForRespSID == mSID)
-        {
+    if (Mode != 0x00) {
+        if (WaitForRespSID == mSID) {
             ReSendMsg = False;
             WaitForRespSID = 0x00;
 //            Trace("SID校验成功");
             Utils_RunFlowControl();
             return;
-        }
-        else
-            {
+        } else {
             ReSendMsg = True;
             Trace("SID校验失败");
             Utils_RunFlowControl();
             return;
-            }
+        }
     }
 }
 /* End BUSMASTER generated function - OnTimer_WaitForRespTimer */
 
 /* Start BUSMASTER generated function - OnTimer_WaitForRespTimer_Options */
-void OnTimer_WaitForRespTimer_Options( )
-{
+void OnTimer_WaitForRespTimer_Options() {
     StopTimer(WaitForRespTimer_Options);
 //    Trace ("mSID=%02X,WaitForRespSID=%02X,Options=%X,WaitForRespOptions=%X",mSID,WaitForRespSID,Options,WaitForRespOptions);//测试使用
-    if (Mode != 0x00)
-    {
-        if (WaitForRespSID == mSID && WaitForRespOptions == Options)
-        {
+    if (Mode != 0x00) {
+        if (WaitForRespSID == mSID && WaitForRespOptions == Options) {
             ReSendMsg = False;
             WaitForRespSID = 0x00;
             WaitForRespOptions = 0x00;
 //            Trace("SID/Options校验成功");
             Utils_RunFlowControl();
             return;
-        }
-        else
-        {
+        } else {
             ReSendMsg = True;
             Trace("SID/Options校验失败");
             Utils_RunFlowControl();
@@ -811,11 +819,9 @@ void OnTimer_WaitForRespTimer_Options( )
 
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_3E */
-void OnTimer_msgSend_3E()
-{
+void OnTimer_msgSend_3E() {
     //StopTimer(msgSend_3E);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         SendMsg(present_EMS);
         return;
     }
@@ -823,11 +829,9 @@ void OnTimer_msgSend_3E()
 /* End BUSMASTER generated function - OnTimer_msgSend_3E */
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_1001 */
-void OnTimer_msgSend_1001()
-{
+void OnTimer_msgSend_1001() {
     StopTimer(msgSend_1001);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         rstMsg_EMS.dlc = 8;
         rstMsg_EMS.data[0] = 0x02;
         rstMsg_EMS.data[1] = 0x10;
@@ -845,11 +849,9 @@ void OnTimer_msgSend_1001()
 /* End BUSMASTER generated function - OnTimer_msgSend_1001 */
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_1003 */
-void OnTimer_msgSend_1003()
-{
+void OnTimer_msgSend_1003() {
     StopTimer(msgSend_1003);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         rstMsg_EMS.dlc = 8;
         rstMsg_EMS.data[0] = 0x02;
         rstMsg_EMS.data[1] = 0x10;
@@ -867,11 +869,9 @@ void OnTimer_msgSend_1003()
 /* End BUSMASTER generated function - OnTimer_msgSend_1003 */
 
 /* Start BUSMASTER generated function - OnTimer_msgSend */
-void OnTimer_msgSend()
-{
+void OnTimer_msgSend() {
     StopTimer(msgSend);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         Utils_SendMsg();
         Utils_RunFlowControl();
         return;
@@ -880,36 +880,29 @@ void OnTimer_msgSend()
 /* End BUSMASTER generated function - OnTimer_msgSend */
 
 /* Start BUSMASTER generated function - OnTimer_waiting */
-void OnTimer_waiting()
-{
+void OnTimer_waiting() {
     StopTimer(waiting);
 //    Trace ("mSID=%02X,WaitForRespSID=%02X,Options=%X,WaitForRespOptions=%X",mSID,WaitForRespSID,Options,WaitForRespOptions);//测试使用
-    if (Mode != 0x00)
-    {
-        if (WaitForRespSID == mSID && WaitForRespOptions == Options)
-        {
+    if (Mode != 0x00) {
+        if (WaitForRespSID == mSID && WaitForRespOptions == Options) {
             WaitForRespSID = 0x00;
             WaitForRespOptions = 0x00;
             Utils_RunFlowControl();
             return;
 
-        }
-        else
-            {
+        } else {
             Step = jStep;//跳步
             Utils_RunFlowControl();
             return;
-            }
+        }
     }
 }
 /* End BUSMASTER generated function - OnTimer_waiting */
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_1101 */
-void OnTimer_msgSend_1101( )
-{
+void OnTimer_msgSend_1101() {
     StopTimer(msgSend_1101);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         rstMsg_EMS.dlc = 8;
         rstMsg_EMS.data[0] = 0x02;
         rstMsg_EMS.data[1] = 0x11;
@@ -928,11 +921,9 @@ void OnTimer_msgSend_1101( )
 
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_IGON */
-void OnTimer_msgSend_IGON( )
-{
+void OnTimer_msgSend_IGON() {
     StopTimer(msgSend_IGON);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         rstMsg_EMS.dlc = 8;
         rstMsg_EMS.data[0] = 0x06;
         rstMsg_EMS.data[1] = 0x2f;
@@ -944,18 +935,16 @@ void OnTimer_msgSend_IGON( )
         rstMsg_EMS.data[7] = 0xff;
         Utils_SendMsg();
 //        Utils_RunFlowControl();
-        Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x6f,0x5ca4);
+        Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x6f, 0x5ca4);
         return;
     }
 }
 /* End BUSMASTER generated function - OnTimer_msgSend_IGON */
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_IGOFF */
-void OnTimer_msgSend_IGOFF( )
-{
+void OnTimer_msgSend_IGOFF() {
     StopTimer(msgSend_IGOFF);
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         rstMsg_EMS.dlc = 8;
         rstMsg_EMS.data[0] = 0x06;
         rstMsg_EMS.data[1] = 0x2f;
@@ -967,26 +956,23 @@ void OnTimer_msgSend_IGOFF( )
         rstMsg_EMS.data[7] = 0xff;
         Utils_SendMsg();
 //        Utils_RunFlowControl();
-        Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x6f,0x5ca4);
+        Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x6f, 0x5ca4);
         return;
     }
 }
 /* End BUSMASTER generated function - OnTimer_msgSend_IGOFF */
 
 /* Start BUSMASTER generated function - OnTimer_msgSend_CF */
-void OnTimer_msgSend_CF( )
-{
+void OnTimer_msgSend_CF() {
     StopTimer(msgSend_CF);
-    Step --;
+    Step--;
     //Trace("CFSend=%d,CFCount=%d,Step=%d", CFSend, CFCount,Step);//测试使用
-    if (Mode != 0x00)
-    {
+    if (Mode != 0x00) {
         SendMsg(rstMsg_EMS);
-        if (CFSend == CFCount - 1)
-        {
-            Step ++;
+        if (CFSend == CFCount - 1) {
+            Step++;
         }
-        CFSend ++;
+        CFSend++;
         Utils_RunFlowControl();
         //Trace("CFSend=%d,CFCount=%d,Step=%d", CFSend, CFCount,Step);//测试使用
         return;
@@ -995,8 +981,7 @@ void OnTimer_msgSend_CF( )
 /* End BUSMASTER generated function - OnTimer_msgSend_CF */
 
 /* Start BUSMASTER generated function - OnTimer_checkDTC */
-void OnTimer_checkDTC( )
-{
+void OnTimer_checkDTC() {
     StopTimer(checkDTC);
     Utils_getDTC();
     DTC_rst = False;//防止其他多帧错误调用
@@ -1005,8 +990,7 @@ void OnTimer_checkDTC( )
 /* End BUSMASTER generated function - OnTimer_checkDTC */
 
 /* Start BUSMASTER generated function - OnTimer_checkInformation */
-void OnTimer_checkInformation( )
-{
+void OnTimer_checkInformation() {
 //    Trace("Options:%X",Options);
     StopTimer(checkInformation);
     Utils_getInformation();
@@ -1017,8 +1001,7 @@ void OnTimer_checkInformation( )
 
 
 /* Start BUSMASTER generated function - Utils_Stop */
-void Utils_Stop()
-{
+void Utils_Stop() {
     StopTimer(timer_Stop);
     StopTimer(msgSend_3E);
     Mode = 0x00;
@@ -1026,8 +1009,7 @@ void Utils_Stop()
 //停止计时器3E、超时
 
 /* Start BUSMASTER generated function - Utils_SendMsg */
-void Utils_SendMsg()
-{
+void Utils_SendMsg() {
     mSID = 0x00;
     Options = 0x00;
     SendMsg(rstMsg_EMS);
@@ -1038,8 +1020,7 @@ void Utils_SendMsg()
 
 
 /* Start BUSMASTER generated function - Utils_Seed2Key_EMS */
-void Utils_Seed2Key_EMS(const unsigned char seedArr[], unsigned char keyArr[])
-{
+void Utils_Seed2Key_EMS(const unsigned char seedArr[], unsigned char keyArr[]) {
     static unsigned short moveStep, i;
     static unsigned long Seed;
     static unsigned long Mask, calKey;
@@ -1053,19 +1034,14 @@ void Utils_Seed2Key_EMS(const unsigned char seedArr[], unsigned char keyArr[])
     Seed = Seed | (seedArr[0] << 24);
     Trace("EMS seed: %08X", Seed);
 
-    if (Seed != 0)
-    {
-        for (i = 0; i < moveStep; i++)
-        {
-            if (Seed & 0x80000000)
-            {
+    if (Seed != 0) {
+        for (i = 0; i < moveStep; i++) {
+            if (Seed & 0x80000000) {
                 Seed = Seed << 1;
                 Seed = Seed ^ Mask;
-            }
-            else
-                {
+            } else {
                 Seed = Seed << 1;
-                }
+            }
         }
         calKey = Seed;
         Trace("EMS key: %08X", calKey);
@@ -1082,8 +1058,7 @@ void Utils_Seed2Key_EMS(const unsigned char seedArr[], unsigned char keyArr[])
 /* End BUSMASTER generated function - Utils_Seed2Key_EMS */
 
 /* Start BUSMASTER generated function - Utils_Seed2Key_PEPS */
-void Utils_Seed2Key_PEPS(const unsigned char seedArr[], unsigned char keyArr[])
-{
+void Utils_Seed2Key_PEPS(const unsigned char seedArr[], unsigned char keyArr[]) {
     static unsigned short TOP = 0x8000;
     static unsigned short POLYNOM_1 = 0x8408;
     static unsigned short POLYNOM_2 = 0x8025;
@@ -1092,45 +1067,36 @@ void Utils_Seed2Key_PEPS(const unsigned char seedArr[], unsigned char keyArr[])
     static unsigned short DATA_LEN = 2;
     static unsigned short bSeed[2];
     static unsigned short remainder;
-    static unsigned short n,i;
+    static unsigned short n, i;
 
     bSeed[0] = seedArr[0];
     bSeed[1] = seedArr[1];
-    Trace("PEPS Seed: %02X %02X",bSeed[0],bSeed[1]);
+    Trace("PEPS Seed: %02X %02X", bSeed[0], bSeed[1]);
     remainder = INITIAL_REMINDER;
 
-    for ( n = 0; n < DATA_LEN; n++)
-    {
+    for (n = 0; n < DATA_LEN; n++) {
         remainder ^= (bSeed[n] << 8);
-        for ( i = 0; i < 8; i++)
-        {
-            if (remainder & TOP)
-            {
-                if (remainder & BITMASK)
-                {
+        for (i = 0; i < 8; i++) {
+            if (remainder & TOP) {
+                if (remainder & BITMASK) {
                     remainder = (remainder << 1) ^ POLYNOM_1;
-                }
-                else
-                    {
+                } else {
                     remainder = (remainder << 1) ^ POLYNOM_2;
-                    }
-            }
-            else
-                {
-                remainder <<= 1;
                 }
+            } else {
+                remainder <<= 1;
+            }
         }
     }
     keyArr[0] = (remainder >> 8) & 0xff;
     keyArr[1] = remainder & 0xff;
-    Trace("PEPS key:%02X %02X",keyArr[0],keyArr[1]);
+    Trace("PEPS key:%02X %02X", keyArr[0], keyArr[1]);
 }
 //PEPS安全算法
 /* End BUSMASTER generated function - Utils_Seed2Key_PEPS */
 
 /* Start BUSMASTER generated function - Utils_Seed2Key_TCU */
-void Utils_Seed2Key_TCU(const unsigned char seedArr[], unsigned char keyArr[])
-{
+void Utils_Seed2Key_TCU(const unsigned char seedArr[], unsigned char keyArr[]) {
     static unsigned char Coef1 = 0xed;
     static unsigned char Coef2 = 0xca;
     static unsigned char bSeed[4];
@@ -1155,8 +1121,8 @@ void Utils_Seed2Key_TCU(const unsigned char seedArr[], unsigned char keyArr[])
     keyArr[0] = ~bSeed[0];
     keyArr[1] = ~bSeed[1];//按位取反
     if (seedArr[2] == 0x00 && seedArr[3] == 0x00) {
-        Trace("TCU Seed: %02X %02X",seedArr[0],seedArr[1]);
-        Trace("TCU key:%02X %02X",keyArr[0],keyArr[1]);
+        Trace("TCU Seed: %02X %02X", seedArr[0], seedArr[1]);
+        Trace("TCU key:%02X %02X", keyArr[0], keyArr[1]);
         return;
     }//如果seed为2字节，结束
     bSeed[2] = bSeed[2] >> 3 | bSeed[2] << 5;
@@ -1171,8 +1137,8 @@ void Utils_Seed2Key_TCU(const unsigned char seedArr[], unsigned char keyArr[])
     bSeed[3] ^= Coef2;//异或
     keyArr[2] = ~bSeed[2];
     keyArr[3] = ~bSeed[3];//按位取反
-    Trace("TCU Seed: %02X %02X %02X %02X",seedArr[0],seedArr[1],seedArr[2],seedArr[3]);
-    Trace("TCU key: %02X %02X %02X %02X",keyArr[0],keyArr[1],keyArr[2],keyArr[3]);
+    Trace("TCU Seed: %02X %02X %02X %02X", seedArr[0], seedArr[1], seedArr[2], seedArr[3]);
+    Trace("TCU key: %02X %02X %02X %02X", keyArr[0], keyArr[1], keyArr[2], keyArr[3]);
 
 //    Trace("TCU Seed: %02X %02X",bSeed[0],bSeed[1]);
 //    Trace("TCU Seed: %04X",tSeed);
@@ -1181,8 +1147,7 @@ void Utils_Seed2Key_TCU(const unsigned char seedArr[], unsigned char keyArr[])
 /* End BUSMASTER generated function - Utils_Seed2Key_TCU */
 
 /* Start BUSMASTER generated function - Utils_Seed2Key_BCM */
-void Utils_Seed2Key_BCM(const unsigned char seedArr[], unsigned char keyArr[])
-{
+void Utils_Seed2Key_BCM(const unsigned char seedArr[], unsigned char keyArr[]) {
     static unsigned short moveStep, i;
     static unsigned long Seed;
     static unsigned long Mask, calKey;
@@ -1196,17 +1161,12 @@ void Utils_Seed2Key_BCM(const unsigned char seedArr[], unsigned char keyArr[])
     Seed = Seed | (seedArr[0] << 24);
     Trace("BCM seed: %08X", Seed);
 
-    if (Seed != 0)
-    {
-        for (i = 0; i < moveStep; i++)
-        {
-            if (Seed & 0x80000000)
-            {
+    if (Seed != 0) {
+        for (i = 0; i < moveStep; i++) {
+            if (Seed & 0x80000000) {
                 Seed = Seed << 1;
                 Seed = Seed ^ Mask;
-            }
-            else
-            {
+            } else {
                 Seed = Seed << 1;
             }
         }
@@ -1225,738 +1185,2107 @@ void Utils_Seed2Key_BCM(const unsigned char seedArr[], unsigned char keyArr[])
 /* End BUSMASTER generated function - Utils_Seed2Key_BCM */
 
 /* Start BUSMASTER generated function - Utils_getNRCInfo */
-void Utils_getNRCInfo(short NRC, char strNRC[])
-{
-    switch (NRC)
-    {
-        case 0x11: strcpy(strNRC, "serviceNotSupported"); break;
-        case 0x12: strcpy(strNRC, "subFunctionNotSupported"); break;
-        case 0x13: strcpy(strNRC, "incorrectMessageLengthOrInvalidFormat"); break;
-        case 0x22: strcpy(strNRC, "conditionNotCorrect"); break;
-        case 0x24: strcpy(strNRC, "requestSequenceError"); break;
-        case 0x31: strcpy(strNRC, "requestOutOfRange"); break;
-        case 0x33: strcpy(strNRC, "securityAccessDenied"); break;
-        case 0x35: strcpy(strNRC, "invalidKey"); break;
-        case 0x36: strcpy(strNRC, "exceededNumberOfAttempts"); break;
-        case 0x37: strcpy(strNRC, "requiredTimeDelayNotExpired "); break;
-        case 0x72: strcpy(strNRC, "generalProgrammingFailure"); break;
-        case 0x78: strcpy(strNRC, "requestCorrectlyReceivedResponsePending"); break;
-        case 0x7e: strcpy(strNRC, "subFunctionNotSupportedInactiveSession"); break;
-        case 0x7f: strcpy(strNRC, "serviceNotSupportedInActiveSession"); break;
-        case 0x92: strcpy(strNRC, "voltageTooHigh"); break;
-        case 0x93: strcpy(strNRC, "voltageTooLow"); break;
-        default: strcpy(strNRC, "未定义的NRC，请查看诊断规范！"); break;
+void Utils_getNRCInfo(short NRC, char strNRC[]) {
+    switch (NRC) {
+        case 0x11:
+            strcpy(strNRC, "serviceNotSupported");
+            break;
+        case 0x12:
+            strcpy(strNRC, "subFunctionNotSupported");
+            break;
+        case 0x13:
+            strcpy(strNRC, "incorrectMessageLengthOrInvalidFormat");
+            break;
+        case 0x22:
+            strcpy(strNRC, "conditionNotCorrect");
+            break;
+        case 0x24:
+            strcpy(strNRC, "requestSequenceError");
+            break;
+        case 0x31:
+            strcpy(strNRC, "requestOutOfRange");
+            break;
+        case 0x33:
+            strcpy(strNRC, "securityAccessDenied");
+            break;
+        case 0x35:
+            strcpy(strNRC, "invalidKey");
+            break;
+        case 0x36:
+            strcpy(strNRC, "exceededNumberOfAttempts");
+            break;
+        case 0x37:
+            strcpy(strNRC, "requiredTimeDelayNotExpired ");
+            break;
+        case 0x72:
+            strcpy(strNRC, "generalProgrammingFailure");
+            break;
+        case 0x78:
+            strcpy(strNRC, "requestCorrectlyReceivedResponsePending");
+            break;
+        case 0x7e:
+            strcpy(strNRC, "subFunctionNotSupportedInactiveSession");
+            break;
+        case 0x7f:
+            strcpy(strNRC, "serviceNotSupportedInActiveSession");
+            break;
+        case 0x92:
+            strcpy(strNRC, "voltageTooHigh");
+            break;
+        case 0x93:
+            strcpy(strNRC, "voltageTooLow");
+            break;
+        default:
+            strcpy(strNRC, "未定义的NRC，请查看诊断规范！");
+            break;
     }
 }
 //NRC说明转换
 /* End BUSMASTER generated function - Utils_getNRCInfo */
 
 /* Start BUSMASTER generated function - Utils_getRoutineInfo */
-void Utils_getRoutineInfo(unsigned short RoutingStatus, char strInfo[])
-{
-    switch (RoutingStatus)
-    {
-        case 0x00: strcpy(strInfo, "invalidOrDefault"); break;
-        case 0x01: strcpy(strInfo, "ESCL_NotAtPresent"); break;
-        case 0x02: strcpy(strInfo, "ECM_NotAtPresent"); break;
-        case 0x03: strcpy(strInfo, "ESCL_VirginECM_LearntCAPE_Learnt"); break;
-        case 0x04: strcpy(strInfo, "ESCL_LearntECM_VirginCAPE_Learnt"); break;
-        case 0x05: strcpy(strInfo, "ESCL_LearntECM_LearntCAPE_Virgin"); break;
-        case 0x06: strcpy(strInfo, "ESCL_VirginECM_VirginCAPE_Learnt"); break;
-        case 0x07: strcpy(strInfo, "ESCL_VirginECM_LearntCAPE_Virgin"); break;
-        case 0x08: strcpy(strInfo, "ESCL_LearntECM_VirginCAPE_Virgin"); break;
-        case 0x09: strcpy(strInfo, "ESCL_LearntECM_LearntCAPE_Learnt"); break;
-        case 0x0a: strcpy(strInfo, "AllECU_AtPresentAndVirgin"); break;
-        case 0x0b: strcpy(strInfo, "ESCL_LearningTimerOut"); break;
-        case 0x0c: strcpy(strInfo, "ESCL_ComparisonResultIsOk"); break;
-        case 0x0d: strcpy(strInfo, "ESCL_ComparisonResultIsError"); break;
-        case 0x0e: strcpy(strInfo, "ECM_LearningTimerOut"); break;
-        case 0x0f: strcpy(strInfo, "ECM_ComparisonResultIsOk"); break;
-        case 0x10: strcpy(strInfo, "ECM_ComparisonResultIsError"); break;
-        case 0x11: strcpy(strInfo, "SC_AccessTimeOut"); break;
-        case 0x12: strcpy(strInfo, "SC_AccessOk"); break;
-        case 0x13: strcpy(strInfo, "SC_AccessError"); break;
-        case 0x14: strcpy(strInfo, "verificationIsOk"); break;
-        case 0x15: strcpy(strInfo, "verificationFail"); break;
-        case 0x16: strcpy(strInfo, "UID_LearningError"); break;
-        case 0x17: strcpy(strInfo, "UID1_LearningFinished"); break;
-        case 0x18: strcpy(strInfo, "UID2_LearningFinished"); break;
-        case 0x19: strcpy(strInfo, "UID_Learning"); break;
-        case 0x1a: strcpy(strInfo, "routingWorking"); break;
-        case 0x1b: strcpy(strInfo, "ESCL_Virgin"); break;
-        case 0x1c: strcpy(strInfo, "CAPE_Virgin"); break;
-        case 0x1d: strcpy(strInfo, "ECM_Virgin"); break;
-        case 0x1e: strcpy(strInfo, "ESCL_Learnt"); break;
-        case 0x1f: strcpy(strInfo, "CAPE_Learnt"); break;
-        case 0x20: strcpy(strInfo, "ECM_Learnt"); break;
-        case 0x21: strcpy(strInfo, "afterSalesAuthTimeOut"); break;
-        case 0x22: strcpy(strInfo, "UID3_LearningFinished"); break;
-        case 0x23: strcpy(strInfo, "ESCLandECM_BothNotAtPresent"); break;
-        case 0x24: strcpy(strInfo, "UID4_LearningFinished"); break;
-        case 0x25: strcpy(strInfo, "UID5_LearningFinished"); break;
-        default: strcpy(strInfo, "未定义的PRC，请查看诊断规范！"); break;
+void Utils_getRoutineInfo(unsigned short RoutingStatus, char strInfo[]) {
+    switch (RoutingStatus) {
+        case 0x00:
+            strcpy(strInfo, "invalidOrDefault");
+            break;
+        case 0x01:
+            strcpy(strInfo, "ESCL_NotAtPresent");
+            break;
+        case 0x02:
+            strcpy(strInfo, "ECM_NotAtPresent");
+            break;
+        case 0x03:
+            strcpy(strInfo, "ESCL_VirginECM_LearntCAPE_Learnt");
+            break;
+        case 0x04:
+            strcpy(strInfo, "ESCL_LearntECM_VirginCAPE_Learnt");
+            break;
+        case 0x05:
+            strcpy(strInfo, "ESCL_LearntECM_LearntCAPE_Virgin");
+            break;
+        case 0x06:
+            strcpy(strInfo, "ESCL_VirginECM_VirginCAPE_Learnt");
+            break;
+        case 0x07:
+            strcpy(strInfo, "ESCL_VirginECM_LearntCAPE_Virgin");
+            break;
+        case 0x08:
+            strcpy(strInfo, "ESCL_LearntECM_VirginCAPE_Virgin");
+            break;
+        case 0x09:
+            strcpy(strInfo, "ESCL_LearntECM_LearntCAPE_Learnt");
+            break;
+        case 0x0a:
+            strcpy(strInfo, "AllECU_AtPresentAndVirgin");
+            break;
+        case 0x0b:
+            strcpy(strInfo, "ESCL_LearningTimerOut");
+            break;
+        case 0x0c:
+            strcpy(strInfo, "ESCL_ComparisonResultIsOk");
+            break;
+        case 0x0d:
+            strcpy(strInfo, "ESCL_ComparisonResultIsError");
+            break;
+        case 0x0e:
+            strcpy(strInfo, "ECM_LearningTimerOut");
+            break;
+        case 0x0f:
+            strcpy(strInfo, "ECM_ComparisonResultIsOk");
+            break;
+        case 0x10:
+            strcpy(strInfo, "ECM_ComparisonResultIsError");
+            break;
+        case 0x11:
+            strcpy(strInfo, "SC_AccessTimeOut");
+            break;
+        case 0x12:
+            strcpy(strInfo, "SC_AccessOk");
+            break;
+        case 0x13:
+            strcpy(strInfo, "SC_AccessError");
+            break;
+        case 0x14:
+            strcpy(strInfo, "verificationIsOk");
+            break;
+        case 0x15:
+            strcpy(strInfo, "verificationFail");
+            break;
+        case 0x16:
+            strcpy(strInfo, "UID_LearningError");
+            break;
+        case 0x17:
+            strcpy(strInfo, "UID1_LearningFinished");
+            break;
+        case 0x18:
+            strcpy(strInfo, "UID2_LearningFinished");
+            break;
+        case 0x19:
+            strcpy(strInfo, "UID_Learning");
+            break;
+        case 0x1a:
+            strcpy(strInfo, "routingWorking");
+            break;
+        case 0x1b:
+            strcpy(strInfo, "ESCL_Virgin");
+            break;
+        case 0x1c:
+            strcpy(strInfo, "CAPE_Virgin");
+            break;
+        case 0x1d:
+            strcpy(strInfo, "ECM_Virgin");
+            break;
+        case 0x1e:
+            strcpy(strInfo, "ESCL_Learnt");
+            break;
+        case 0x1f:
+            strcpy(strInfo, "CAPE_Learnt");
+            break;
+        case 0x20:
+            strcpy(strInfo, "ECM_Learnt");
+            break;
+        case 0x21:
+            strcpy(strInfo, "afterSalesAuthTimeOut");
+            break;
+        case 0x22:
+            strcpy(strInfo, "UID3_LearningFinished");
+            break;
+        case 0x23:
+            strcpy(strInfo, "ESCLandECM_BothNotAtPresent");
+            break;
+        case 0x24:
+            strcpy(strInfo, "UID4_LearningFinished");
+            break;
+        case 0x25:
+            strcpy(strInfo, "UID5_LearningFinished");
+            break;
+        default:
+            strcpy(strInfo, "未定义的PRC，请查看诊断规范！");
+            break;
     }
 }
 //31响应说明转换
 /* End BUSMASTER generated function - Utils_getRoutineInfo */
 
 /* Start BUSMASTER generated function - Utils_getVehicleInfo */
-void Utils_getVehicleInfo(unsigned short VehicleStatus, char strInfo[])
-{
-    switch (VehicleStatus)
-    {
-        case 0x00:strcpy(strInfo, "ESCL on,EMS on");break;
-        case 0x01:strcpy(strInfo, "ESCL off,EMS on");break;
-        case 0x02:strcpy(strInfo, "ESCL on,EMS off");break;
-        case 0x03:strcpy(strInfo, "ESCL on,EMS on");break;
-        default:strcpy(strInfo, "未定义的配置，请查看诊断规范！");
+void Utils_getVehicleInfo(unsigned short VehicleStatus, char strInfo[]) {
+    switch (VehicleStatus) {
+        case 0x00:
+            strcpy(strInfo, "ESCL on,EMS on");
+            break;
+        case 0x01:
+            strcpy(strInfo, "ESCL off,EMS on");
+            break;
+        case 0x02:
+            strcpy(strInfo, "ESCL on,EMS off");
+            break;
+        case 0x03:
+            strcpy(strInfo, "ESCL on,EMS on");
+            break;
+        default:
+            strcpy(strInfo, "未定义的配置，请查看诊断规范！");
     }
 }
 //车辆配置
 /* End BUSMASTER generated function - Utils_getVehicleInfo */
 
 /* Start BUSMASTER generated function - Utils_getDTCInfo */
-void Utils_getDTCInfo(long DTCInfo, char strInfo[])
-{
-    switch (DTCInfo)
-    {
-        case 0x168300:strcpy(strInfo, "安全气囊信号不合理.");break;
-        case 0x057129:strcpy(strInfo, "制动信号不合理.");break;
-        case 0x05711C:strcpy(strInfo, "制动信号开路故障.");break;
-        case 0x213800:strcpy(strInfo, "电子油门踏板位置传感器信号不合理.");break;
-        case 0xC12287:strcpy(strInfo, "与制动控制单元ABS/ESP丢失通讯.");break;
-        case 0xC14087:strcpy(strInfo, "与车身控制模块BCM丢失通讯.");break;
-        case 0xC21487:strcpy(strInfo, "PEPS的节点丢失故障.");break;
-        case 0xC00188:strcpy(strInfo, "CAN通讯相关诊断.");break;
-        case 0xC15187:strcpy(strInfo, "与气囊丢失通讯.");break;
-        case 0xC12987:strcpy(strInfo, "ECU与TCS控制模块通讯故障.");break;
-        case 0x012317:strcpy(strInfo, "电子节气门位置传感器1信号电路电压过高.");break;
-        case 0x012216:strcpy(strInfo, "电子节气门位置传感器1信号电路电压过低.");break;
-        case 0x012129:strcpy(strInfo, "电子节气门位置传感器1信号不合理.");break;
-        case 0x022317:strcpy(strInfo, "电子节气门位置传感器2信号电路电压过高.");break;
-        case 0x022216:strcpy(strInfo, "电子节气门位置传感器2信号电路电压过低.");break;
-        case 0x022129:strcpy(strInfo, "电子节气门位置传感器2信号不合理.");break;
-        case 0x042000:strcpy(strInfo, "三元催化器储氧能力老化（排放超限） /  (催化包转化效率)储氧量小于标定阀值.");break;
-        case 0x023817:strcpy(strInfo, "涡轮增压压力传感器信号电压过高.");break;
-        case 0x023716:strcpy(strInfo, "涡轮增压压力传感器信号电压过低.");break;
-        case 0x010812:strcpy(strInfo, "进气压力传感器信号电路电压过高.");break;
-        case 0x010711:strcpy(strInfo, "进气压力传感器信号电路电压过低.");break;
-        case 0x010600:strcpy(strInfo, "进气压力传感器信号不合理  /  (节气门体系统诊断)检测到进气压力传感器信号过大.");break;
-        case 0x010528:strcpy(strInfo, "进气压力传感器信号无波动（结冰）.");break;
-        case 0x006D17:strcpy(strInfo, "环境压力传感器信号电压过高.");break;
-        case 0x006D16:strcpy(strInfo, "环境压力传感器信号电压过低.");break;
-        case 0x210612:strcpy(strInfo, "电子节气门功率驱动级故障（短路）.");break;
-        case 0x210619:strcpy(strInfo, "电子节气门功率驱动级故障（过热或过流）.");break;
-        case 0x210692:strcpy(strInfo, "电子节气门功率驱动级故障（SPI总线或信号）.");break;
-        case 0x210613:strcpy(strInfo, "电子节气门功率驱动级故障（开路）.");break;
-        case 0x156800:strcpy(strInfo, "电子节气门回位阻力过大.");break;
-        case 0x154500:strcpy(strInfo, "DVE位置偏差故障.");break;
-        case 0x155900:strcpy(strInfo, "节气门跛行位置自学习故障（节气门跛行位置高于上限）.");break;
-        case 0x154522:strcpy(strInfo, "节气门体DLR调节超过最大限值.");break;
-        case 0x154521:strcpy(strInfo, "节气门体DLR调节低于最小限值.");break;
-        case 0x157900:strcpy(strInfo, "电子节气门自学习条件不满足.");break;
-        case 0x156400:strcpy(strInfo, "系统电压不满足电子节气门自学习条件.");break;
-        case 0x155929:strcpy(strInfo, "节气门机械下止点再次自习故障.");break;
-        case 0x156500:strcpy(strInfo, "电子节气门下限位置初始化自学习故障.");break;
-        case 0x062912:strcpy(strInfo, "油泵继电器控制电路电压过高.");break;
-        case 0x062811:strcpy(strInfo, "油泵继电器控制电路对地短路或开路.");break;
-        case 0x062713:strcpy(strInfo, "油泵继电器控制电路故障.");break;
-        case 0x208912:strcpy(strInfo, "VVT进气控制阀电路电压过高.");break;
-        case 0x208811:strcpy(strInfo, "VVT进气控制阀电路电压过低.");break;
-        case 0x001013:strcpy(strInfo, "VVT进气控制阀电路故障.");break;
-        case 0x000A26:strcpy(strInfo, "进气VVT运行故障（迟缓）.");break;
-        case 0x000A29:strcpy(strInfo, "进气VVT运行故障（卡死）.");break;
-        case 0x034100:strcpy(strInfo, "相位传感器信号不合理（进气凸轮轴传感器信号不合理故障(Bank1)）.");break;
-        case 0x032200:strcpy(strInfo, "转速传感器信号故障.");break;
-        case 0x026212:strcpy(strInfo, "一缸喷油器控制电路电压过高.");break;
-        case 0x026111:strcpy(strInfo, "一缸喷油器控制电路电压过低.");break;
-        case 0x020113:strcpy(strInfo, "一缸喷油器控制电路故障.");break;
-        case 0x026812:strcpy(strInfo, "三缸喷油器控制电路电压过高.");break;
-        case 0x026711:strcpy(strInfo, "三缸喷油器控制电路电压过低.");break;
-        case 0x020313:strcpy(strInfo, "三缸喷油器控制电路故障.");break;
-        case 0x027112:strcpy(strInfo, "四缸喷油器控制电路电压过高.");break;
-        case 0x027011:strcpy(strInfo, "四缸喷油器控制电路电压过低.");break;
-        case 0x020413:strcpy(strInfo, "四缸喷油器控制电路故障.");break;
-        case 0x026512:strcpy(strInfo, "二缸喷油器控制电路电压过高.");break;
-        case 0x026411:strcpy(strInfo, "二缸喷油器控制电路电压过低.");break;
-        case 0x020213:strcpy(strInfo, "二缸喷油器控制电路故障.");break;
-        case 0x212317:strcpy(strInfo, "电子油门踏板位置传感器1信号电压过高.");break;
-        case 0x212216:strcpy(strInfo, "电子油门踏板位置传感器1信号电压过低.");break;
-        case 0x213829:strcpy(strInfo, "电子油门踏板位置传感器1信号不合理.");break;
-        case 0x212817:strcpy(strInfo, "电子油门踏板位置传感器2信号电压过高.");break;
-        case 0x212716:strcpy(strInfo, "电子油门踏板位置传感器2信号电压过低.");break;
-        case 0x217700:strcpy(strInfo, "空燃比闭环控制自学习值超上限（中负荷区）.");break;
-        case 0x217800:strcpy(strInfo, "空燃比闭环控制自学习值超下限（中负荷区）.");break;
-        case 0x003812:strcpy(strInfo, "下游氧传感器加热控制电路电压过高.");break;
-        case 0x003711:strcpy(strInfo, "下游氧传感器加热控制电路电压过低.");break;
-        case 0x003613:strcpy(strInfo, "下游氧传感器加热控制电路故障.");break;
-        case 0x00541E:strcpy(strInfo, "下游氧传感器加热内阻不合理.");break;
-        case 0x003212:strcpy(strInfo, "上游氧传感器加热控制电路电压过高.");break;
-        case 0x003111:strcpy(strInfo, "上游氧传感器加热控制电路电压过低.");break;
-        case 0x003013:strcpy(strInfo, "上游氧传感器加热控制电路故障 .");break;
-        case 0x00531E:strcpy(strInfo, "上游氧传感器加热内阻不合理.");break;
-        case 0x064712:strcpy(strInfo, "A/C压缩机继电器控制电路电压过高.");break;
-        case 0x064611:strcpy(strInfo, "A/C压缩机继电器控制电路对地短路.");break;
-        case 0x064513:strcpy(strInfo, "A/C压缩机继电器控制电路故障.");break;
-        case 0x032716:strcpy(strInfo, "爆震传感器信号电路电压过低.");break;
-        case 0x070400:strcpy(strInfo, "离合器踏板开关电压故障  /  (离合器开关)离合器信号不合理.");break;
-        case 0x227000:strcpy(strInfo, "下游氧传感器老化- 信号持续偏稀  /  (后催化包氧传感器)后氧信号长期卡在稀状态.");break;
-        case 0x227100:strcpy(strInfo, "下游氧传感器老化- 信号持续偏浓  /  (后催化包氧传感器)后氧信号长期卡在浓状态.");break;
-        case 0x013300:strcpy(strInfo, "上游氧传感器老化  /  (前催化包氧传感器)前氧传感器信号浓稀跃变频率低于阀值.");break;
-        case 0x219500:strcpy(strInfo, "上游氧传感器老化－信号持续偏浓（上游氧传感器滞涩偏稀）  /  (前催化包氧传感器)前氧信号长期卡在混合气稀状态.");break;
-        case 0x219600:strcpy(strInfo, "上游氧传感器老化－信号持续偏稀（上游氧传感器滞涩偏浓）  /  (前催化包氧传感器)前氧信号长期卡在混合气浓状态.");break;
-        case 0x024612:strcpy(strInfo, "废气控制阀驱动电路电压过高.");break;
-        case 0x024511:strcpy(strInfo, "废气控制阀驱动电路电压过低.");break;
-        case 0x024313:strcpy(strInfo, "废气控制阀驱动电路故障.");break;
-        case 0x023400:strcpy(strInfo, "涡轮控制增压过度.");break;
-        case 0x069212:strcpy(strInfo, "冷却风扇继电器控制电路对电源短路（低速）.");break;
-        case 0x069111:strcpy(strInfo, "冷却风扇继电器控制电路对地短路（低速）.");break;
-        case 0x048014:strcpy(strInfo, "冷却风扇继电器控制电路故障（低速）.");break;
-        case 0x069412:strcpy(strInfo, "冷却风扇继电器控制电路对电源短路（高速）.");break;
-        case 0x069311:strcpy(strInfo, "冷却风扇继电器控制电路对地短路（高速）.");break;
-        case 0x048114:strcpy(strInfo, "冷却风扇继电器控制电路故障（高速）.");break;
-        case 0x050700:strcpy(strInfo, "怠速控制转速高于目标怠速  /  (怠速控制系统诊断)实际怠速比目标怠速高.");break;
-        case 0x050600:strcpy(strInfo, "怠速控制转速低于目标怠速  /  (怠速控制系统诊断)实际怠速比目标怠速低.");break;
-        case 0x013817:strcpy(strInfo, "下游氧传感器信号电路电压过高.");break;
-        case 0x013716:strcpy(strInfo, "下游氧传感器信号低电压.");break;
-        case 0x013600:strcpy(strInfo, "下游氧传感器信号不合理（下游氧传感器信号开路）.");break;
-        case 0x014000:strcpy(strInfo, "下游氧传感器电路信号故障.");break;
-        case 0x013217:strcpy(strInfo, "上游氧传感器信号电路电压过高.");break;
-        case 0x013116:strcpy(strInfo, "上游氧传感器信号低电压.");break;
-        case 0x013000:strcpy(strInfo, "上游氧传感器信号不合理.");break;
-        case 0x013400:strcpy(strInfo, "上游氧传感器电路信号电路故障.");break;
-        case 0x030122:strcpy(strInfo, "发生导致催化器损坏的一缸失火.");break;
-        case 0x030121:strcpy(strInfo, "发生导致排放超限的一缸失火.");break;
-        case 0x030129:strcpy(strInfo, "失火检测第一统计周期发生一缸失火.");break;
-        case 0x030322:strcpy(strInfo, "发生导致催化器损坏的三缸失火.");break;
-        case 0x030321:strcpy(strInfo, "发生导致排放超限的三缸失火.");break;
-        case 0x030329:strcpy(strInfo, "失火检测第一统计周期发生三缸失火.");break;
-        case 0x030422:strcpy(strInfo, "发生导致催化器损坏的四缸失火.");break;
-        case 0x030421:strcpy(strInfo, "发生导致排放超限的四缸失火.");break;
-        case 0x030429:strcpy(strInfo, "失火检测第一统计周期发生四缸失火.");break;
-        case 0x030222:strcpy(strInfo, "发生导致催化器损坏的二缸失火.");break;
-        case 0x030221:strcpy(strInfo, "发生导致排放超限的二缸失火.");break;
-        case 0x030229:strcpy(strInfo, "失火检测第一统计周期发生二缸失火.");break;
-        case 0x133600:strcpy(strInfo, "电子节气门安全监控扭矩限制作用.");break;
-        case 0x030022:strcpy(strInfo, "发生导致催化器损坏的多缸失火.");break;
-        case 0x030021:strcpy(strInfo, "发生导致排放超限的多缸失火.");break;
-        case 0x030029:strcpy(strInfo, "失火检测第一统计周期发生多缸失火.");break;
-        case 0x001622:strcpy(strInfo, "曲轴和进气凸轮轴相对位置偏差超过最大限值.");break;
-        case 0x001621:strcpy(strInfo, "曲轴和进气凸轮轴相对位置偏差低于最小限值.");break;
-        case 0x001629:strcpy(strInfo, "曲轴和进气凸轮轴相对位置偏差信号不合理.");break;
-        case 0x001200:strcpy(strInfo, "起动时进气VVT不在默认位置  /   (VVT系统诊断)进气VVT响应目标位置速度不合理.");break;
-        case 0x021900:strcpy(strInfo, "发动机转速超过最高转速限制  /  (转速传感器)转速长时间超转速红线 / (PUNCH)Powertrain speed out of range.");break;
-        case 0x218700:strcpy(strInfo, "空燃比闭环控制自学习值超上限（怠速）.");break;
-        case 0x218800:strcpy(strInfo, "空燃比闭环控制自学习值超下限（怠速）.");break;
-        case 0x152381:strcpy(strInfo, "安全气囊点爆.");break;
-        case 0x308800:strcpy(strInfo, "起动机损坏或者起动机供电电路中断故障.");break;
-        case 0x305400:strcpy(strInfo, "发动机堵转或者起动机与飞轮不啮合故障  /  (进气歧管内压力传感器)信号过大.");break;
-        case 0x305600:strcpy(strInfo, "钥匙起动开关反馈电压信号线(KL50r)与电源短路故障.");break;
-        case 0x305500:strcpy(strInfo, "钥匙起动开关反馈电压信号线(KL50r)与地短路故障.");break;
-        case 0x061712:strcpy(strInfo, "起动机控制继电器电压过高.");break;
-        case 0x061513:strcpy(strInfo, "起动机控制继电器开路故障.");break;
-        case 0x011317:strcpy(strInfo, "进气温度传感器信号电路电压过高.");break;
-        case 0x011216:strcpy(strInfo, "进气温度传感器信号电路电压过低.");break;
-        case 0x011129:strcpy(strInfo, "进气温度传感器信号不合理.");break;
-        case 0x045917:strcpy(strInfo, "碳罐控制阀控制电路电压过高.");break;
-        case 0x045816:strcpy(strInfo, "碳罐控制阀控制电路电压过低.");break;
-        case 0x044413:strcpy(strInfo, "碳罐控制阀控制电路故障.");break;
-        case 0x011817:strcpy(strInfo, "发动机冷却液温度传感器电路电压过高.");break;
-        case 0x011716:strcpy(strInfo, "发动机冷却液温度传感器电路电压过低.");break;
-        case 0x011629:strcpy(strInfo, "发动机冷却液温度传感器信号不合理.");break;
-        case 0x056317:strcpy(strInfo, "系统蓄电池电压过高.");break;
-        case 0x056216:strcpy(strInfo, "系统蓄电池电压过低.");break;
-        case 0x056000:strcpy(strInfo, "系统蓄电池电压信号不合理.");break;
-        case 0x068800:strcpy(strInfo, "主继电器输出电压不合理.");break;
-        case 0x068816:strcpy(strInfo, "主继电器输出电压信号故障.");break;
-        case 0x060694:strcpy(strInfo, "电子节气门安全监控功能故障（第二层扭矩监控故障）.");break;
-        case 0x060692:strcpy(strInfo, "电子节气门安全监控功能故障（第二层发动机转速监控故障）.");break;
-        case 0x210629:strcpy(strInfo, "负荷监控故障.");break;
-        case 0x060664:strcpy(strInfo, "电子节气门安全监控功能故障（负荷信号，线束或ECU故障）.");break;
-        case 0x060661:strcpy(strInfo, "电子节气门安全监控功能故障（点火角信号，线束或ECU故障）.");break;
-        case 0x060667:strcpy(strInfo, "电子节气门安全监控功能故障（ECU错误响应监控故障）.");break;
-        case 0x060696:strcpy(strInfo, "电子节气门安全监控功能故障（AD转换器监控故障）.");break;
-        case 0x06061C:strcpy(strInfo, "电子节气门安全监控功能故障（节气门体信号，线束或ECU故障）.");break;
-        case 0x060655:strcpy(strInfo, "电子节气门安全监控功能故障（变形码监控故障）.");break;
-        case 0x060600:strcpy(strInfo, "电子节气门安全监控功能故障（安全监控断油故障）.");break;
-        case 0x060662:strcpy(strInfo, "电子节气门安全监控功能故障（第二层油门踏板信号合理性故障）.");break;
-        case 0x060663:strcpy(strInfo, "电子节气门安全监控功能故障（ECU内部处理器）.");break;
-        case 0x060443:strcpy(strInfo, "电子控制单元RAM故障.");break;
-        case 0x060543:strcpy(strInfo, "电子控制单元ROM故障.");break;
-        case 0x060648:strcpy(strInfo, "电子节气门安全监控功能故障（监控错误响应故障） .");break;
-        case 0x060647:strcpy(strInfo, "电子节气门安全监控功能故障（监控模块反馈故障）.");break;
-        case 0x060675:strcpy(strInfo, "电子节气门安全监控功能故障（关闭路径测试故障）.");break;
-        case 0x060649:strcpy(strInfo, "电子节气门安全监控功能故障（监控模块询问故障）.");break;
-        case 0x003500:strcpy(strInfo, "增压泄流阀控制电路对电源短路  /  (增压泄压阀)内部电路对电源短路.");break;
-        case 0x003400:strcpy(strInfo, "增压泄流阀控制电路对地短路  /  (增压泄压阀)内部电路对地短路.");break;
-        case 0x003300:strcpy(strInfo, "增压泄流阀控制电路开路  /  (增压泄压阀)内部电路开路.");break;
-        case 0x050029:strcpy(strInfo, "车速信号故障.");break;
-        case 0x161400:strcpy(strInfo, "PEPS(或BCM)的认证回复不正确，防盗认证失败.");break;
-        case 0x161000:strcpy(strInfo, "ECM未学习SecretKey（ECM未收到PEPS认证回复）.");break;
-        case 0x161200:strcpy(strInfo, "ECM未收到IMMO或PEPS的认证请求.");break;
-        case 0x150000:strcpy(strInfo, "车辆接收到碰撞断油信号.");break;
-        case 0x150100:strcpy(strInfo, "安全气囊通讯信息不合理.");break;
-        case 0x064500:strcpy(strInfo, "A/C压缩机继电器控制电路开路  /(空调压缩机继电器)内部电路开路.");break;
-        case 0x063445:strcpy(strInfo, "起动机驱动芯片过热.");break;
-        case 0x064700:strcpy(strInfo, "A/C压缩机继电器控制电路电压过高  /(空调压缩机继电器)内部电路对电源短路.");break;
-        case 0x064600:strcpy(strInfo, "A/C压缩机继电器控制电路电压过低  /  (空调压缩机继电器)内部电路对地短路.");break;
-        case 0x057100:strcpy(strInfo, "刹车信号不同步 / (PUNCH)Brake signal error.");break;
-        case 0x142000:strcpy(strInfo, "CAN硬件寄存器响应超时（硬件寄存器故障）.");break;
-        case 0xC07300:strcpy(strInfo, "控制模块通讯总线1关闭（CAN1 Bus off）.");break;
-        case 0x050C24:strcpy(strInfo, "冷却液温度传感器1冷起动校验不合理（正偏差）.");break;
-        case 0x050C23:strcpy(strInfo, "冷却液温度传感器1冷起动校验不合理（负偏差）.");break;
-        case 0x011900:strcpy(strInfo, "冷却液温度传感器1电路电压不合理.");break;
-        case 0x011623:strcpy(strInfo, "冷却液温度传感器1信号不合理（低边）.");break;
-        case 0x011626:strcpy(strInfo, "冷却液温度传感器1信号不合理（粘滞）.");break;
-        case 0x011800:strcpy(strInfo, "冷却液温度传感器1电路电压过高  /  (水温传感器)水温电压采样值高于设定门槛值，对电源短路.");break;
-        case 0x011700:strcpy(strInfo, "冷却液温度传感器1电路电压过低  /  (水温传感器)水温电压采样值低于设定门槛值，对地短路.");break;
-        case 0x218500:strcpy(strInfo, "冷却液温度传感器2电路电压过高  /  (散热器下游水温传感器)水温电压采样值高于设定门槛值，对电源短路.");break;
-        case 0x218400:strcpy(strInfo, "冷却液温度传感器2电路电压过低  /  (散热器下游水温传感器)水温采样值电压低于设定门槛值，对地短路.");break;
-        case 0x012800:strcpy(strInfo, "节温器性能不合理（水温达不到节温器标称开启温度）/  (发动机冷却系统诊断)发动机水温低于节温器控制温度时间超阀值.");break;
-        case 0xC12100:strcpy(strInfo, "与ABS模块通讯丢失  /  (ESP控制器CAN通讯)未收到ESP信号 / (PUNCH)CAN ABS communication failed.");break;
-        case 0xC12200:strcpy(strInfo, "ECM与电子稳定系统（ESP）通讯丢失（HS CAN）.");break;
-        case 0xC25400:strcpy(strInfo, "与PEPS模块通讯丢失.");break;
-        case 0xC12600:strcpy(strInfo, "与SAS模块通讯丢失.");break;
-        case 0xC15100:strcpy(strInfo, "与SRS模块通讯丢失.");break;
-        case 0xF50200:strcpy(strInfo, "CAN模块输入电压过高.");break;
-        case 0xF50100:strcpy(strInfo, "CAN模块输入电压过低.");break;
-        case 0xC10F00:strcpy(strInfo, "ECM与AC通讯丢失（HS CAN）.");break;
-        case 0x240C00:strcpy(strInfo, "蒸发系统泄漏诊断DMTL加热单元电路电压过高  /  (DMTL零部件)DMTL加热器对电源短路.");break;
-        case 0x240B00:strcpy(strInfo, "蒸发系统泄漏诊断DMTL加热单元电路电压过低  /  (DMTL零部件)DMTL加热器对地短路.");break;
-        case 0x240A00:strcpy(strInfo, "蒸发系统泄漏诊断DMTL加热单元电路开路  /  (DMTL零部件)DMTL加热器开路.");break;
-        case 0x151000:strcpy(strInfo, "爆震传感器信号评估诊断.");break;
-        case 0x24BF00:strcpy(strInfo, "蒸发系统DMTL电磁阀控制电路电压过高.");break;
-        case 0x24BE00:strcpy(strInfo, "蒸发系统DMTL电磁阀控制电路电压过低.");break;
-        case 0x24BD00:strcpy(strInfo, "蒸发系统DMTL电磁阀控制电路开路.");break;
-        case 0x240200:strcpy(strInfo, "蒸发系统DMTL泵控制电路电压过高.");break;
-        case 0x240100:strcpy(strInfo, "蒸发系统DMTL泵控制电路电压过低.");break;
-        case 0x240000:strcpy(strInfo, "蒸发系统DMTL泵控制电路开路.");break;
-        case 0x017F00:strcpy(strInfo, "DMTL空滤流阻过大.");break;
-        case 0x128000:strcpy(strInfo, "DMTL泵电流频率过大.");break;
-        case 0x128100:strcpy(strInfo, "DMTL泵电流频率过小.");break;
-        case 0x043E00:strcpy(strInfo, "蒸发系统泄漏诊断DMTL参考泵电流偏大.");break;
-        case 0x043F00:strcpy(strInfo, "蒸发系统泄漏诊断DMTL参考泵电流偏小.");break;
-        case 0x24C100:strcpy(strInfo, "DMTL泵怠速电流偏大.");break;
-        case 0x240700:strcpy(strInfo, "DMTL泵电流波动超出合理性范围（湿度引起）.");break;
-        case 0x208900:strcpy(strInfo, "进气VVT控制电路电压过高.");break;
-        case 0x208800:strcpy(strInfo, "进气VVT控制电路电压过低.");break;
-        case 0x001000:strcpy(strInfo, "进气VVT控制电路开路  /  (VVT系统诊断)信号对电短路或开路.");break;
-        case 0x000A00:strcpy(strInfo, "进气VVT运行故障（迟缓） /  (VVT系统诊断)进气VVT响应目标位置速度过慢.");break;
-        case 0x003C00:strcpy(strInfo, "进气VVT运行故障（卡死）.");break;
-        case 0x050B00:strcpy(strInfo, "催化器加热过程中点火角效率监控(怠速)  /  (冷启动减排策略监测)冷启动点火提前角控制.");break;
-        case 0x050B20:strcpy(strInfo, "催化器加热过程中点火角效率监控（部分负荷）.");break;
-        case 0x026200:strcpy(strInfo, "一缸喷油器控制电路电压过高  /  (1缸喷油器)油泵和电池无故障时， 1缸喷油驱动电路对电源短路.");break;
-        case 0x026100:strcpy(strInfo, "一缸喷油器控制电路电压过低  /  (1缸喷油器)油泵和电池无故障时， 1缸喷油驱动电路对地短路.");break;
-        case 0x020100:strcpy(strInfo, "一缸喷油器控制电路开路  /  (1缸喷油器)油泵和电池无故障时， 1缸喷油驱动电路开路.");break;
-        case 0x026800:strcpy(strInfo, "三缸喷油器控制电路电压过高  /  (3缸喷油器)油泵和电池无故障时， 3缸喷油驱动电路对电源短路.");break;
-        case 0x026700:strcpy(strInfo, "三缸喷油器控制电路电压过低  /  (3缸喷油器)油泵和电池无故障时， 3缸喷油驱动电路对地短路.");break;
-        case 0x020300:strcpy(strInfo, "三缸喷油器控制电路开路  /  (3缸喷油器)油泵和电池无故障时， 3缸喷油驱动电路信号开路.");break;
-        case 0x027100:strcpy(strInfo, "四缸喷油器控制电路电压过高  /  (4缸喷油器)油泵和电池无故障时， 4缸喷油驱动电路对电源短路.");break;
-        case 0x027000:strcpy(strInfo, "四缸喷油器控制电路电压过低  /  (4缸喷油器)油泵和电池无故障时， 4缸喷油驱动电路对地短路.");break;
-        case 0x020400:strcpy(strInfo, "四缸喷油器控制电路开路  /  (4缸喷油器)油泵和电池无故障时， 4缸喷油驱动电路信号开路.");break;
-        case 0x026500:strcpy(strInfo, "二缸喷油器控制电路电压过高  /  (2缸喷油器)油泵和电池无故障时， 2缸喷油驱动电路对电源短路.");break;
-        case 0x026400:strcpy(strInfo, "二缸喷油器控制电路电压过低  /  (2缸喷油器)油泵和电池无故障时， 2缸喷油驱动电路对地短路.");break;
-        case 0x020200:strcpy(strInfo, "二缸喷油器控制电路开路  /  (2缸喷油器)油泵和电池无故障时， 2缸喷油驱动电路信号开路.");break;
-        case 0x001676:strcpy(strInfo, "曲轴-进气凸轮轴初始安装位置不合理故障(Bank1).");break;
-        case 0x034300:strcpy(strInfo, "进气凸轮轴传感器信号对电源短路(Bank1)  /  (相位传感器)传感器有效电压值常高，无突变，对电源短路.");break;
-        case 0x034200:strcpy(strInfo, "进气凸轮轴传感器信号对地短路(Bank1)  /  (相位传感器)相位传感器对地短路.");break;
-        case 0x001678:strcpy(strInfo, "曲轴-进气凸轮轴相对位置偏差过大故障(Bank1).");break;
-        case 0x033900:strcpy(strInfo, "转速传感器信号不合理故障.");break;
-        case 0x261700:strcpy(strInfo, "转速传感器信号丢失故障.");break;
-        case 0x048000:strcpy(strInfo, "冷却风扇1 继电器控制电路开路  /  (低速风扇继电器)内部电路开路.");break;
-        case 0x048100:strcpy(strInfo, "冷却风扇2 继电器控制电路开路  /  (高速风扇继电器)内部电路开路.");break;
-        case 0x069200:strcpy(strInfo, "冷却风扇1 继电器控制电路电压过高  /  (低速风扇继电器)内部电路对电源短路.");break;
-        case 0x069400:strcpy(strInfo, "冷却风扇2 继电器控制电路电压过高  /  (高速风扇继电器)内部电路对电源短路.");break;
-        case 0x069100:strcpy(strInfo, "冷却风扇1 继电器控制电路电压过低  /  (低速风扇继电器)内部电路对地短路.");break;
-        case 0x069300:strcpy(strInfo, "冷却风扇2 继电器控制电路电压过低  /  (高速风扇继电器)内部电路对地短路.");break;
-        case 0x013200:strcpy(strInfo, "上游氧传感器信号电路电压过高  /  (前催化包氧传感器)信号电压值高于设定的门槛值范围.");break;
-        case 0x013100:strcpy(strInfo, "上游氧传感器信号电路电压过低.");break;
-        case 0x223100:strcpy(strInfo, "上游氧传感器信号线对加热线耦合.");break;
-        case 0x005300:strcpy(strInfo, "上游氧传感器内阻过高.");break;
-        case 0x003200:strcpy(strInfo, "上游氧传感器加热控制电路电压过高  /  (前催化包氧传感器加热器)系统反馈电路检测对电源短路.");break;
-        case 0x003100:strcpy(strInfo, "上游氧传感器加热控制电路电压过低  /  (前催化包氧传感器加热器)系统反馈电路检测对地短路.");break;
-        case 0x003000:strcpy(strInfo, "上游氧传感器加热控制电路开路  /   (前催化包氧传感器加热器)系统反馈电路检测开路.");break;
-        case 0x013800:strcpy(strInfo, "下游氧传感器信号线对电源短路  /  (后催化包氧传感器)信号电压值高于设定的门槛值范围，对电源短路或开路.");break;
-        case 0x013700:strcpy(strInfo, "下游氧传感器信号线对地短路.");break;
-        case 0x223200:strcpy(strInfo, "下游氧传感器信号线对加热线耦合.");break;
-        case 0x005400:strcpy(strInfo, "下游氧传感器加热内阻不合理.");break;
-        case 0x003800:strcpy(strInfo, "下游氧传感器加热控制电路电压过高  /  (后催化包氧传感器加热器)系统反馈电路检测对电源短路.");break;
-        case 0x003700:strcpy(strInfo, "下游氧传感器加热控制电路电压过低  /  (后催化包氧传感器加热器)系统反馈电路检测对地短路.");break;
-        case 0x003600:strcpy(strInfo, "下游氧传感器加热控制电路开路  /  (后催化包氧传感器加热器)系统反馈电路检测开路.");break;
-        case 0x013A00:strcpy(strInfo, "下游氧传感器浓到稀方向反应慢  /  (后催化包氧传感器)后氧信号在门阀时间内没有从浓到稀的跃变.");break;
-        case 0x00CE24:strcpy(strInfo, "进气温度传感器1冷起动校验不合理（正偏差）.");break;
-        case 0x00CE23:strcpy(strInfo, "进气温度传感器1冷起动校验不合理（负偏差）.");break;
-        case 0x011400:strcpy(strInfo, "进气温度传感器1电路电压不合理.");break;
-        case 0x011300:strcpy(strInfo, "进气温度传感器1电路电压过高  /  (进气歧管内空气温度传感器)空气温度电压采样值高于设定门槛值，对电源短路或开路.");break;
-        case 0x011200:strcpy(strInfo, "进气温度传感器1电路电压过低  /  (进气歧管内空气温度传感器)空气温度电压采样值低于设定门槛值，对地短路.");break;
-        case 0x011126:strcpy(strInfo, "进气温度传感器1信号不合理（粘滞）.");break;
-        case 0x062900:strcpy(strInfo, "油泵继电器控制电路电压过高  /  (油泵继电器)汽油电子泵继电器控制电路对电源短路.");break;
-        case 0x062800:strcpy(strInfo, "油泵继电器控制电路电压过低  /  (油泵继电器)汽油电子泵继电器控制电路对地短路.");break;
-        case 0x062700:strcpy(strInfo, "油泵继电器控制电路开路.");break;
-        case 0x032600:strcpy(strInfo, "爆震传感器信号电路电压过高  /  (爆震传感器)爆震能量不合理.");break;
-        case 0x032500:strcpy(strInfo, "爆震传感器信号电路电压过低.");break;
-        case 0x032800:strcpy(strInfo, "爆震传感器A端对电源短路诊断.");break;
-        case 0x032700:strcpy(strInfo, "爆震传感器A端对地短路诊断.");break;
-        case 0x032815:strcpy(strInfo, "爆震传感器B端对电源短路诊断.");break;
-        case 0x032714:strcpy(strInfo, "爆震传感器B端对地短路诊断.");break;
-        case 0x050A22:strcpy(strInfo, "催化器加热过程中发动机怠速转速过高.");break;
-        case 0x050A21:strcpy(strInfo, "催化器加热过程中发动机怠速转速过低.");break;
-        case 0x050D00:strcpy(strInfo, "催化器加热及非断油工况时的驻车怠速波动超范围.");break;
-        case 0x050500:strcpy(strInfo, "发动机怠速波动超范围.");break;
-        case 0x030000:strcpy(strInfo, "发动机随机或多缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的随机或多缸的失火率，失火率超过设定门槛值.");break;
-        case 0x154000:strcpy(strInfo, "电子节气门安全监控扭矩限制作用.");break;
-        case 0x030100:strcpy(strInfo, "检测到物理一缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的1缸的失火率，失火率超过设定门槛值.");break;
-        case 0x030300:strcpy(strInfo, "检测到物理三缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的3缸的失火率，失火率超过设定门槛值.");break;
-        case 0x030400:strcpy(strInfo, "检测到物理四缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的4缸的失火率，失火率超过设定门槛值.");break;
-        case 0x030200:strcpy(strInfo, "检测到物理二缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的2缸的失火率，失火率超过设定门槛值.");break;
-        case 0x036300:strcpy(strInfo, "发动机失火触发断油  /  (失火诊断)系统因检测到失火而对相应气缸进行断油.");break;
-        case 0x158200:strcpy(strInfo, "MCU温度故障.");break;
-        case 0x158400:strcpy(strInfo, "lockstep RCCU0输出故障.");break;
-        case 0x158500:strcpy(strInfo, "lockstep RCCU1输出故障.");break;
-        case 0x158600:strcpy(strInfo, "内部看门狗定时器2复位请求.");break;
-        case 0x158700:strcpy(strInfo, "内部看门狗定时器1复位请求.");break;
-        case 0x158800:strcpy(strInfo, "安全核内部看门狗第一次timeout中断请求.");break;
-        case 0x158900:strcpy(strInfo, "安全核内部看门狗第二次timeout复位请求.");break;
-        case 0x158A00:strcpy(strInfo, "系统RAM区域发生不可修正错误.");break;
-        case 0x158B00:strcpy(strInfo, "HVD电压超出范围故障.");break;
-        case 0x158C00:strcpy(strInfo, "外设RAM区域发生不可修正错误.");break;
-        case 0x158D00:strcpy(strInfo, "Flash区域发生不可修正错误.");break;
-        case 0x158E00:strcpy(strInfo, "Memory保护单元逻辑故障.");break;
-        case 0x159000:strcpy(strInfo, "在DCF数据装载时数字PMC初始化故障.");break;
-        case 0x159100:strcpy(strInfo, "PLL1失锁故障.");break;
-        case 0x159200:strcpy(strInfo, "丢失外部晶振时钟故障.");break;
-        case 0x159500:strcpy(strInfo, "部分子系统内部时钟监控故障.");break;
-        case 0x159600:strcpy(strInfo, "其他子系统内部时钟监控故障.");break;
-        case 0x159700:strcpy(strInfo, "Flash memory的ECC逻辑硬件故障.");break;
-        case 0x159800:strcpy(strInfo, "Flash memory 控制器硬件故障.");break;
-        case 0x159900:strcpy(strInfo, "不同memory的SSCM在timing/配置初始化时出现故障.");break;
-        case 0x159A00:strcpy(strInfo, "系统RAM区域的寻址错误或者写错误.");break;
-        case 0x159B00:strcpy(strInfo, "Memory保护单元非法访问.");break;
-        case 0x159C00:strcpy(strInfo, "PRAMC故障.");break;
-        case 0x159D00:strcpy(strInfo, "SSCM传输错误或者flash初始化错误.");break;
-        case 0x159E00:strcpy(strInfo, "未开启lockstep或者RCCU.");break;
-        case 0x159F00:strcpy(strInfo, "security看门狗复位请求.");break;
-        case 0x068500:strcpy(strInfo, "主继电器开路故障  /  (主继电器)反馈电路信号开路.");break;
-        case 0x068700:strcpy(strInfo, "主继电器对电源短路故障  /  (主继电器)反馈电路信号对电源短路.");break;
-        case 0x068600:strcpy(strInfo, "主继电器对地短路故障  /  (主继电器)反馈电路信号对地短路.");break;
-        case 0x153000:strcpy(strInfo, "AD转换器零测试监控故障.");break;
-        case 0x153100:strcpy(strInfo, "AD转换器给定电压测试监控故障.");break;
-        case 0x157100:strcpy(strInfo, "关闭路径检查中驱动级检查故障或者通讯故障.");break;
-        case 0x060D00:strcpy(strInfo, "第二层油门踏板信号合理性故障.");break;
-        case 0x152000:strcpy(strInfo, "负荷预测监控故障.");break;
-        case 0x152100:strcpy(strInfo, "断油模式下油路监控故障.");break;
-        case 0x152200:strcpy(strInfo, "供油模式下油路监控故障.");break;
-        case 0x061C00:strcpy(strInfo, "第二层发动机转速监控故障.");break;
-        case 0x152300:strcpy(strInfo, "混合气监控故障.");break;
-        case 0x152700:strcpy(strInfo, "第一层安全断油监控故障.");break;
-        case 0x152800:strcpy(strInfo, "第二层安全断油监控故障.");break;
-        case 0x152400:strcpy(strInfo, "工作模式监控故障.");break;
-        case 0x152500:strcpy(strInfo, "负荷比较监控故障.");break;
-        case 0x152900:strcpy(strInfo, "起动机控制监控故障.");break;
-        case 0x061A00:strcpy(strInfo, "第二层扭矩监控故障.");break;
-        case 0x152600:strcpy(strInfo, "点火角信号，线束或ECU故障.");break;
-        case 0x001100:strcpy(strInfo, "进气凸轮轴锁死位置运行不合理故障  /  (VVT系统诊断)实际VVT位置和目标位置有差距.");break;
-        case 0x157200:strcpy(strInfo, "电压正常情况下，ABE被激活.");break;
-        case 0x157300:strcpy(strInfo, "监控错误响应故障.");break;
-        case 0x157400:strcpy(strInfo, "Errorpin被激活而监控通讯正常.");break;
-        case 0x157500:strcpy(strInfo, "过压导致DVE驱动关断故障.");break;
-        case 0x055800:strcpy(strInfo, "刹车腔真空度压力传感器电压偏高  /  (刹车压力传感器)检测到电路对电源短路.");break;
-        case 0x055700:strcpy(strInfo, "刹车腔真空度压力传感器电压偏低  /  (刹车压力传感器)检测到电路对地短路或者开路.");break;
-        case 0x222722:strcpy(strInfo, "环境压力传感器压力不合理高故障.");break;
-        case 0x222721:strcpy(strInfo, "环境压力传感器压力不合理低故障.");break;
-        case 0x120200:strcpy(strInfo, "环境压力传感器压力超范围高故障.");break;
-        case 0x120300:strcpy(strInfo, "环境压力传感器压力超范围低故障.");break;
-        case 0x222900:strcpy(strInfo, "ECU内置环境压力芯片自诊断最大故障  /  (大气压力传感器)大气压信号过大（范围诊断）.");break;
-        case 0x222800:strcpy(strInfo, "ECU内置环境压力芯片自诊断最小故障  /  (大气压力传感器)大气压信号过小（范围诊断）.");break;
-        case 0x222729:strcpy(strInfo, "ECU内置环境压力芯片自诊断不合理故障.");break;
-        case 0x010800:strcpy(strInfo, "进气歧管压力传感器对电源短路故障  /  (进气歧管内压力传感器)歧管压力电压采样值高于设定的门槛值范围.");break;
-        case 0x010700:strcpy(strInfo, "进气歧管压力传感器对地短路故障  /  (进气歧管内压力传感器)歧管压力电压采样值低于设定的门槛值范围.");break;
-        case 0x120000:strcpy(strInfo, "进气压力传感器压力超范围高故障  /  (节气门位置传感器2)信号过小.");break;
-        case 0x120100:strcpy(strInfo, "进气压力传感器压力超范围低故障  /  (节气门位置传感器2)信号过大.");break;
-        case 0x010622:strcpy(strInfo, "进气压力传感器压力远高于模型压力不合理故障.");break;
-        case 0x010621:strcpy(strInfo, "进气压力传感器压力远低于模型压力不合理故障.");break;
-        case 0x01062A:strcpy(strInfo, "进气压力传感器信号值异常无波动故障.");break;
-        case 0x212300:strcpy(strInfo, "电子油门踏板位置传感器1信号电压过高.");break;
-        case 0x212800:strcpy(strInfo, "电子油门踏板位置传感器2信号电压过高  /  (加速踏板位置信号1)信号电压值高于设定的门槛值范围，对电源短路.");break;
-        case 0x212200:strcpy(strInfo, "电子油门踏板位置传感器1信号电压过低.");break;
-        case 0x212700:strcpy(strInfo, "电子油门踏板位置传感器2信号电压过低  /  (加速踏板位置信号1)信号电压值低于设定的门槛值范围，信号对地短路或者开路.");break;
-        case 0x064100:strcpy(strInfo, "5V供电模块1发生故障  /  (ECU内部对传感器供电电压)ECU内部供电PIN脚1存在异常，无法正常供电 / (PUNCH)Pressure sensor supply fault.");break;
-        case 0x065100:strcpy(strInfo, "5V供电模块2发生故障  /  (ECU内部对传感器供电电压)ECU内部供电PIN脚2存在异常，无法正常供电 / (PUNCH)DMS and speed sensor supply fault.");break;
-        case 0x069700:strcpy(strInfo, "5V供电模块3发生故障  /  (ECU内部对传感器供电电压)ECU内部供电PIN脚3存在异常，无法正常供电.");break;
-        case 0x14AC00:strcpy(strInfo, "起动机损坏或者起动机供电电路中断故障.");break;
-        case 0x14AD00:strcpy(strInfo, "发动机堵转或者起动机与飞轮不啮合故障.");break;
-        case 0x14AE00:strcpy(strInfo, "起动机反馈电压信号线(KL50r)与电源短路故障.");break;
-        case 0x14AF00:strcpy(strInfo, "起动机反馈电压信号线(KL50r)与地短路故障.");break;
-        case 0x201000:strcpy(strInfo, "可变进气涡流控制电路电压过高.");break;
-        case 0x200900:strcpy(strInfo, "可变进气涡流控制电路电压过低.");break;
-        case 0x200800:strcpy(strInfo, "可变进气涡流控制电路开路.");break;
-        case 0x061500:strcpy(strInfo, "起动机继电器控制电路故障.");break;
-        case 0x063443:strcpy(strInfo, "起动机驱动芯片过热.");break;
-        case 0x061700:strcpy(strInfo, "起动机继电器控制电路电压过高  /  (启动电机继电器)启动电机控制电路开路或对电源短路.");break;
-        case 0x061600:strcpy(strInfo, "起动机继电器控制电路电压过低  /  (启动电机继电器)启动电机控制电路对地短路.");break;
-        case 0x044200:strcpy(strInfo, "蒸发系统1.0mm泄漏.");break;
-        case 0x049700:strcpy(strInfo, "炭罐电磁阀卡滞常闭.");break;
-        case 0x045900:strcpy(strInfo, "炭罐控制阀控制电路电压过高  /  (碳罐脱附控制阀)开路或者对电源短路.");break;
-        case 0x045800:strcpy(strInfo, "炭罐控制阀控制电路电压过低  /  (碳罐脱附控制阀)对地短路.");break;
-        case 0x044400:strcpy(strInfo, "炭罐控制阀控制电路开路.");break;
-        case 0x218324:strcpy(strInfo, "冷却液温度传感器2冷起动校验不合理（正偏差）.");break;
-        case 0x218323:strcpy(strInfo, "冷却液温度传感器2冷起动校验不合理（负偏差）.");break;
-        case 0x209700:strcpy(strInfo, "基于下游氧传感器的闭环修正值超上限-持续偏浓  /  (油路系统诊断)喷油系统后氧过浓一般性故障.");break;
-        case 0x209600:strcpy(strInfo, "基于下游氧传感器的闭环修正值超下限-持续偏稀  /  (油路系统诊断)喷油系统后氧过稀一般性故障.");break;
-        case 0x155100:strcpy(strInfo, "电子节气门下限位置初始化自学习故障.");break;
-        case 0x155000:strcpy(strInfo, "电子节气门自学习条件不满足.");break;
-        case 0x155600:strcpy(strInfo, "节气门机械下止点再次自习最大故障.");break;
-        case 0x155700:strcpy(strInfo, "节气门机械下止点再次自习最小故障.");break;
-        case 0x156100:strcpy(strInfo, "DVE位置控制偏差故障.");break;
-        case 0x156000:strcpy(strInfo, "节气门体PID调节超限.");break;
-        case 0x155800:strcpy(strInfo, "节气门跛行位置与初次自学习偏差超限.");break;
-        case 0x155A00:strcpy(strInfo, "节气门跛行位置与上次自学习偏差超限.");break;
-        case 0x155B00:strcpy(strInfo, "节气门跛行位置低于下限.");break;
-        case 0x210000:strcpy(strInfo, "电子节气门驱动级故障（开路） /  (节气门体电机)系统反馈电路检测到开路.");break;
-        case 0x211800:strcpy(strInfo, "电子节气门驱动级故障 （过热或过流）.");break;
-        case 0x155400:strcpy(strInfo, "回位弹簧检查最大故障.");break;
-        case 0x155500:strcpy(strInfo, "回位弹簧检查最小故障.");break;
-        case 0x012300:strcpy(strInfo, "电子节气门位置传感器1信号电路电压过高  /  (节气门位置传感器1)信号电压值高于设定的门槛值范围，对电源短路.");break;
-        case 0x012100:strcpy(strInfo, "电子节气门位置传感器1信号不合理.");break;
-        case 0x022300:strcpy(strInfo, "电子节气门位置传感器2信号电路电压过高  /  (节气门位置传感器2)信号电压值高于设定的门槛值范围，对电源短路.");break;
-        case 0x022200:strcpy(strInfo, "电子节气门位置传感器2信号电路电压过低  /  (节气门位置传感器2)信号电压值低于设定的门槛值范围，对地短路或开路.");break;
-        case 0x022100:strcpy(strInfo, "电子节气门位置传感器2信号不合理.");break;
-        case 0x210300:strcpy(strInfo, "电子节气门驱动级故障 （短路）  /  (节气门体电机)系统反馈电路检测到对电源短路.");break;
-        case 0x210600:strcpy(strInfo, "电子节气门驱动级故障 （不合理）.");break;
-        case 0x012200:strcpy(strInfo, "电子节气门位置传感器1信号电路电压过低  /  (节气门位置传感器1)信号电压值低于设定的门槛值范围，对地短路或开路.");break;
-        case 0x069000:strcpy(strInfo, "ECM/PCM主继电器电压偏高.");break;
-        case 0x056300:strcpy(strInfo, "电瓶电压偏高  /  (电瓶电压)电瓶电压采样值高于设定门槛值.");break;
-        case 0x056200:strcpy(strInfo, "电瓶电压偏低  /  (电瓶电压)电瓶电压采样值低于设定门槛值或此电压下EMS无法正常工作.");break;
-        case 0x12C400:strcpy(strInfo, "第二路曲轴箱通风管诊断电路电压高.");break;
-        case 0x12C500:strcpy(strInfo, "第二路曲轴箱通风管诊断电路电压低.");break;
-        case 0x12C200:strcpy(strInfo, "曲轴箱通风管诊断电路电压高.");break;
-        case 0x12C300:strcpy(strInfo, "曲轴箱通风管诊断电路电压低.");break;
-        case 0x121200:strcpy(strInfo, "车速超最大范围故障.");break;
-        case 0x050300:strcpy(strInfo, "车速粘滞故障.");break;
-        case 0x050000:strcpy(strInfo, "车速输入信号故障.");break;
-        case 0x050165:strcpy(strInfo, "车速不合理故障-车辆滑行断油时车速过低故障.");break;
-        case 0x063000:strcpy(strInfo, "VIN码没有写入或不兼容.");break;
-        case 0x122000:strcpy(strInfo, "左前轮轮速传感器开路或对电源短路  /  (左前轮轮速信号)左前轮轮速传感器对电源短路.");break;
-        case 0x122100:strcpy(strInfo, "左前轮轮速传感器对地短路  /  (左前轮轮速信号)左前轮轮速传感器对地短路.");break;
-        case 0x122200:strcpy(strInfo, "左前轮轮速传感器不合理故障  /  (左前轮轮速信号)左前轮轮速传感器不合理故障.");break;
-        case 0x122300:strcpy(strInfo, "左前轮轮速传感器开路  /  (左前轮轮速信号)左前轮轮速传感器开路.");break;
-        case 0x122400:strcpy(strInfo, "右前轮轮速传感器开路或对电源短路  /  (右前轮轮速信号)右前轮轮速传感器对电源短路.");break;
-        case 0x122500:strcpy(strInfo, "右前轮轮速传感器对地短路  /  (右前轮轮速信号)右前轮轮速传感器对地短路.");break;
-        case 0x122600:strcpy(strInfo, "右前轮轮速传感器不合理故障  /  (右前轮轮速信号)右前轮轮速传感器不合理故障.");break;
-        case 0x122700:strcpy(strInfo, "右前轮轮速传感器开路  /  (右前轮轮速信号)右前轮轮速传感器开路.");break;
-        case 0x122800:strcpy(strInfo, "左后轮轮速传感器开路或对电源短路  /  (左后轮轮速信号)左后轮轮速传感器对电源短路.");break;
-        case 0x122900:strcpy(strInfo, "左后轮轮速传感器对地短路  /  (左后轮轮速信号)左后轮轮速传感器对地短路.");break;
-        case 0x122A00:strcpy(strInfo, "左后轮轮速传感器不合理故障  /  (左后轮轮速信号)左后轮轮速传感器不合理故障.");break;
-        case 0x122B00:strcpy(strInfo, "左后轮轮速传感器开路  /  (左后轮轮速信号)左后轮轮速传感器开路.");break;
-        case 0x122C00:strcpy(strInfo, "右后轮轮速传感器开路或对电源短路  /  (右后轮轮速信号)右后轮轮速传感器对电源短路.");break;
-        case 0x122D00:strcpy(strInfo, "右后轮轮速传感器对地短路  /  (右后轮轮速信号)右后轮轮速传感器对地短路.");break;
-        case 0x122E00:strcpy(strInfo, "右后轮轮速传感器不合理故障  /  (右后轮轮速信号)右后轮轮速传感器不合理故障.");break;
-        case 0x122F00:strcpy(strInfo, "右后轮轮速传感器开路  /  (右后轮轮速信号)右后轮轮速传感器开路.");break;
-        case 0x051300:strcpy(strInfo, "PEPS(或IMMO)的认证回复不正确，防盗认证失败  /  (防盗器)防盗码不正确.");break;
-        case 0x063300:strcpy(strInfo, "ECM未进行防盗匹配  /  (防盗器)防盗器未学习.");break;
-        case 0x261000:strcpy(strInfo, "芯片停机计时功能失效或误差过大  /  (ECU计时器)ECU内部停机计时器监测到停机时间过长，不合理.");break;
-        case 0x06869E:strcpy(strInfo, "ECM/PCM主继电器粘滞故障或对地短路故障.");break;
-        case 0x06B842:strcpy(strInfo, "读NVM Block发生错误.");break;
-        case 0x06B843:strcpy(strInfo, "写NVM Block发生错误.");break;
-        case 0x222700:strcpy(strInfo, "(大气压力传感器)大气压力不合理.");break;
-        case 0x305300:strcpy(strInfo, "(进气歧管内压力传感器)信号过小.");break;
-        case 0x100400:strcpy(strInfo, "(进气歧管内空气温度传感器)信号过小.");break;
-        case 0x100500:strcpy(strInfo, "(进气歧管内空气温度传感器)信号过大.");break;
-        case 0x100000:strcpy(strInfo, "(增压压力传感器)信号过小.");break;
-        case 0x100100:strcpy(strInfo, "(增压压力传感器)信号过大.");break;
-        case 0x023700:strcpy(strInfo, "(增压压力传感器)增压压力采样值低于设定的门槛值范围.");break;
-        case 0x023800:strcpy(strInfo, "(增压压力传感器)增压压力采样值高于设定的门槛值范围.");break;
-        case 0x007C00:strcpy(strInfo, "(增压空气温度传感器)空气温度电压采样值低于设定门槛值.");break;
-        case 0x007D00:strcpy(strInfo, "(增压空气温度传感器)空气温度电压采样值高于设定门槛值.");break;
-        case 0x110E00:strcpy(strInfo, "(水温传感器)信号过大.");break;
-        case 0x110F00:strcpy(strInfo, "(水温传感器)信号过小.");break;
-        case 0x110000:strcpy(strInfo, "(散热器下游水温传感器)信号过小.");break;
-        case 0x110100:strcpy(strInfo, "(散热器下游水温传感器)信号过大.");break;
-        case 0x110400:strcpy(strInfo, "(节气门位置传感器1)信号过小.");break;
-        case 0x110500:strcpy(strInfo, "(节气门位置传感器1)信号过大.");break;
-        case 0x213500:strcpy(strInfo, "(节气门位置传感器1/2)两个电压信号不匹配.");break;
-        case 0x210200:strcpy(strInfo, "(节气门体电机)系统反馈电路检测对地短路.");break;
-        case 0x210100:strcpy(strInfo, "(节气门体电机)系统检测到控制位置误差或卡滞.");break;
-        case 0x015A00:strcpy(strInfo, "(前催化包氧传感器)前氧信号在门阀时间内没有从浓到稀的跃变.");break;
-        case 0x015B00:strcpy(strInfo, "(前催化包氧传感器)前氧信号在门阀时间内没有从稀到浓的跃变.");break;
-        case 0x112800:strcpy(strInfo, "(前催化包氧传感器)前氧未在阀值时间内进入闭环控制.");break;
-        case 0x106900:strcpy(strInfo, "(前催化包氧传感器)系统检测到前氧传感器电阻超差.");break;
-        case 0x013900:strcpy(strInfo, "(后催化包氧传感器)后氧传感器信号浓稀跃变超门阀值.");break;
-        case 0x1E0900:strcpy(strInfo, "(后催化包氧传感器)后氧未在阀值时间内进入闭环控制.");break;
-        case 0x013B00:strcpy(strInfo, "(后催化包氧传感器)后氧信号在门阀时间内没有从稀到浓的跃变.");break;
-        case 0x106100:strcpy(strInfo, "(后催化包氧传感器)后氧信号长期卡在混合气稀状态.");break;
-        case 0x106200:strcpy(strInfo, "(后催化包氧传感器)后氧信号长期卡在混合气浓状态.");break;
-        case 0x106B00:strcpy(strInfo, "(后催化包氧传感器)系统检测到后氧传感器电阻超差.");break;
-        case 0x046700:strcpy(strInfo, "(脱附流量压力传感器)压力电压信号电压值低于设定门槛值，对地短路.");break;
-        case 0x046800:strcpy(strInfo, "(脱附流量压力传感器)压力电压信号电压值高于设定门槛值，对电源短路.");break;
-        case 0x140400:strcpy(strInfo, "(脱附流量压力传感器)信号过小.");break;
-        case 0x140500:strcpy(strInfo, "(脱附流量压力传感器)信号过大.");break;
-        case 0x033700:strcpy(strInfo, "(转速传感器)系统认出传感器有效电压值常低，无突变，对地短路.");break;
-        case 0x034400:strcpy(strInfo, "(相位传感器)相位信号丢失或者不合理.");break;
-        case 0x001600:strcpy(strInfo, "(相位传感器)实际相位信号与标准值差距过大，凸轮轴安装超差.");break;
-        case 0x100600:strcpy(strInfo, "(加速踏板位置信号1)信号过小.");break;
-        case 0x100700:strcpy(strInfo, "(加速踏板位置信号1)信号过大.");break;
-        case 0x214000:strcpy(strInfo, "(加速踏板位置信号1)两个电压信号不匹配.");break;
-        case 0x100800:strcpy(strInfo, "(加速踏板位置信号2)信号过小.");break;
-        case 0x100900:strcpy(strInfo, "(加速踏板位置信号2)信号过大.");break;
-        case 0x213200:strcpy(strInfo, "(加速踏板位置信号2)信号电压值低于设定的门槛值范围.");break;
-        case 0x213300:strcpy(strInfo, "(加速踏板位置信号2)信号电压值高于设定的门槛值范围.");break;
-        case 0x057800:strcpy(strInfo, "(巡航开关)巡航开关有故障.");break;
-        case 0x050400:strcpy(strInfo, "(制动开关)刹车信号不合理.");break;
-        case 0x229900:strcpy(strInfo, "(制动开关)采取刹车优先策略.");break;
-        case 0x083F00:strcpy(strInfo, "(离合器开关)离合器信号不合理.");break;
-        case 0x080700:strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器对地短路.");break;
-        case 0x080800:strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器对电短路.");break;
-        case 0x080500:strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器信号频率异常.");break;
-        case 0x080900:strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器信号占空比异常.");break;
-        case 0x150700:strcpy(strInfo, "(刹车真空泵)检测到电路对地短路.");break;
-        case 0x150600:strcpy(strInfo, "(刹车真空泵)检测到电路对电源短路.");break;
-        case 0x150900:strcpy(strInfo, "(刹车真空泵)检测到电路开路.");break;
-        case 0x150800:strcpy(strInfo, "(刹车真空泵)刹车真空泵损坏.");break;
-        case 0x080E00:strcpy(strInfo, "(倒挡开关)倒挡开关信号不合理.");break;
-        case 0x150400:strcpy(strInfo, "(刹车压力传感器)电压信号过小.");break;
-        case 0x150500:strcpy(strInfo, "(刹车压力传感器)电压信号过大.");break;
-        case 0x230000:strcpy(strInfo, "(点火线圈1)初级控制电流开路或对地短路.");break;
-        case 0x230100:strcpy(strInfo, "(点火线圈1)初级控制电流信号对电源短路.");break;
-        case 0x230300:strcpy(strInfo, "(点火线圈2)初级控制电流开路或对地短路.");break;
-        case 0x230400:strcpy(strInfo, "(点火线圈2)初级控制电流信号对电源短路.");break;
-        case 0x230600:strcpy(strInfo, "(点火线圈3)初级控制电流开路或对地短路.");break;
-        case 0x230700:strcpy(strInfo, "(点火线圈3)初级控制电流信号对电源短路.");break;
-        case 0x230900:strcpy(strInfo, "(点火线圈4)初级控制电流开路或对地短路.");break;
-        case 0x231000:strcpy(strInfo, "(点火线圈4)初级控制电流信号对电源短路.");break;
-        case 0x241800:strcpy(strInfo, "(DMTL零部件)DMTL阀开路.");break;
-        case 0x241900:strcpy(strInfo, "(DMTL零部件)DMTL阀对地短路.");break;
-        case 0x242000:strcpy(strInfo, "(DMTL零部件)DMTL阀对电源短路.");break;
-        case 0x245000:strcpy(strInfo, "(DMTL零部件)DMTL阀卡死在常开位置（Ref位置）.");break;
-        case 0x240400:strcpy(strInfo, "(DMTL零部件)DMTL电流信号不合理.");break;
-        case 0x245100:strcpy(strInfo, "(DMTL零部件)DMTL阀卡死在常开位置（Diag位置）.");break;
-        case 0x251000:strcpy(strInfo, "(主继电器)信号不合理.");break;
-        case 0x024500:strcpy(strInfo, "(增压器废气旁通阀)内部电路对地短路.");break;
-        case 0x024600:strcpy(strInfo, "(增压器废气旁通阀)内部电路对电源短路.");break;
-        case 0x024300:strcpy(strInfo, "(增压器废气旁通阀)内部电路开路.");break;
-        case 0x029900:strcpy(strInfo, "(增压器废气旁通阀)旁通阀位置开度不合理（超压或欠压）.");break;
-        case 0x024400:strcpy(strInfo, "(增压器废气旁通阀)旁通阀开度与目标位置存在差距.");break;
-        case 0x226200:strcpy(strInfo, "(增压器废气旁通阀)系统监测到进气压力过低，存在增压系统漏气问题.");break;
-        case 0x003900:strcpy(strInfo, "(增压泄压阀)信号不合理.");break;
-        case 0x023D00:strcpy(strInfo, "(节气门体系统诊断)信号过小.");break;
-        case 0x023E00:strcpy(strInfo, "(节气门体系统诊断)信号过大.");break;
-        case 0x010500:strcpy(strInfo, "(节气门体系统诊断)检测到进气压力传感器信号过小.");break;
-        case 0x217200:strcpy(strInfo, "(节气门体系统诊断)进气流量有小泄露.");break;
-        case 0x217500:strcpy(strInfo, "(节气门体系统诊断)进气流量过低.");break;
-        case 0x217300:strcpy(strInfo, "(节气门体系统诊断)进气流量有泄露.");break;
-        case 0x16A100:strcpy(strInfo, "(节气门体位置自学习系统)系统电压过低导致自学习未完成.");break;
-        case 0x1D7F00:strcpy(strInfo, "(节气门体位置自学习系统)节气门体SLC位置电位计电压超差.");break;
-        case 0x16A200:strcpy(strInfo, "(节气门体位置自学习系统)节气门体LHP位置电位计电压超差.");break;
-        case 0x16A400:strcpy(strInfo, "(节气门体位置自学习系统)节气门体TRC位置电位计电压超差.");break;
-        case 0x16A300:strcpy(strInfo, "(节气门体位置自学习系统)节气门体MTC位置电位计电压超差.");break;
-        case 0x16A500:strcpy(strInfo, "(节气门体位置自学习系统)节气门体TRO位置电位计电压超差.");break;
-        case 0x045500:strcpy(strInfo, "(蒸发排放控制系统诊断)蒸发排放系统泄露（1mm以上大泄露）.");break;
-        case 0x044100:strcpy(strInfo, "(蒸发排放控制系统诊断)低压管路脱附流量不合理.");break;
-        case 0x1CEA00:strcpy(strInfo, "(蒸发排放控制系统诊断)高压管路脱附流量不合理.");break;
-        case 0x045700:strcpy(strInfo, "(蒸发排放控制系统诊断)客户加油后，油箱盖未拧或未拧紧导致了EVAP系统有泄露.");break;
-        case 0x100B00:strcpy(strInfo, "(VVT系统诊断)VVT卡死在原始位置.");break;
-        case 0x100E00:strcpy(strInfo, "(VVT系统诊断)信号对地短路.");break;
-        case 0x017100:strcpy(strInfo, "(油路系统诊断)油路系统过稀（前氧实时项或自学习项）.");break;
-        case 0x017200:strcpy(strInfo, "(油路系统诊断)油路系统过浓（前氧实时项或自学习项）.");break;
-        case 0x04E200:strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线电压开路或对地短.");break;
-        case 0x04E300:strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线信号对电源短路.");break;
-        case 0x110800:strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线电压开路或对地短.");break;
-        case 0x110900:strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线信号对电源短路.");break;
-        case 0x130000:strcpy(strInfo, "(失火诊断)飞轮未按规定完成自学习.");break;
-        case 0x050A00:strcpy(strInfo, "(冷启动减排策略监测)冷启动怠速进气控制.");break;
-        case 0x046300:strcpy(strInfo, "(（CAN）油箱油位传感器信号)信号不合理1.");break;
-        case 0x046200:strcpy(strInfo, "(（CAN）油箱油位传感器信号)信号不合理2.");break;
-        case 0x007200:strcpy(strInfo, "(（CAN）大气温度传感器信号)信号对地短路.");break;
-        case 0x007300:strcpy(strInfo, "(（CAN）大气温度传感器信号)信号对电源短路.");break;
-        case 0x007400:strcpy(strInfo, "(（CAN）大气温度传感器信号)信号开路.");break;
-        case 0x007100:strcpy(strInfo, "(（CAN）大气温度传感器信号)信号不合理.");break;
-        case 0x1DB600:strcpy(strInfo, "(车速信号)车速信号不合理.");break;
-        case 0x450100:strcpy(strInfo, "(左前轮轮速信号)轮速信号不合理.");break;
-        case 0x450700:strcpy(strInfo, "(右前轮轮速信号)轮速信号不合理.");break;
-        case 0x450D00:strcpy(strInfo, "(左后轮轮速信号)轮速信号不合理.");break;
-        case 0x451300:strcpy(strInfo, "(右后轮轮速信号)轮速信号不合理.");break;
-        case 0xD10100:strcpy(strInfo, "(ESP控制器CAN通讯)收到ESP信号或BSM信号异常.");break;
-        case 0xC14000:strcpy(strInfo, "(BCM控制器CAN通讯)未收到BCM信号.");break;
-        case 0xD10400:strcpy(strInfo, "(BCM控制器CAN通讯)收到BCM信号异常.");break;
-        case 0xC15500:strcpy(strInfo, "(IPC控制器CAN通讯)未收到IPC信号.");break;
-        case 0xD10200:strcpy(strInfo, "(IPC控制器CAN通讯)收到IPC信号异常.");break;
-        case 0xC13900:strcpy(strInfo, "(AC控制器CAN通讯)未收到AC信号.");break;
-        case 0xC13400:strcpy(strInfo, "(EPS控制器CAN通讯)未收到EPS信号.");break;
-        case 0xC07400:strcpy(strInfo, "(SDM控制器 CAN通讯)未收到SDM信号.");break;
-        case 0xC12800:strcpy(strInfo, "(EPB控制器CAN通讯)未收到EPB信号.");break;
-        case 0x070000:strcpy(strInfo, "(TCU需求点亮MIL灯)TCU因为异常需求点亮MIL灯.");break;
-        case 0xC10100:strcpy(strInfo, "(TCU控制器CAN通讯)未收到TCU信号.");break;
-        case 0xD10300:strcpy(strInfo, "(TCU控制器CAN通讯)收到TCU信号异常.");break;
-        case 0xC00100:strcpy(strInfo, "(CAN总线通讯中断)CAN总线Bus off /  / (PUNCH)CAN bus off.");break;
-        case 0x160700:strcpy(strInfo, "(ECU计时器)ECU内部停机计时器监测到停机时间过短，不合理.");break;
-        case 0x060400:strcpy(strInfo, "(随机存储器)每次Keyon时自我诊断，写入失败时报错 / (PUNCH)Data check of internal RAM failed.");break;
-        case 0x060500:strcpy(strInfo, "(只读存储器)ROM Safey区域存在错误 / (PUNCH)Checksum for the data area in ROM.");break;
-        case 0x110600:strcpy(strInfo, "(只读存储器)ROM区域存在错误.");break;
-        case 0x062F00:strcpy(strInfo, "(EEPROM)RAM与EEPROM通信不正常.");break;
-        case 0x1D5800:strcpy(strInfo, "(微处理器)微处理器存在硬件故障1.");break;
-        case 0x060700:strcpy(strInfo, "(微处理器)微处理器存在硬件故障2.");break;
-        case 0xC42700:strcpy(strInfo, "(防盗器)防盗器未没有响应.");break;
-        case 0xC42600:strcpy(strInfo, "(防盗器)防盗码未正常写入EEPROM.");break;
-        case 0x060B00:strcpy(strInfo, "(A/D控制器)ECU内部A/D转换模块错误.");break;
-        case 0x060C00:strcpy(strInfo, "(安全功能监测)发动机因为安全监控原因熄火.");break;
-        case 0x060300:strcpy(strInfo, "(PUNCH)EEPROM error (checksum).");break;
-        case 0x071000:strcpy(strInfo, "(PUNCH)Oil temperature sensor fault.");break;
-        case 0x276500:strcpy(strInfo, "(PUNCH)Primary pulley speed sensor fault.");break;
-        case 0x072000:strcpy(strInfo, "(PUNCH)Secondary pulley speed sensor fault.");break;
-        case 0x084000:strcpy(strInfo, "(PUNCH)Secondary pressure sensor fault.");break;
-        case 0x065900:strcpy(strInfo, "(PUNCH)High side SCB.");break;
-        case 0x065800:strcpy(strInfo, "(PUNCH)High side SCG or OC.");break;
-        case 0x070200:strcpy(strInfo, "(PUNCH)Watchdog test failed (during init).");break;
-        case 0x096200:strcpy(strInfo, "(PUNCH)EDS1 (primary pulley) SCG.");break;
-        case 0x096600:strcpy(strInfo, "(PUNCH)EDS2 (secondary pulley) SCG.");break;
-        case 0x090200:strcpy(strInfo, "(PUNCH)EDS3 (clutch) SCG.");break;
-        case 0x176800:strcpy(strInfo, "(PUNCH)Backlight SCG.");break;
-        case 0x176900:strcpy(strInfo, "(PUNCH)Backlight SCB or OC.");break;
-        case 0x086800:strcpy(strInfo, "(PUNCH)Operation readiness time-out.");break;
-        case 0x081100:strcpy(strInfo, "(PUNCH)Clutch (forward or reverse) slipping.");break;
-        case 0x073000:strcpy(strInfo, "(PUNCH)Ratio control fault.");break;
-        case 0x176500:strcpy(strInfo, "(PUNCH)Secondary pulley pressure too low.");break;
-        case 0x176600:strcpy(strInfo, "(PUNCH)Secondary pulley pressure too high.");break;
-        case 0x070100:strcpy(strInfo, "(PUNCH)Double fault requiring high side open.");break;
-        case 0x021800:strcpy(strInfo, "(PUNCH)High oil temperature.");break;
-        case 0x176700:strcpy(strInfo, "(PUNCH)Critical oil temperature.");break;
-        case 0x276600:strcpy(strInfo, "(PUNCH)Primary pulley speed unplausible.");break;
-        case 0x072100:strcpy(strInfo, "(PUNCH)Secondary pulley speed unplausible.");break;
-        case 0x094400:strcpy(strInfo, "(PUNCH)Insufficient clamping force (VSM).");break;
-        case 0x080A00:strcpy(strInfo, "(PUNCH)EOL Clutch Adaption Not Finished.");break;
-        case 0x177000:strcpy(strInfo, "(PUNCH)Engine speed too low.");break;
-        case 0x177400:strcpy(strInfo, "(PUNCH)End Of Line (EOL) clutch adaption error.");break;
-        case 0x177500:strcpy(strInfo, "(PUNCH)Invalid or no XCU production data.");break;
-        case 0x177600:strcpy(strInfo, "(PUNCH)Board failure - internal hardware problem.");break;
-        case 0x060200:strcpy(strInfo, "(PUNCH)Software compatibility.");break;
-        case 0x176200:strcpy(strInfo, "(PUNCH)Current stuck.");break;
-        case 0x088200:strcpy(strInfo, "(PUNCH)Battery or high side voltage too low.");break;
-        case 0x088300:strcpy(strInfo, "(PUNCH)Battery or high side voltage too high.");break;
-        case 0x278700:strcpy(strInfo, "(PUNCH)Clutch temperature too high.");break;
-        case 0x072700:strcpy(strInfo, "(PUNCH)Hardwired engine speed unplausible.");break;
-        case 0xC30100:strcpy(strInfo, "(PUNCH)Vehicle configuration mismatch.");break;
-        case 0x070600:strcpy(strInfo, "(PUNCH)Drive mode sensor single line error.");break;
-        case 0x070500:strcpy(strInfo, "(PUNCH)Drive mode sensor multiple lines error.");break;
-        case 0x095500:strcpy(strInfo, "(PUNCH)Tip mode signals error.");break;
-        case 0xC41500:strcpy(strInfo, "(PUNCH)ABS function error.");break;
-        case 0xC10000:strcpy(strInfo, "(PUNCH)CAN ECU communication failed.");break;
-        case 0xD01200:strcpy(strInfo, "(PUNCH)CAN engine speed signal error.");break;
-        case 0xD01300:strcpy(strInfo, "(PUNCH)CAN accelerator pedal signal error.");break;
-        case 0xD01400:strcpy(strInfo, "(PUNCH)CAN engine torque signals error.");break;
-        case 0xD01600:strcpy(strInfo, "(PUNCH)CAN wheel speed error - front left.");break;
-        case 0xD01700:strcpy(strInfo, "(PUNCH)CAN wheel speed error - front right.");break;
-        case 0xD01800:strcpy(strInfo, "(PUNCH)CAN wheel speed error - rear left.");break;
-        case 0xD01900:strcpy(strInfo, "(PUNCH)CAN wheel speed error - rear right.");break;
+void Utils_getDTCInfo(long DTCInfo, char strInfo[]) {
+    switch (DTCInfo) {
+        case 0x168300:
+            strcpy(strInfo, "安全气囊信号不合理.");
+            break;
+        case 0x057129:
+            strcpy(strInfo, "制动信号不合理.");
+            break;
+        case 0x05711C:
+            strcpy(strInfo, "制动信号开路故障.");
+            break;
+        case 0x213800:
+            strcpy(strInfo, "电子油门踏板位置传感器信号不合理.");
+            break;
+        case 0xC12287:
+            strcpy(strInfo, "与制动控制单元ABS/ESP丢失通讯.");
+            break;
+        case 0xC14087:
+            strcpy(strInfo, "与车身控制模块BCM丢失通讯.");
+            break;
+        case 0xC21487:
+            strcpy(strInfo, "PEPS的节点丢失故障.");
+            break;
+        case 0xC00188:
+            strcpy(strInfo, "CAN通讯相关诊断.");
+            break;
+        case 0xC15187:
+            strcpy(strInfo, "与气囊丢失通讯.");
+            break;
+        case 0xC12987:
+            strcpy(strInfo, "ECU与TCS控制模块通讯故障.");
+            break;
+        case 0x012317:
+            strcpy(strInfo, "电子节气门位置传感器1信号电路电压过高.");
+            break;
+        case 0x012216:
+            strcpy(strInfo, "电子节气门位置传感器1信号电路电压过低.");
+            break;
+        case 0x012129:
+            strcpy(strInfo, "电子节气门位置传感器1信号不合理.");
+            break;
+        case 0x022317:
+            strcpy(strInfo, "电子节气门位置传感器2信号电路电压过高.");
+            break;
+        case 0x022216:
+            strcpy(strInfo, "电子节气门位置传感器2信号电路电压过低.");
+            break;
+        case 0x022129:
+            strcpy(strInfo, "电子节气门位置传感器2信号不合理.");
+            break;
+        case 0x042000:
+            strcpy(strInfo, "三元催化器储氧能力老化（排放超限） /  (催化包转化效率)储氧量小于标定阀值.");
+            break;
+        case 0x023817:
+            strcpy(strInfo, "涡轮增压压力传感器信号电压过高.");
+            break;
+        case 0x023716:
+            strcpy(strInfo, "涡轮增压压力传感器信号电压过低.");
+            break;
+        case 0x010812:
+            strcpy(strInfo, "进气压力传感器信号电路电压过高.");
+            break;
+        case 0x010711:
+            strcpy(strInfo, "进气压力传感器信号电路电压过低.");
+            break;
+        case 0x010600:
+            strcpy(strInfo, "进气压力传感器信号不合理  /  (节气门体系统诊断)检测到进气压力传感器信号过大.");
+            break;
+        case 0x010528:
+            strcpy(strInfo, "进气压力传感器信号无波动（结冰）.");
+            break;
+        case 0x006D17:
+            strcpy(strInfo, "环境压力传感器信号电压过高.");
+            break;
+        case 0x006D16:
+            strcpy(strInfo, "环境压力传感器信号电压过低.");
+            break;
+        case 0x210612:
+            strcpy(strInfo, "电子节气门功率驱动级故障（短路）.");
+            break;
+        case 0x210619:
+            strcpy(strInfo, "电子节气门功率驱动级故障（过热或过流）.");
+            break;
+        case 0x210692:
+            strcpy(strInfo, "电子节气门功率驱动级故障（SPI总线或信号）.");
+            break;
+        case 0x210613:
+            strcpy(strInfo, "电子节气门功率驱动级故障（开路）.");
+            break;
+        case 0x156800:
+            strcpy(strInfo, "电子节气门回位阻力过大.");
+            break;
+        case 0x154500:
+            strcpy(strInfo, "DVE位置偏差故障.");
+            break;
+        case 0x155900:
+            strcpy(strInfo, "节气门跛行位置自学习故障（节气门跛行位置高于上限）.");
+            break;
+        case 0x154522:
+            strcpy(strInfo, "节气门体DLR调节超过最大限值.");
+            break;
+        case 0x154521:
+            strcpy(strInfo, "节气门体DLR调节低于最小限值.");
+            break;
+        case 0x157900:
+            strcpy(strInfo, "电子节气门自学习条件不满足.");
+            break;
+        case 0x156400:
+            strcpy(strInfo, "系统电压不满足电子节气门自学习条件.");
+            break;
+        case 0x155929:
+            strcpy(strInfo, "节气门机械下止点再次自习故障.");
+            break;
+        case 0x156500:
+            strcpy(strInfo, "电子节气门下限位置初始化自学习故障.");
+            break;
+        case 0x062912:
+            strcpy(strInfo, "油泵继电器控制电路电压过高.");
+            break;
+        case 0x062811:
+            strcpy(strInfo, "油泵继电器控制电路对地短路或开路.");
+            break;
+        case 0x062713:
+            strcpy(strInfo, "油泵继电器控制电路故障.");
+            break;
+        case 0x208912:
+            strcpy(strInfo, "VVT进气控制阀电路电压过高.");
+            break;
+        case 0x208811:
+            strcpy(strInfo, "VVT进气控制阀电路电压过低.");
+            break;
+        case 0x001013:
+            strcpy(strInfo, "VVT进气控制阀电路故障.");
+            break;
+        case 0x000A26:
+            strcpy(strInfo, "进气VVT运行故障（迟缓）.");
+            break;
+        case 0x000A29:
+            strcpy(strInfo, "进气VVT运行故障（卡死）.");
+            break;
+        case 0x034100:
+            strcpy(strInfo, "相位传感器信号不合理（进气凸轮轴传感器信号不合理故障(Bank1)）.");
+            break;
+        case 0x032200:
+            strcpy(strInfo, "转速传感器信号故障.");
+            break;
+        case 0x026212:
+            strcpy(strInfo, "一缸喷油器控制电路电压过高.");
+            break;
+        case 0x026111:
+            strcpy(strInfo, "一缸喷油器控制电路电压过低.");
+            break;
+        case 0x020113:
+            strcpy(strInfo, "一缸喷油器控制电路故障.");
+            break;
+        case 0x026812:
+            strcpy(strInfo, "三缸喷油器控制电路电压过高.");
+            break;
+        case 0x026711:
+            strcpy(strInfo, "三缸喷油器控制电路电压过低.");
+            break;
+        case 0x020313:
+            strcpy(strInfo, "三缸喷油器控制电路故障.");
+            break;
+        case 0x027112:
+            strcpy(strInfo, "四缸喷油器控制电路电压过高.");
+            break;
+        case 0x027011:
+            strcpy(strInfo, "四缸喷油器控制电路电压过低.");
+            break;
+        case 0x020413:
+            strcpy(strInfo, "四缸喷油器控制电路故障.");
+            break;
+        case 0x026512:
+            strcpy(strInfo, "二缸喷油器控制电路电压过高.");
+            break;
+        case 0x026411:
+            strcpy(strInfo, "二缸喷油器控制电路电压过低.");
+            break;
+        case 0x020213:
+            strcpy(strInfo, "二缸喷油器控制电路故障.");
+            break;
+        case 0x212317:
+            strcpy(strInfo, "电子油门踏板位置传感器1信号电压过高.");
+            break;
+        case 0x212216:
+            strcpy(strInfo, "电子油门踏板位置传感器1信号电压过低.");
+            break;
+        case 0x213829:
+            strcpy(strInfo, "电子油门踏板位置传感器1信号不合理.");
+            break;
+        case 0x212817:
+            strcpy(strInfo, "电子油门踏板位置传感器2信号电压过高.");
+            break;
+        case 0x212716:
+            strcpy(strInfo, "电子油门踏板位置传感器2信号电压过低.");
+            break;
+        case 0x217700:
+            strcpy(strInfo, "空燃比闭环控制自学习值超上限（中负荷区）.");
+            break;
+        case 0x217800:
+            strcpy(strInfo, "空燃比闭环控制自学习值超下限（中负荷区）.");
+            break;
+        case 0x003812:
+            strcpy(strInfo, "下游氧传感器加热控制电路电压过高.");
+            break;
+        case 0x003711:
+            strcpy(strInfo, "下游氧传感器加热控制电路电压过低.");
+            break;
+        case 0x003613:
+            strcpy(strInfo, "下游氧传感器加热控制电路故障.");
+            break;
+        case 0x00541E:
+            strcpy(strInfo, "下游氧传感器加热内阻不合理.");
+            break;
+        case 0x003212:
+            strcpy(strInfo, "上游氧传感器加热控制电路电压过高.");
+            break;
+        case 0x003111:
+            strcpy(strInfo, "上游氧传感器加热控制电路电压过低.");
+            break;
+        case 0x003013:
+            strcpy(strInfo, "上游氧传感器加热控制电路故障 .");
+            break;
+        case 0x00531E:
+            strcpy(strInfo, "上游氧传感器加热内阻不合理.");
+            break;
+        case 0x064712:
+            strcpy(strInfo, "A/C压缩机继电器控制电路电压过高.");
+            break;
+        case 0x064611:
+            strcpy(strInfo, "A/C压缩机继电器控制电路对地短路.");
+            break;
+        case 0x064513:
+            strcpy(strInfo, "A/C压缩机继电器控制电路故障.");
+            break;
+        case 0x032716:
+            strcpy(strInfo, "爆震传感器信号电路电压过低.");
+            break;
+        case 0x070400:
+            strcpy(strInfo, "离合器踏板开关电压故障  /  (离合器开关)离合器信号不合理.");
+            break;
+        case 0x227000:
+            strcpy(strInfo, "下游氧传感器老化- 信号持续偏稀  /  (后催化包氧传感器)后氧信号长期卡在稀状态.");
+            break;
+        case 0x227100:
+            strcpy(strInfo, "下游氧传感器老化- 信号持续偏浓  /  (后催化包氧传感器)后氧信号长期卡在浓状态.");
+            break;
+        case 0x013300:
+            strcpy(strInfo, "上游氧传感器老化  /  (前催化包氧传感器)前氧传感器信号浓稀跃变频率低于阀值.");
+            break;
+        case 0x219500:
+            strcpy(strInfo, "上游氧传感器老化－信号持续偏浓（上游氧传感器滞涩偏稀）  /  (前催化包氧传感器)前氧信号长期卡在混合气稀状态.");
+            break;
+        case 0x219600:
+            strcpy(strInfo, "上游氧传感器老化－信号持续偏稀（上游氧传感器滞涩偏浓）  /  (前催化包氧传感器)前氧信号长期卡在混合气浓状态.");
+            break;
+        case 0x024612:
+            strcpy(strInfo, "废气控制阀驱动电路电压过高.");
+            break;
+        case 0x024511:
+            strcpy(strInfo, "废气控制阀驱动电路电压过低.");
+            break;
+        case 0x024313:
+            strcpy(strInfo, "废气控制阀驱动电路故障.");
+            break;
+        case 0x023400:
+            strcpy(strInfo, "涡轮控制增压过度.");
+            break;
+        case 0x069212:
+            strcpy(strInfo, "冷却风扇继电器控制电路对电源短路（低速）.");
+            break;
+        case 0x069111:
+            strcpy(strInfo, "冷却风扇继电器控制电路对地短路（低速）.");
+            break;
+        case 0x048014:
+            strcpy(strInfo, "冷却风扇继电器控制电路故障（低速）.");
+            break;
+        case 0x069412:
+            strcpy(strInfo, "冷却风扇继电器控制电路对电源短路（高速）.");
+            break;
+        case 0x069311:
+            strcpy(strInfo, "冷却风扇继电器控制电路对地短路（高速）.");
+            break;
+        case 0x048114:
+            strcpy(strInfo, "冷却风扇继电器控制电路故障（高速）.");
+            break;
+        case 0x050700:
+            strcpy(strInfo, "怠速控制转速高于目标怠速  /  (怠速控制系统诊断)实际怠速比目标怠速高.");
+            break;
+        case 0x050600:
+            strcpy(strInfo, "怠速控制转速低于目标怠速  /  (怠速控制系统诊断)实际怠速比目标怠速低.");
+            break;
+        case 0x013817:
+            strcpy(strInfo, "下游氧传感器信号电路电压过高.");
+            break;
+        case 0x013716:
+            strcpy(strInfo, "下游氧传感器信号低电压.");
+            break;
+        case 0x013600:
+            strcpy(strInfo, "下游氧传感器信号不合理（下游氧传感器信号开路）.");
+            break;
+        case 0x014000:
+            strcpy(strInfo, "下游氧传感器电路信号故障.");
+            break;
+        case 0x013217:
+            strcpy(strInfo, "上游氧传感器信号电路电压过高.");
+            break;
+        case 0x013116:
+            strcpy(strInfo, "上游氧传感器信号低电压.");
+            break;
+        case 0x013000:
+            strcpy(strInfo, "上游氧传感器信号不合理.");
+            break;
+        case 0x013400:
+            strcpy(strInfo, "上游氧传感器电路信号电路故障.");
+            break;
+        case 0x030122:
+            strcpy(strInfo, "发生导致催化器损坏的一缸失火.");
+            break;
+        case 0x030121:
+            strcpy(strInfo, "发生导致排放超限的一缸失火.");
+            break;
+        case 0x030129:
+            strcpy(strInfo, "失火检测第一统计周期发生一缸失火.");
+            break;
+        case 0x030322:
+            strcpy(strInfo, "发生导致催化器损坏的三缸失火.");
+            break;
+        case 0x030321:
+            strcpy(strInfo, "发生导致排放超限的三缸失火.");
+            break;
+        case 0x030329:
+            strcpy(strInfo, "失火检测第一统计周期发生三缸失火.");
+            break;
+        case 0x030422:
+            strcpy(strInfo, "发生导致催化器损坏的四缸失火.");
+            break;
+        case 0x030421:
+            strcpy(strInfo, "发生导致排放超限的四缸失火.");
+            break;
+        case 0x030429:
+            strcpy(strInfo, "失火检测第一统计周期发生四缸失火.");
+            break;
+        case 0x030222:
+            strcpy(strInfo, "发生导致催化器损坏的二缸失火.");
+            break;
+        case 0x030221:
+            strcpy(strInfo, "发生导致排放超限的二缸失火.");
+            break;
+        case 0x030229:
+            strcpy(strInfo, "失火检测第一统计周期发生二缸失火.");
+            break;
+        case 0x133600:
+            strcpy(strInfo, "电子节气门安全监控扭矩限制作用.");
+            break;
+        case 0x030022:
+            strcpy(strInfo, "发生导致催化器损坏的多缸失火.");
+            break;
+        case 0x030021:
+            strcpy(strInfo, "发生导致排放超限的多缸失火.");
+            break;
+        case 0x030029:
+            strcpy(strInfo, "失火检测第一统计周期发生多缸失火.");
+            break;
+        case 0x001622:
+            strcpy(strInfo, "曲轴和进气凸轮轴相对位置偏差超过最大限值.");
+            break;
+        case 0x001621:
+            strcpy(strInfo, "曲轴和进气凸轮轴相对位置偏差低于最小限值.");
+            break;
+        case 0x001629:
+            strcpy(strInfo, "曲轴和进气凸轮轴相对位置偏差信号不合理.");
+            break;
+        case 0x001200:
+            strcpy(strInfo, "起动时进气VVT不在默认位置  /   (VVT系统诊断)进气VVT响应目标位置速度不合理.");
+            break;
+        case 0x021900:
+            strcpy(strInfo, "发动机转速超过最高转速限制  /  (转速传感器)转速长时间超转速红线 / (PUNCH)Powertrain speed out of range.");
+            break;
+        case 0x218700:
+            strcpy(strInfo, "空燃比闭环控制自学习值超上限（怠速）.");
+            break;
+        case 0x218800:
+            strcpy(strInfo, "空燃比闭环控制自学习值超下限（怠速）.");
+            break;
+        case 0x152381:
+            strcpy(strInfo, "安全气囊点爆.");
+            break;
+        case 0x308800:
+            strcpy(strInfo, "起动机损坏或者起动机供电电路中断故障.");
+            break;
+        case 0x305400:
+            strcpy(strInfo, "发动机堵转或者起动机与飞轮不啮合故障  /  (进气歧管内压力传感器)信号过大.");
+            break;
+        case 0x305600:
+            strcpy(strInfo, "钥匙起动开关反馈电压信号线(KL50r)与电源短路故障.");
+            break;
+        case 0x305500:
+            strcpy(strInfo, "钥匙起动开关反馈电压信号线(KL50r)与地短路故障.");
+            break;
+        case 0x061712:
+            strcpy(strInfo, "起动机控制继电器电压过高.");
+            break;
+        case 0x061513:
+            strcpy(strInfo, "起动机控制继电器开路故障.");
+            break;
+        case 0x011317:
+            strcpy(strInfo, "进气温度传感器信号电路电压过高.");
+            break;
+        case 0x011216:
+            strcpy(strInfo, "进气温度传感器信号电路电压过低.");
+            break;
+        case 0x011129:
+            strcpy(strInfo, "进气温度传感器信号不合理.");
+            break;
+        case 0x045917:
+            strcpy(strInfo, "碳罐控制阀控制电路电压过高.");
+            break;
+        case 0x045816:
+            strcpy(strInfo, "碳罐控制阀控制电路电压过低.");
+            break;
+        case 0x044413:
+            strcpy(strInfo, "碳罐控制阀控制电路故障.");
+            break;
+        case 0x011817:
+            strcpy(strInfo, "发动机冷却液温度传感器电路电压过高.");
+            break;
+        case 0x011716:
+            strcpy(strInfo, "发动机冷却液温度传感器电路电压过低.");
+            break;
+        case 0x011629:
+            strcpy(strInfo, "发动机冷却液温度传感器信号不合理.");
+            break;
+        case 0x056317:
+            strcpy(strInfo, "系统蓄电池电压过高.");
+            break;
+        case 0x056216:
+            strcpy(strInfo, "系统蓄电池电压过低.");
+            break;
+        case 0x056000:
+            strcpy(strInfo, "系统蓄电池电压信号不合理.");
+            break;
+        case 0x068800:
+            strcpy(strInfo, "主继电器输出电压不合理.");
+            break;
+        case 0x068816:
+            strcpy(strInfo, "主继电器输出电压信号故障.");
+            break;
+        case 0x060694:
+            strcpy(strInfo, "电子节气门安全监控功能故障（第二层扭矩监控故障）.");
+            break;
+        case 0x060692:
+            strcpy(strInfo, "电子节气门安全监控功能故障（第二层发动机转速监控故障）.");
+            break;
+        case 0x210629:
+            strcpy(strInfo, "负荷监控故障.");
+            break;
+        case 0x060664:
+            strcpy(strInfo, "电子节气门安全监控功能故障（负荷信号，线束或ECU故障）.");
+            break;
+        case 0x060661:
+            strcpy(strInfo, "电子节气门安全监控功能故障（点火角信号，线束或ECU故障）.");
+            break;
+        case 0x060667:
+            strcpy(strInfo, "电子节气门安全监控功能故障（ECU错误响应监控故障）.");
+            break;
+        case 0x060696:
+            strcpy(strInfo, "电子节气门安全监控功能故障（AD转换器监控故障）.");
+            break;
+        case 0x06061C:
+            strcpy(strInfo, "电子节气门安全监控功能故障（节气门体信号，线束或ECU故障）.");
+            break;
+        case 0x060655:
+            strcpy(strInfo, "电子节气门安全监控功能故障（变形码监控故障）.");
+            break;
+        case 0x060600:
+            strcpy(strInfo, "电子节气门安全监控功能故障（安全监控断油故障）.");
+            break;
+        case 0x060662:
+            strcpy(strInfo, "电子节气门安全监控功能故障（第二层油门踏板信号合理性故障）.");
+            break;
+        case 0x060663:
+            strcpy(strInfo, "电子节气门安全监控功能故障（ECU内部处理器）.");
+            break;
+        case 0x060443:
+            strcpy(strInfo, "电子控制单元RAM故障.");
+            break;
+        case 0x060543:
+            strcpy(strInfo, "电子控制单元ROM故障.");
+            break;
+        case 0x060648:
+            strcpy(strInfo, "电子节气门安全监控功能故障（监控错误响应故障） .");
+            break;
+        case 0x060647:
+            strcpy(strInfo, "电子节气门安全监控功能故障（监控模块反馈故障）.");
+            break;
+        case 0x060675:
+            strcpy(strInfo, "电子节气门安全监控功能故障（关闭路径测试故障）.");
+            break;
+        case 0x060649:
+            strcpy(strInfo, "电子节气门安全监控功能故障（监控模块询问故障）.");
+            break;
+        case 0x003500:
+            strcpy(strInfo, "增压泄流阀控制电路对电源短路  /  (增压泄压阀)内部电路对电源短路.");
+            break;
+        case 0x003400:
+            strcpy(strInfo, "增压泄流阀控制电路对地短路  /  (增压泄压阀)内部电路对地短路.");
+            break;
+        case 0x003300:
+            strcpy(strInfo, "增压泄流阀控制电路开路  /  (增压泄压阀)内部电路开路.");
+            break;
+        case 0x050029:
+            strcpy(strInfo, "车速信号故障.");
+            break;
+        case 0x161400:
+            strcpy(strInfo, "PEPS(或BCM)的认证回复不正确，防盗认证失败.");
+            break;
+        case 0x161000:
+            strcpy(strInfo, "ECM未学习SecretKey（ECM未收到PEPS认证回复）.");
+            break;
+        case 0x161200:
+            strcpy(strInfo, "ECM未收到IMMO或PEPS的认证请求.");
+            break;
+        case 0x150000:
+            strcpy(strInfo, "车辆接收到碰撞断油信号.");
+            break;
+        case 0x150100:
+            strcpy(strInfo, "安全气囊通讯信息不合理.");
+            break;
+        case 0x064500:
+            strcpy(strInfo, "A/C压缩机继电器控制电路开路  /(空调压缩机继电器)内部电路开路.");
+            break;
+        case 0x063445:
+            strcpy(strInfo, "起动机驱动芯片过热.");
+            break;
+        case 0x064700:
+            strcpy(strInfo, "A/C压缩机继电器控制电路电压过高  /(空调压缩机继电器)内部电路对电源短路.");
+            break;
+        case 0x064600:
+            strcpy(strInfo, "A/C压缩机继电器控制电路电压过低  /  (空调压缩机继电器)内部电路对地短路.");
+            break;
+        case 0x057100:
+            strcpy(strInfo, "刹车信号不同步 / (PUNCH)Brake signal error.");
+            break;
+        case 0x142000:
+            strcpy(strInfo, "CAN硬件寄存器响应超时（硬件寄存器故障）.");
+            break;
+        case 0xC07300:
+            strcpy(strInfo, "控制模块通讯总线1关闭（CAN1 Bus off）.");
+            break;
+        case 0x050C24:
+            strcpy(strInfo, "冷却液温度传感器1冷起动校验不合理（正偏差）.");
+            break;
+        case 0x050C23:
+            strcpy(strInfo, "冷却液温度传感器1冷起动校验不合理（负偏差）.");
+            break;
+        case 0x011900:
+            strcpy(strInfo, "冷却液温度传感器1电路电压不合理.");
+            break;
+        case 0x011623:
+            strcpy(strInfo, "冷却液温度传感器1信号不合理（低边）.");
+            break;
+        case 0x011626:
+            strcpy(strInfo, "冷却液温度传感器1信号不合理（粘滞）.");
+            break;
+        case 0x011800:
+            strcpy(strInfo, "冷却液温度传感器1电路电压过高  /  (水温传感器)水温电压采样值高于设定门槛值，对电源短路.");
+            break;
+        case 0x011700:
+            strcpy(strInfo, "冷却液温度传感器1电路电压过低  /  (水温传感器)水温电压采样值低于设定门槛值，对地短路.");
+            break;
+        case 0x218500:
+            strcpy(strInfo, "冷却液温度传感器2电路电压过高  /  (散热器下游水温传感器)水温电压采样值高于设定门槛值，对电源短路.");
+            break;
+        case 0x218400:
+            strcpy(strInfo, "冷却液温度传感器2电路电压过低  /  (散热器下游水温传感器)水温采样值电压低于设定门槛值，对地短路.");
+            break;
+        case 0x012800:
+            strcpy(strInfo, "节温器性能不合理（水温达不到节温器标称开启温度）/  (发动机冷却系统诊断)发动机水温低于节温器控制温度时间超阀值.");
+            break;
+        case 0xC12100:
+            strcpy(strInfo, "与ABS模块通讯丢失  /  (ESP控制器CAN通讯)未收到ESP信号 / (PUNCH)CAN ABS communication failed.");
+            break;
+        case 0xC12200:
+            strcpy(strInfo, "ECM与电子稳定系统（ESP）通讯丢失（HS CAN）.");
+            break;
+        case 0xC25400:
+            strcpy(strInfo, "与PEPS模块通讯丢失.");
+            break;
+        case 0xC12600:
+            strcpy(strInfo, "与SAS模块通讯丢失.");
+            break;
+        case 0xC15100:
+            strcpy(strInfo, "与SRS模块通讯丢失.");
+            break;
+        case 0xF50200:
+            strcpy(strInfo, "CAN模块输入电压过高.");
+            break;
+        case 0xF50100:
+            strcpy(strInfo, "CAN模块输入电压过低.");
+            break;
+        case 0xC10F00:
+            strcpy(strInfo, "ECM与AC通讯丢失（HS CAN）.");
+            break;
+        case 0x240C00:
+            strcpy(strInfo, "蒸发系统泄漏诊断DMTL加热单元电路电压过高  /  (DMTL零部件)DMTL加热器对电源短路.");
+            break;
+        case 0x240B00:
+            strcpy(strInfo, "蒸发系统泄漏诊断DMTL加热单元电路电压过低  /  (DMTL零部件)DMTL加热器对地短路.");
+            break;
+        case 0x240A00:
+            strcpy(strInfo, "蒸发系统泄漏诊断DMTL加热单元电路开路  /  (DMTL零部件)DMTL加热器开路.");
+            break;
+        case 0x151000:
+            strcpy(strInfo, "爆震传感器信号评估诊断.");
+            break;
+        case 0x24BF00:
+            strcpy(strInfo, "蒸发系统DMTL电磁阀控制电路电压过高.");
+            break;
+        case 0x24BE00:
+            strcpy(strInfo, "蒸发系统DMTL电磁阀控制电路电压过低.");
+            break;
+        case 0x24BD00:
+            strcpy(strInfo, "蒸发系统DMTL电磁阀控制电路开路.");
+            break;
+        case 0x240200:
+            strcpy(strInfo, "蒸发系统DMTL泵控制电路电压过高.");
+            break;
+        case 0x240100:
+            strcpy(strInfo, "蒸发系统DMTL泵控制电路电压过低.");
+            break;
+        case 0x240000:
+            strcpy(strInfo, "蒸发系统DMTL泵控制电路开路.");
+            break;
+        case 0x017F00:
+            strcpy(strInfo, "DMTL空滤流阻过大.");
+            break;
+        case 0x128000:
+            strcpy(strInfo, "DMTL泵电流频率过大.");
+            break;
+        case 0x128100:
+            strcpy(strInfo, "DMTL泵电流频率过小.");
+            break;
+        case 0x043E00:
+            strcpy(strInfo, "蒸发系统泄漏诊断DMTL参考泵电流偏大.");
+            break;
+        case 0x043F00:
+            strcpy(strInfo, "蒸发系统泄漏诊断DMTL参考泵电流偏小.");
+            break;
+        case 0x24C100:
+            strcpy(strInfo, "DMTL泵怠速电流偏大.");
+            break;
+        case 0x240700:
+            strcpy(strInfo, "DMTL泵电流波动超出合理性范围（湿度引起）.");
+            break;
+        case 0x208900:
+            strcpy(strInfo, "进气VVT控制电路电压过高.");
+            break;
+        case 0x208800:
+            strcpy(strInfo, "进气VVT控制电路电压过低.");
+            break;
+        case 0x001000:
+            strcpy(strInfo, "进气VVT控制电路开路  /  (VVT系统诊断)信号对电短路或开路.");
+            break;
+        case 0x000A00:
+            strcpy(strInfo, "进气VVT运行故障（迟缓） /  (VVT系统诊断)进气VVT响应目标位置速度过慢.");
+            break;
+        case 0x003C00:
+            strcpy(strInfo, "进气VVT运行故障（卡死）.");
+            break;
+        case 0x050B00:
+            strcpy(strInfo, "催化器加热过程中点火角效率监控(怠速)  /  (冷启动减排策略监测)冷启动点火提前角控制.");
+            break;
+        case 0x050B20:
+            strcpy(strInfo, "催化器加热过程中点火角效率监控（部分负荷）.");
+            break;
+        case 0x026200:
+            strcpy(strInfo, "一缸喷油器控制电路电压过高  /  (1缸喷油器)油泵和电池无故障时， 1缸喷油驱动电路对电源短路.");
+            break;
+        case 0x026100:
+            strcpy(strInfo, "一缸喷油器控制电路电压过低  /  (1缸喷油器)油泵和电池无故障时， 1缸喷油驱动电路对地短路.");
+            break;
+        case 0x020100:
+            strcpy(strInfo, "一缸喷油器控制电路开路  /  (1缸喷油器)油泵和电池无故障时， 1缸喷油驱动电路开路.");
+            break;
+        case 0x026800:
+            strcpy(strInfo, "三缸喷油器控制电路电压过高  /  (3缸喷油器)油泵和电池无故障时， 3缸喷油驱动电路对电源短路.");
+            break;
+        case 0x026700:
+            strcpy(strInfo, "三缸喷油器控制电路电压过低  /  (3缸喷油器)油泵和电池无故障时， 3缸喷油驱动电路对地短路.");
+            break;
+        case 0x020300:
+            strcpy(strInfo, "三缸喷油器控制电路开路  /  (3缸喷油器)油泵和电池无故障时， 3缸喷油驱动电路信号开路.");
+            break;
+        case 0x027100:
+            strcpy(strInfo, "四缸喷油器控制电路电压过高  /  (4缸喷油器)油泵和电池无故障时， 4缸喷油驱动电路对电源短路.");
+            break;
+        case 0x027000:
+            strcpy(strInfo, "四缸喷油器控制电路电压过低  /  (4缸喷油器)油泵和电池无故障时， 4缸喷油驱动电路对地短路.");
+            break;
+        case 0x020400:
+            strcpy(strInfo, "四缸喷油器控制电路开路  /  (4缸喷油器)油泵和电池无故障时， 4缸喷油驱动电路信号开路.");
+            break;
+        case 0x026500:
+            strcpy(strInfo, "二缸喷油器控制电路电压过高  /  (2缸喷油器)油泵和电池无故障时， 2缸喷油驱动电路对电源短路.");
+            break;
+        case 0x026400:
+            strcpy(strInfo, "二缸喷油器控制电路电压过低  /  (2缸喷油器)油泵和电池无故障时， 2缸喷油驱动电路对地短路.");
+            break;
+        case 0x020200:
+            strcpy(strInfo, "二缸喷油器控制电路开路  /  (2缸喷油器)油泵和电池无故障时， 2缸喷油驱动电路信号开路.");
+            break;
+        case 0x001676:
+            strcpy(strInfo, "曲轴-进气凸轮轴初始安装位置不合理故障(Bank1).");
+            break;
+        case 0x034300:
+            strcpy(strInfo, "进气凸轮轴传感器信号对电源短路(Bank1)  /  (相位传感器)传感器有效电压值常高，无突变，对电源短路.");
+            break;
+        case 0x034200:
+            strcpy(strInfo, "进气凸轮轴传感器信号对地短路(Bank1)  /  (相位传感器)相位传感器对地短路.");
+            break;
+        case 0x001678:
+            strcpy(strInfo, "曲轴-进气凸轮轴相对位置偏差过大故障(Bank1).");
+            break;
+        case 0x033900:
+            strcpy(strInfo, "转速传感器信号不合理故障.");
+            break;
+        case 0x261700:
+            strcpy(strInfo, "转速传感器信号丢失故障.");
+            break;
+        case 0x048000:
+            strcpy(strInfo, "冷却风扇1 继电器控制电路开路  /  (低速风扇继电器)内部电路开路.");
+            break;
+        case 0x048100:
+            strcpy(strInfo, "冷却风扇2 继电器控制电路开路  /  (高速风扇继电器)内部电路开路.");
+            break;
+        case 0x069200:
+            strcpy(strInfo, "冷却风扇1 继电器控制电路电压过高  /  (低速风扇继电器)内部电路对电源短路.");
+            break;
+        case 0x069400:
+            strcpy(strInfo, "冷却风扇2 继电器控制电路电压过高  /  (高速风扇继电器)内部电路对电源短路.");
+            break;
+        case 0x069100:
+            strcpy(strInfo, "冷却风扇1 继电器控制电路电压过低  /  (低速风扇继电器)内部电路对地短路.");
+            break;
+        case 0x069300:
+            strcpy(strInfo, "冷却风扇2 继电器控制电路电压过低  /  (高速风扇继电器)内部电路对地短路.");
+            break;
+        case 0x013200:
+            strcpy(strInfo, "上游氧传感器信号电路电压过高  /  (前催化包氧传感器)信号电压值高于设定的门槛值范围.");
+            break;
+        case 0x013100:
+            strcpy(strInfo, "上游氧传感器信号电路电压过低.");
+            break;
+        case 0x223100:
+            strcpy(strInfo, "上游氧传感器信号线对加热线耦合.");
+            break;
+        case 0x005300:
+            strcpy(strInfo, "上游氧传感器内阻过高.");
+            break;
+        case 0x003200:
+            strcpy(strInfo, "上游氧传感器加热控制电路电压过高  /  (前催化包氧传感器加热器)系统反馈电路检测对电源短路.");
+            break;
+        case 0x003100:
+            strcpy(strInfo, "上游氧传感器加热控制电路电压过低  /  (前催化包氧传感器加热器)系统反馈电路检测对地短路.");
+            break;
+        case 0x003000:
+            strcpy(strInfo, "上游氧传感器加热控制电路开路  /   (前催化包氧传感器加热器)系统反馈电路检测开路.");
+            break;
+        case 0x013800:
+            strcpy(strInfo, "下游氧传感器信号线对电源短路  /  (后催化包氧传感器)信号电压值高于设定的门槛值范围，对电源短路或开路.");
+            break;
+        case 0x013700:
+            strcpy(strInfo, "下游氧传感器信号线对地短路.");
+            break;
+        case 0x223200:
+            strcpy(strInfo, "下游氧传感器信号线对加热线耦合.");
+            break;
+        case 0x005400:
+            strcpy(strInfo, "下游氧传感器加热内阻不合理.");
+            break;
+        case 0x003800:
+            strcpy(strInfo, "下游氧传感器加热控制电路电压过高  /  (后催化包氧传感器加热器)系统反馈电路检测对电源短路.");
+            break;
+        case 0x003700:
+            strcpy(strInfo, "下游氧传感器加热控制电路电压过低  /  (后催化包氧传感器加热器)系统反馈电路检测对地短路.");
+            break;
+        case 0x003600:
+            strcpy(strInfo, "下游氧传感器加热控制电路开路  /  (后催化包氧传感器加热器)系统反馈电路检测开路.");
+            break;
+        case 0x013A00:
+            strcpy(strInfo, "下游氧传感器浓到稀方向反应慢  /  (后催化包氧传感器)后氧信号在门阀时间内没有从浓到稀的跃变.");
+            break;
+        case 0x00CE24:
+            strcpy(strInfo, "进气温度传感器1冷起动校验不合理（正偏差）.");
+            break;
+        case 0x00CE23:
+            strcpy(strInfo, "进气温度传感器1冷起动校验不合理（负偏差）.");
+            break;
+        case 0x011400:
+            strcpy(strInfo, "进气温度传感器1电路电压不合理.");
+            break;
+        case 0x011300:
+            strcpy(strInfo, "进气温度传感器1电路电压过高  /  (进气歧管内空气温度传感器)空气温度电压采样值高于设定门槛值，对电源短路或开路.");
+            break;
+        case 0x011200:
+            strcpy(strInfo, "进气温度传感器1电路电压过低  /  (进气歧管内空气温度传感器)空气温度电压采样值低于设定门槛值，对地短路.");
+            break;
+        case 0x011126:
+            strcpy(strInfo, "进气温度传感器1信号不合理（粘滞）.");
+            break;
+        case 0x062900:
+            strcpy(strInfo, "油泵继电器控制电路电压过高  /  (油泵继电器)汽油电子泵继电器控制电路对电源短路.");
+            break;
+        case 0x062800:
+            strcpy(strInfo, "油泵继电器控制电路电压过低  /  (油泵继电器)汽油电子泵继电器控制电路对地短路.");
+            break;
+        case 0x062700:
+            strcpy(strInfo, "油泵继电器控制电路开路.");
+            break;
+        case 0x032600:
+            strcpy(strInfo, "爆震传感器信号电路电压过高  /  (爆震传感器)爆震能量不合理.");
+            break;
+        case 0x032500:
+            strcpy(strInfo, "爆震传感器信号电路电压过低.");
+            break;
+        case 0x032800:
+            strcpy(strInfo, "爆震传感器A端对电源短路诊断.");
+            break;
+        case 0x032700:
+            strcpy(strInfo, "爆震传感器A端对地短路诊断.");
+            break;
+        case 0x032815:
+            strcpy(strInfo, "爆震传感器B端对电源短路诊断.");
+            break;
+        case 0x032714:
+            strcpy(strInfo, "爆震传感器B端对地短路诊断.");
+            break;
+        case 0x050A22:
+            strcpy(strInfo, "催化器加热过程中发动机怠速转速过高.");
+            break;
+        case 0x050A21:
+            strcpy(strInfo, "催化器加热过程中发动机怠速转速过低.");
+            break;
+        case 0x050D00:
+            strcpy(strInfo, "催化器加热及非断油工况时的驻车怠速波动超范围.");
+            break;
+        case 0x050500:
+            strcpy(strInfo, "发动机怠速波动超范围.");
+            break;
+        case 0x030000:
+            strcpy(strInfo, "发动机随机或多缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的随机或多缸的失火率，失火率超过设定门槛值.");
+            break;
+        case 0x154000:
+            strcpy(strInfo, "电子节气门安全监控扭矩限制作用.");
+            break;
+        case 0x030100:
+            strcpy(strInfo, "检测到物理一缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的1缸的失火率，失火率超过设定门槛值.");
+            break;
+        case 0x030300:
+            strcpy(strInfo, "检测到物理三缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的3缸的失火率，失火率超过设定门槛值.");
+            break;
+        case 0x030400:
+            strcpy(strInfo, "检测到物理四缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的4缸的失火率，失火率超过设定门槛值.");
+            break;
+        case 0x030200:
+            strcpy(strInfo, "检测到物理二缸失火故障  /  (失火诊断)由转速传感器的波动及相位信号得出的2缸的失火率，失火率超过设定门槛值.");
+            break;
+        case 0x036300:
+            strcpy(strInfo, "发动机失火触发断油  /  (失火诊断)系统因检测到失火而对相应气缸进行断油.");
+            break;
+        case 0x158200:
+            strcpy(strInfo, "MCU温度故障.");
+            break;
+        case 0x158400:
+            strcpy(strInfo, "lockstep RCCU0输出故障.");
+            break;
+        case 0x158500:
+            strcpy(strInfo, "lockstep RCCU1输出故障.");
+            break;
+        case 0x158600:
+            strcpy(strInfo, "内部看门狗定时器2复位请求.");
+            break;
+        case 0x158700:
+            strcpy(strInfo, "内部看门狗定时器1复位请求.");
+            break;
+        case 0x158800:
+            strcpy(strInfo, "安全核内部看门狗第一次timeout中断请求.");
+            break;
+        case 0x158900:
+            strcpy(strInfo, "安全核内部看门狗第二次timeout复位请求.");
+            break;
+        case 0x158A00:
+            strcpy(strInfo, "系统RAM区域发生不可修正错误.");
+            break;
+        case 0x158B00:
+            strcpy(strInfo, "HVD电压超出范围故障.");
+            break;
+        case 0x158C00:
+            strcpy(strInfo, "外设RAM区域发生不可修正错误.");
+            break;
+        case 0x158D00:
+            strcpy(strInfo, "Flash区域发生不可修正错误.");
+            break;
+        case 0x158E00:
+            strcpy(strInfo, "Memory保护单元逻辑故障.");
+            break;
+        case 0x159000:
+            strcpy(strInfo, "在DCF数据装载时数字PMC初始化故障.");
+            break;
+        case 0x159100:
+            strcpy(strInfo, "PLL1失锁故障.");
+            break;
+        case 0x159200:
+            strcpy(strInfo, "丢失外部晶振时钟故障.");
+            break;
+        case 0x159500:
+            strcpy(strInfo, "部分子系统内部时钟监控故障.");
+            break;
+        case 0x159600:
+            strcpy(strInfo, "其他子系统内部时钟监控故障.");
+            break;
+        case 0x159700:
+            strcpy(strInfo, "Flash memory的ECC逻辑硬件故障.");
+            break;
+        case 0x159800:
+            strcpy(strInfo, "Flash memory 控制器硬件故障.");
+            break;
+        case 0x159900:
+            strcpy(strInfo, "不同memory的SSCM在timing/配置初始化时出现故障.");
+            break;
+        case 0x159A00:
+            strcpy(strInfo, "系统RAM区域的寻址错误或者写错误.");
+            break;
+        case 0x159B00:
+            strcpy(strInfo, "Memory保护单元非法访问.");
+            break;
+        case 0x159C00:
+            strcpy(strInfo, "PRAMC故障.");
+            break;
+        case 0x159D00:
+            strcpy(strInfo, "SSCM传输错误或者flash初始化错误.");
+            break;
+        case 0x159E00:
+            strcpy(strInfo, "未开启lockstep或者RCCU.");
+            break;
+        case 0x159F00:
+            strcpy(strInfo, "security看门狗复位请求.");
+            break;
+        case 0x068500:
+            strcpy(strInfo, "主继电器开路故障  /  (主继电器)反馈电路信号开路.");
+            break;
+        case 0x068700:
+            strcpy(strInfo, "主继电器对电源短路故障  /  (主继电器)反馈电路信号对电源短路.");
+            break;
+        case 0x068600:
+            strcpy(strInfo, "主继电器对地短路故障  /  (主继电器)反馈电路信号对地短路.");
+            break;
+        case 0x153000:
+            strcpy(strInfo, "AD转换器零测试监控故障.");
+            break;
+        case 0x153100:
+            strcpy(strInfo, "AD转换器给定电压测试监控故障.");
+            break;
+        case 0x157100:
+            strcpy(strInfo, "关闭路径检查中驱动级检查故障或者通讯故障.");
+            break;
+        case 0x060D00:
+            strcpy(strInfo, "第二层油门踏板信号合理性故障.");
+            break;
+        case 0x152000:
+            strcpy(strInfo, "负荷预测监控故障.");
+            break;
+        case 0x152100:
+            strcpy(strInfo, "断油模式下油路监控故障.");
+            break;
+        case 0x152200:
+            strcpy(strInfo, "供油模式下油路监控故障.");
+            break;
+        case 0x061C00:
+            strcpy(strInfo, "第二层发动机转速监控故障.");
+            break;
+        case 0x152300:
+            strcpy(strInfo, "混合气监控故障.");
+            break;
+        case 0x152700:
+            strcpy(strInfo, "第一层安全断油监控故障.");
+            break;
+        case 0x152800:
+            strcpy(strInfo, "第二层安全断油监控故障.");
+            break;
+        case 0x152400:
+            strcpy(strInfo, "工作模式监控故障.");
+            break;
+        case 0x152500:
+            strcpy(strInfo, "负荷比较监控故障.");
+            break;
+        case 0x152900:
+            strcpy(strInfo, "起动机控制监控故障.");
+            break;
+        case 0x061A00:
+            strcpy(strInfo, "第二层扭矩监控故障.");
+            break;
+        case 0x152600:
+            strcpy(strInfo, "点火角信号，线束或ECU故障.");
+            break;
+        case 0x001100:
+            strcpy(strInfo, "进气凸轮轴锁死位置运行不合理故障  /  (VVT系统诊断)实际VVT位置和目标位置有差距.");
+            break;
+        case 0x157200:
+            strcpy(strInfo, "电压正常情况下，ABE被激活.");
+            break;
+        case 0x157300:
+            strcpy(strInfo, "监控错误响应故障.");
+            break;
+        case 0x157400:
+            strcpy(strInfo, "Errorpin被激活而监控通讯正常.");
+            break;
+        case 0x157500:
+            strcpy(strInfo, "过压导致DVE驱动关断故障.");
+            break;
+        case 0x055800:
+            strcpy(strInfo, "刹车腔真空度压力传感器电压偏高  /  (刹车压力传感器)检测到电路对电源短路.");
+            break;
+        case 0x055700:
+            strcpy(strInfo, "刹车腔真空度压力传感器电压偏低  /  (刹车压力传感器)检测到电路对地短路或者开路.");
+            break;
+        case 0x222722:
+            strcpy(strInfo, "环境压力传感器压力不合理高故障.");
+            break;
+        case 0x222721:
+            strcpy(strInfo, "环境压力传感器压力不合理低故障.");
+            break;
+        case 0x120200:
+            strcpy(strInfo, "环境压力传感器压力超范围高故障.");
+            break;
+        case 0x120300:
+            strcpy(strInfo, "环境压力传感器压力超范围低故障.");
+            break;
+        case 0x222900:
+            strcpy(strInfo, "ECU内置环境压力芯片自诊断最大故障  /  (大气压力传感器)大气压信号过大（范围诊断）.");
+            break;
+        case 0x222800:
+            strcpy(strInfo, "ECU内置环境压力芯片自诊断最小故障  /  (大气压力传感器)大气压信号过小（范围诊断）.");
+            break;
+        case 0x222729:
+            strcpy(strInfo, "ECU内置环境压力芯片自诊断不合理故障.");
+            break;
+        case 0x010800:
+            strcpy(strInfo, "进气歧管压力传感器对电源短路故障  /  (进气歧管内压力传感器)歧管压力电压采样值高于设定的门槛值范围.");
+            break;
+        case 0x010700:
+            strcpy(strInfo, "进气歧管压力传感器对地短路故障  /  (进气歧管内压力传感器)歧管压力电压采样值低于设定的门槛值范围.");
+            break;
+        case 0x120000:
+            strcpy(strInfo, "进气压力传感器压力超范围高故障  /  (节气门位置传感器2)信号过小.");
+            break;
+        case 0x120100:
+            strcpy(strInfo, "进气压力传感器压力超范围低故障  /  (节气门位置传感器2)信号过大.");
+            break;
+        case 0x010622:
+            strcpy(strInfo, "进气压力传感器压力远高于模型压力不合理故障.");
+            break;
+        case 0x010621:
+            strcpy(strInfo, "进气压力传感器压力远低于模型压力不合理故障.");
+            break;
+        case 0x01062A:
+            strcpy(strInfo, "进气压力传感器信号值异常无波动故障.");
+            break;
+        case 0x212300:
+            strcpy(strInfo, "电子油门踏板位置传感器1信号电压过高.");
+            break;
+        case 0x212800:
+            strcpy(strInfo, "电子油门踏板位置传感器2信号电压过高  /  (加速踏板位置信号1)信号电压值高于设定的门槛值范围，对电源短路.");
+            break;
+        case 0x212200:
+            strcpy(strInfo, "电子油门踏板位置传感器1信号电压过低.");
+            break;
+        case 0x212700:
+            strcpy(strInfo, "电子油门踏板位置传感器2信号电压过低  /  (加速踏板位置信号1)信号电压值低于设定的门槛值范围，信号对地短路或者开路.");
+            break;
+        case 0x064100:
+            strcpy(strInfo,
+                   "5V供电模块1发生故障  /  (ECU内部对传感器供电电压)ECU内部供电PIN脚1存在异常，无法正常供电 / (PUNCH)Pressure sensor supply fault.");
+            break;
+        case 0x065100:
+            strcpy(strInfo,
+                   "5V供电模块2发生故障  /  (ECU内部对传感器供电电压)ECU内部供电PIN脚2存在异常，无法正常供电 / (PUNCH)DMS and speed sensor supply fault.");
+            break;
+        case 0x069700:
+            strcpy(strInfo, "5V供电模块3发生故障  /  (ECU内部对传感器供电电压)ECU内部供电PIN脚3存在异常，无法正常供电.");
+            break;
+        case 0x14AC00:
+            strcpy(strInfo, "起动机损坏或者起动机供电电路中断故障.");
+            break;
+        case 0x14AD00:
+            strcpy(strInfo, "发动机堵转或者起动机与飞轮不啮合故障.");
+            break;
+        case 0x14AE00:
+            strcpy(strInfo, "起动机反馈电压信号线(KL50r)与电源短路故障.");
+            break;
+        case 0x14AF00:
+            strcpy(strInfo, "起动机反馈电压信号线(KL50r)与地短路故障.");
+            break;
+        case 0x201000:
+            strcpy(strInfo, "可变进气涡流控制电路电压过高.");
+            break;
+        case 0x200900:
+            strcpy(strInfo, "可变进气涡流控制电路电压过低.");
+            break;
+        case 0x200800:
+            strcpy(strInfo, "可变进气涡流控制电路开路.");
+            break;
+        case 0x061500:
+            strcpy(strInfo, "起动机继电器控制电路故障.");
+            break;
+        case 0x063443:
+            strcpy(strInfo, "起动机驱动芯片过热.");
+            break;
+        case 0x061700:
+            strcpy(strInfo, "起动机继电器控制电路电压过高  /  (启动电机继电器)启动电机控制电路开路或对电源短路.");
+            break;
+        case 0x061600:
+            strcpy(strInfo, "起动机继电器控制电路电压过低  /  (启动电机继电器)启动电机控制电路对地短路.");
+            break;
+        case 0x044200:
+            strcpy(strInfo, "蒸发系统1.0mm泄漏.");
+            break;
+        case 0x049700:
+            strcpy(strInfo, "炭罐电磁阀卡滞常闭.");
+            break;
+        case 0x045900:
+            strcpy(strInfo, "炭罐控制阀控制电路电压过高  /  (碳罐脱附控制阀)开路或者对电源短路.");
+            break;
+        case 0x045800:
+            strcpy(strInfo, "炭罐控制阀控制电路电压过低  /  (碳罐脱附控制阀)对地短路.");
+            break;
+        case 0x044400:
+            strcpy(strInfo, "炭罐控制阀控制电路开路.");
+            break;
+        case 0x218324:
+            strcpy(strInfo, "冷却液温度传感器2冷起动校验不合理（正偏差）.");
+            break;
+        case 0x218323:
+            strcpy(strInfo, "冷却液温度传感器2冷起动校验不合理（负偏差）.");
+            break;
+        case 0x209700:
+            strcpy(strInfo, "基于下游氧传感器的闭环修正值超上限-持续偏浓  /  (油路系统诊断)喷油系统后氧过浓一般性故障.");
+            break;
+        case 0x209600:
+            strcpy(strInfo, "基于下游氧传感器的闭环修正值超下限-持续偏稀  /  (油路系统诊断)喷油系统后氧过稀一般性故障.");
+            break;
+        case 0x155100:
+            strcpy(strInfo, "电子节气门下限位置初始化自学习故障.");
+            break;
+        case 0x155000:
+            strcpy(strInfo, "电子节气门自学习条件不满足.");
+            break;
+        case 0x155600:
+            strcpy(strInfo, "节气门机械下止点再次自习最大故障.");
+            break;
+        case 0x155700:
+            strcpy(strInfo, "节气门机械下止点再次自习最小故障.");
+            break;
+        case 0x156100:
+            strcpy(strInfo, "DVE位置控制偏差故障.");
+            break;
+        case 0x156000:
+            strcpy(strInfo, "节气门体PID调节超限.");
+            break;
+        case 0x155800:
+            strcpy(strInfo, "节气门跛行位置与初次自学习偏差超限.");
+            break;
+        case 0x155A00:
+            strcpy(strInfo, "节气门跛行位置与上次自学习偏差超限.");
+            break;
+        case 0x155B00:
+            strcpy(strInfo, "节气门跛行位置低于下限.");
+            break;
+        case 0x210000:
+            strcpy(strInfo, "电子节气门驱动级故障（开路） /  (节气门体电机)系统反馈电路检测到开路.");
+            break;
+        case 0x211800:
+            strcpy(strInfo, "电子节气门驱动级故障 （过热或过流）.");
+            break;
+        case 0x155400:
+            strcpy(strInfo, "回位弹簧检查最大故障.");
+            break;
+        case 0x155500:
+            strcpy(strInfo, "回位弹簧检查最小故障.");
+            break;
+        case 0x012300:
+            strcpy(strInfo, "电子节气门位置传感器1信号电路电压过高  /  (节气门位置传感器1)信号电压值高于设定的门槛值范围，对电源短路.");
+            break;
+        case 0x012100:
+            strcpy(strInfo, "电子节气门位置传感器1信号不合理.");
+            break;
+        case 0x022300:
+            strcpy(strInfo, "电子节气门位置传感器2信号电路电压过高  /  (节气门位置传感器2)信号电压值高于设定的门槛值范围，对电源短路.");
+            break;
+        case 0x022200:
+            strcpy(strInfo, "电子节气门位置传感器2信号电路电压过低  /  (节气门位置传感器2)信号电压值低于设定的门槛值范围，对地短路或开路.");
+            break;
+        case 0x022100:
+            strcpy(strInfo, "电子节气门位置传感器2信号不合理.");
+            break;
+        case 0x210300:
+            strcpy(strInfo, "电子节气门驱动级故障 （短路）  /  (节气门体电机)系统反馈电路检测到对电源短路.");
+            break;
+        case 0x210600:
+            strcpy(strInfo, "电子节气门驱动级故障 （不合理）.");
+            break;
+        case 0x012200:
+            strcpy(strInfo, "电子节气门位置传感器1信号电路电压过低  /  (节气门位置传感器1)信号电压值低于设定的门槛值范围，对地短路或开路.");
+            break;
+        case 0x069000:
+            strcpy(strInfo, "ECM/PCM主继电器电压偏高.");
+            break;
+        case 0x056300:
+            strcpy(strInfo, "电瓶电压偏高  /  (电瓶电压)电瓶电压采样值高于设定门槛值.");
+            break;
+        case 0x056200:
+            strcpy(strInfo, "电瓶电压偏低  /  (电瓶电压)电瓶电压采样值低于设定门槛值或此电压下EMS无法正常工作.");
+            break;
+        case 0x12C400:
+            strcpy(strInfo, "第二路曲轴箱通风管诊断电路电压高.");
+            break;
+        case 0x12C500:
+            strcpy(strInfo, "第二路曲轴箱通风管诊断电路电压低.");
+            break;
+        case 0x12C200:
+            strcpy(strInfo, "曲轴箱通风管诊断电路电压高.");
+            break;
+        case 0x12C300:
+            strcpy(strInfo, "曲轴箱通风管诊断电路电压低.");
+            break;
+        case 0x121200:
+            strcpy(strInfo, "车速超最大范围故障.");
+            break;
+        case 0x050300:
+            strcpy(strInfo, "车速粘滞故障.");
+            break;
+        case 0x050000:
+            strcpy(strInfo, "车速输入信号故障.");
+            break;
+        case 0x050165:
+            strcpy(strInfo, "车速不合理故障-车辆滑行断油时车速过低故障.");
+            break;
+        case 0x063000:
+            strcpy(strInfo, "VIN码没有写入或不兼容.");
+            break;
+        case 0x122000:
+            strcpy(strInfo, "左前轮轮速传感器开路或对电源短路  /  (左前轮轮速信号)左前轮轮速传感器对电源短路.");
+            break;
+        case 0x122100:
+            strcpy(strInfo, "左前轮轮速传感器对地短路  /  (左前轮轮速信号)左前轮轮速传感器对地短路.");
+            break;
+        case 0x122200:
+            strcpy(strInfo, "左前轮轮速传感器不合理故障  /  (左前轮轮速信号)左前轮轮速传感器不合理故障.");
+            break;
+        case 0x122300:
+            strcpy(strInfo, "左前轮轮速传感器开路  /  (左前轮轮速信号)左前轮轮速传感器开路.");
+            break;
+        case 0x122400:
+            strcpy(strInfo, "右前轮轮速传感器开路或对电源短路  /  (右前轮轮速信号)右前轮轮速传感器对电源短路.");
+            break;
+        case 0x122500:
+            strcpy(strInfo, "右前轮轮速传感器对地短路  /  (右前轮轮速信号)右前轮轮速传感器对地短路.");
+            break;
+        case 0x122600:
+            strcpy(strInfo, "右前轮轮速传感器不合理故障  /  (右前轮轮速信号)右前轮轮速传感器不合理故障.");
+            break;
+        case 0x122700:
+            strcpy(strInfo, "右前轮轮速传感器开路  /  (右前轮轮速信号)右前轮轮速传感器开路.");
+            break;
+        case 0x122800:
+            strcpy(strInfo, "左后轮轮速传感器开路或对电源短路  /  (左后轮轮速信号)左后轮轮速传感器对电源短路.");
+            break;
+        case 0x122900:
+            strcpy(strInfo, "左后轮轮速传感器对地短路  /  (左后轮轮速信号)左后轮轮速传感器对地短路.");
+            break;
+        case 0x122A00:
+            strcpy(strInfo, "左后轮轮速传感器不合理故障  /  (左后轮轮速信号)左后轮轮速传感器不合理故障.");
+            break;
+        case 0x122B00:
+            strcpy(strInfo, "左后轮轮速传感器开路  /  (左后轮轮速信号)左后轮轮速传感器开路.");
+            break;
+        case 0x122C00:
+            strcpy(strInfo, "右后轮轮速传感器开路或对电源短路  /  (右后轮轮速信号)右后轮轮速传感器对电源短路.");
+            break;
+        case 0x122D00:
+            strcpy(strInfo, "右后轮轮速传感器对地短路  /  (右后轮轮速信号)右后轮轮速传感器对地短路.");
+            break;
+        case 0x122E00:
+            strcpy(strInfo, "右后轮轮速传感器不合理故障  /  (右后轮轮速信号)右后轮轮速传感器不合理故障.");
+            break;
+        case 0x122F00:
+            strcpy(strInfo, "右后轮轮速传感器开路  /  (右后轮轮速信号)右后轮轮速传感器开路.");
+            break;
+        case 0x051300:
+            strcpy(strInfo, "PEPS(或IMMO)的认证回复不正确，防盗认证失败  /  (防盗器)防盗码不正确.");
+            break;
+        case 0x063300:
+            strcpy(strInfo, "ECM未进行防盗匹配  /  (防盗器)防盗器未学习.");
+            break;
+        case 0x261000:
+            strcpy(strInfo, "芯片停机计时功能失效或误差过大  /  (ECU计时器)ECU内部停机计时器监测到停机时间过长，不合理.");
+            break;
+        case 0x06869E:
+            strcpy(strInfo, "ECM/PCM主继电器粘滞故障或对地短路故障.");
+            break;
+        case 0x06B842:
+            strcpy(strInfo, "读NVM Block发生错误.");
+            break;
+        case 0x06B843:
+            strcpy(strInfo, "写NVM Block发生错误.");
+            break;
+        case 0x222700:
+            strcpy(strInfo, "(大气压力传感器)大气压力不合理.");
+            break;
+        case 0x305300:
+            strcpy(strInfo, "(进气歧管内压力传感器)信号过小.");
+            break;
+        case 0x100400:
+            strcpy(strInfo, "(进气歧管内空气温度传感器)信号过小.");
+            break;
+        case 0x100500:
+            strcpy(strInfo, "(进气歧管内空气温度传感器)信号过大.");
+            break;
+        case 0x100000:
+            strcpy(strInfo, "(增压压力传感器)信号过小.");
+            break;
+        case 0x100100:
+            strcpy(strInfo, "(增压压力传感器)信号过大.");
+            break;
+        case 0x023700:
+            strcpy(strInfo, "(增压压力传感器)增压压力采样值低于设定的门槛值范围.");
+            break;
+        case 0x023800:
+            strcpy(strInfo, "(增压压力传感器)增压压力采样值高于设定的门槛值范围.");
+            break;
+        case 0x007C00:
+            strcpy(strInfo, "(增压空气温度传感器)空气温度电压采样值低于设定门槛值.");
+            break;
+        case 0x007D00:
+            strcpy(strInfo, "(增压空气温度传感器)空气温度电压采样值高于设定门槛值.");
+            break;
+        case 0x110E00:
+            strcpy(strInfo, "(水温传感器)信号过大.");
+            break;
+        case 0x110F00:
+            strcpy(strInfo, "(水温传感器)信号过小.");
+            break;
+        case 0x110000:
+            strcpy(strInfo, "(散热器下游水温传感器)信号过小.");
+            break;
+        case 0x110100:
+            strcpy(strInfo, "(散热器下游水温传感器)信号过大.");
+            break;
+        case 0x110400:
+            strcpy(strInfo, "(节气门位置传感器1)信号过小.");
+            break;
+        case 0x110500:
+            strcpy(strInfo, "(节气门位置传感器1)信号过大.");
+            break;
+        case 0x213500:
+            strcpy(strInfo, "(节气门位置传感器1/2)两个电压信号不匹配.");
+            break;
+        case 0x210200:
+            strcpy(strInfo, "(节气门体电机)系统反馈电路检测对地短路.");
+            break;
+        case 0x210100:
+            strcpy(strInfo, "(节气门体电机)系统检测到控制位置误差或卡滞.");
+            break;
+        case 0x015A00:
+            strcpy(strInfo, "(前催化包氧传感器)前氧信号在门阀时间内没有从浓到稀的跃变.");
+            break;
+        case 0x015B00:
+            strcpy(strInfo, "(前催化包氧传感器)前氧信号在门阀时间内没有从稀到浓的跃变.");
+            break;
+        case 0x112800:
+            strcpy(strInfo, "(前催化包氧传感器)前氧未在阀值时间内进入闭环控制.");
+            break;
+        case 0x106900:
+            strcpy(strInfo, "(前催化包氧传感器)系统检测到前氧传感器电阻超差.");
+            break;
+        case 0x013900:
+            strcpy(strInfo, "(后催化包氧传感器)后氧传感器信号浓稀跃变超门阀值.");
+            break;
+        case 0x1E0900:
+            strcpy(strInfo, "(后催化包氧传感器)后氧未在阀值时间内进入闭环控制.");
+            break;
+        case 0x013B00:
+            strcpy(strInfo, "(后催化包氧传感器)后氧信号在门阀时间内没有从稀到浓的跃变.");
+            break;
+        case 0x106100:
+            strcpy(strInfo, "(后催化包氧传感器)后氧信号长期卡在混合气稀状态.");
+            break;
+        case 0x106200:
+            strcpy(strInfo, "(后催化包氧传感器)后氧信号长期卡在混合气浓状态.");
+            break;
+        case 0x106B00:
+            strcpy(strInfo, "(后催化包氧传感器)系统检测到后氧传感器电阻超差.");
+            break;
+        case 0x046700:
+            strcpy(strInfo, "(脱附流量压力传感器)压力电压信号电压值低于设定门槛值，对地短路.");
+            break;
+        case 0x046800:
+            strcpy(strInfo, "(脱附流量压力传感器)压力电压信号电压值高于设定门槛值，对电源短路.");
+            break;
+        case 0x140400:
+            strcpy(strInfo, "(脱附流量压力传感器)信号过小.");
+            break;
+        case 0x140500:
+            strcpy(strInfo, "(脱附流量压力传感器)信号过大.");
+            break;
+        case 0x033700:
+            strcpy(strInfo, "(转速传感器)系统认出传感器有效电压值常低，无突变，对地短路.");
+            break;
+        case 0x034400:
+            strcpy(strInfo, "(相位传感器)相位信号丢失或者不合理.");
+            break;
+        case 0x001600:
+            strcpy(strInfo, "(相位传感器)实际相位信号与标准值差距过大，凸轮轴安装超差.");
+            break;
+        case 0x100600:
+            strcpy(strInfo, "(加速踏板位置信号1)信号过小.");
+            break;
+        case 0x100700:
+            strcpy(strInfo, "(加速踏板位置信号1)信号过大.");
+            break;
+        case 0x214000:
+            strcpy(strInfo, "(加速踏板位置信号1)两个电压信号不匹配.");
+            break;
+        case 0x100800:
+            strcpy(strInfo, "(加速踏板位置信号2)信号过小.");
+            break;
+        case 0x100900:
+            strcpy(strInfo, "(加速踏板位置信号2)信号过大.");
+            break;
+        case 0x213200:
+            strcpy(strInfo, "(加速踏板位置信号2)信号电压值低于设定的门槛值范围.");
+            break;
+        case 0x213300:
+            strcpy(strInfo, "(加速踏板位置信号2)信号电压值高于设定的门槛值范围.");
+            break;
+        case 0x057800:
+            strcpy(strInfo, "(巡航开关)巡航开关有故障.");
+            break;
+        case 0x050400:
+            strcpy(strInfo, "(制动开关)刹车信号不合理.");
+            break;
+        case 0x229900:
+            strcpy(strInfo, "(制动开关)采取刹车优先策略.");
+            break;
+        case 0x083F00:
+            strcpy(strInfo, "(离合器开关)离合器信号不合理.");
+            break;
+        case 0x080700:
+            strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器对地短路.");
+            break;
+        case 0x080800:
+            strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器对电短路.");
+            break;
+        case 0x080500:
+            strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器信号频率异常.");
+            break;
+        case 0x080900:
+            strcpy(strInfo, "(PWM型离合器传感器)PWM型离合器传感器信号占空比异常.");
+            break;
+        case 0x150700:
+            strcpy(strInfo, "(刹车真空泵)检测到电路对地短路.");
+            break;
+        case 0x150600:
+            strcpy(strInfo, "(刹车真空泵)检测到电路对电源短路.");
+            break;
+        case 0x150900:
+            strcpy(strInfo, "(刹车真空泵)检测到电路开路.");
+            break;
+        case 0x150800:
+            strcpy(strInfo, "(刹车真空泵)刹车真空泵损坏.");
+            break;
+        case 0x080E00:
+            strcpy(strInfo, "(倒挡开关)倒挡开关信号不合理.");
+            break;
+        case 0x150400:
+            strcpy(strInfo, "(刹车压力传感器)电压信号过小.");
+            break;
+        case 0x150500:
+            strcpy(strInfo, "(刹车压力传感器)电压信号过大.");
+            break;
+        case 0x230000:
+            strcpy(strInfo, "(点火线圈1)初级控制电流开路或对地短路.");
+            break;
+        case 0x230100:
+            strcpy(strInfo, "(点火线圈1)初级控制电流信号对电源短路.");
+            break;
+        case 0x230300:
+            strcpy(strInfo, "(点火线圈2)初级控制电流开路或对地短路.");
+            break;
+        case 0x230400:
+            strcpy(strInfo, "(点火线圈2)初级控制电流信号对电源短路.");
+            break;
+        case 0x230600:
+            strcpy(strInfo, "(点火线圈3)初级控制电流开路或对地短路.");
+            break;
+        case 0x230700:
+            strcpy(strInfo, "(点火线圈3)初级控制电流信号对电源短路.");
+            break;
+        case 0x230900:
+            strcpy(strInfo, "(点火线圈4)初级控制电流开路或对地短路.");
+            break;
+        case 0x231000:
+            strcpy(strInfo, "(点火线圈4)初级控制电流信号对电源短路.");
+            break;
+        case 0x241800:
+            strcpy(strInfo, "(DMTL零部件)DMTL阀开路.");
+            break;
+        case 0x241900:
+            strcpy(strInfo, "(DMTL零部件)DMTL阀对地短路.");
+            break;
+        case 0x242000:
+            strcpy(strInfo, "(DMTL零部件)DMTL阀对电源短路.");
+            break;
+        case 0x245000:
+            strcpy(strInfo, "(DMTL零部件)DMTL阀卡死在常开位置（Ref位置）.");
+            break;
+        case 0x240400:
+            strcpy(strInfo, "(DMTL零部件)DMTL电流信号不合理.");
+            break;
+        case 0x245100:
+            strcpy(strInfo, "(DMTL零部件)DMTL阀卡死在常开位置（Diag位置）.");
+            break;
+        case 0x251000:
+            strcpy(strInfo, "(主继电器)信号不合理.");
+            break;
+        case 0x024500:
+            strcpy(strInfo, "(增压器废气旁通阀)内部电路对地短路.");
+            break;
+        case 0x024600:
+            strcpy(strInfo, "(增压器废气旁通阀)内部电路对电源短路.");
+            break;
+        case 0x024300:
+            strcpy(strInfo, "(增压器废气旁通阀)内部电路开路.");
+            break;
+        case 0x029900:
+            strcpy(strInfo, "(增压器废气旁通阀)旁通阀位置开度不合理（超压或欠压）.");
+            break;
+        case 0x024400:
+            strcpy(strInfo, "(增压器废气旁通阀)旁通阀开度与目标位置存在差距.");
+            break;
+        case 0x226200:
+            strcpy(strInfo, "(增压器废气旁通阀)系统监测到进气压力过低，存在增压系统漏气问题.");
+            break;
+        case 0x003900:
+            strcpy(strInfo, "(增压泄压阀)信号不合理.");
+            break;
+        case 0x023D00:
+            strcpy(strInfo, "(节气门体系统诊断)信号过小.");
+            break;
+        case 0x023E00:
+            strcpy(strInfo, "(节气门体系统诊断)信号过大.");
+            break;
+        case 0x010500:
+            strcpy(strInfo, "(节气门体系统诊断)检测到进气压力传感器信号过小.");
+            break;
+        case 0x217200:
+            strcpy(strInfo, "(节气门体系统诊断)进气流量有小泄露.");
+            break;
+        case 0x217500:
+            strcpy(strInfo, "(节气门体系统诊断)进气流量过低.");
+            break;
+        case 0x217300:
+            strcpy(strInfo, "(节气门体系统诊断)进气流量有泄露.");
+            break;
+        case 0x16A100:
+            strcpy(strInfo, "(节气门体位置自学习系统)系统电压过低导致自学习未完成.");
+            break;
+        case 0x1D7F00:
+            strcpy(strInfo, "(节气门体位置自学习系统)节气门体SLC位置电位计电压超差.");
+            break;
+        case 0x16A200:
+            strcpy(strInfo, "(节气门体位置自学习系统)节气门体LHP位置电位计电压超差.");
+            break;
+        case 0x16A400:
+            strcpy(strInfo, "(节气门体位置自学习系统)节气门体TRC位置电位计电压超差.");
+            break;
+        case 0x16A300:
+            strcpy(strInfo, "(节气门体位置自学习系统)节气门体MTC位置电位计电压超差.");
+            break;
+        case 0x16A500:
+            strcpy(strInfo, "(节气门体位置自学习系统)节气门体TRO位置电位计电压超差.");
+            break;
+        case 0x045500:
+            strcpy(strInfo, "(蒸发排放控制系统诊断)蒸发排放系统泄露（1mm以上大泄露）.");
+            break;
+        case 0x044100:
+            strcpy(strInfo, "(蒸发排放控制系统诊断)低压管路脱附流量不合理.");
+            break;
+        case 0x1CEA00:
+            strcpy(strInfo, "(蒸发排放控制系统诊断)高压管路脱附流量不合理.");
+            break;
+        case 0x045700:
+            strcpy(strInfo, "(蒸发排放控制系统诊断)客户加油后，油箱盖未拧或未拧紧导致了EVAP系统有泄露.");
+            break;
+        case 0x100B00:
+            strcpy(strInfo, "(VVT系统诊断)VVT卡死在原始位置.");
+            break;
+        case 0x100E00:
+            strcpy(strInfo, "(VVT系统诊断)信号对地短路.");
+            break;
+        case 0x017100:
+            strcpy(strInfo, "(油路系统诊断)油路系统过稀（前氧实时项或自学习项）.");
+            break;
+        case 0x017200:
+            strcpy(strInfo, "(油路系统诊断)油路系统过浓（前氧实时项或自学习项）.");
+            break;
+        case 0x04E200:
+            strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线电压开路或对地短.");
+            break;
+        case 0x04E300:
+            strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线信号对电源短路.");
+            break;
+        case 0x110800:
+            strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线电压开路或对地短.");
+            break;
+        case 0x110900:
+            strcpy(strInfo, "(曲轴箱通风管路诊断)曲轴箱通风管路断开或导线信号对电源短路.");
+            break;
+        case 0x130000:
+            strcpy(strInfo, "(失火诊断)飞轮未按规定完成自学习.");
+            break;
+        case 0x050A00:
+            strcpy(strInfo, "(冷启动减排策略监测)冷启动怠速进气控制.");
+            break;
+        case 0x046300:
+            strcpy(strInfo, "(（CAN）油箱油位传感器信号)信号不合理1.");
+            break;
+        case 0x046200:
+            strcpy(strInfo, "(（CAN）油箱油位传感器信号)信号不合理2.");
+            break;
+        case 0x007200:
+            strcpy(strInfo, "(（CAN）大气温度传感器信号)信号对地短路.");
+            break;
+        case 0x007300:
+            strcpy(strInfo, "(（CAN）大气温度传感器信号)信号对电源短路.");
+            break;
+        case 0x007400:
+            strcpy(strInfo, "(（CAN）大气温度传感器信号)信号开路.");
+            break;
+        case 0x007100:
+            strcpy(strInfo, "(（CAN）大气温度传感器信号)信号不合理.");
+            break;
+        case 0x1DB600:
+            strcpy(strInfo, "(车速信号)车速信号不合理.");
+            break;
+        case 0x450100:
+            strcpy(strInfo, "(左前轮轮速信号)轮速信号不合理.");
+            break;
+        case 0x450700:
+            strcpy(strInfo, "(右前轮轮速信号)轮速信号不合理.");
+            break;
+        case 0x450D00:
+            strcpy(strInfo, "(左后轮轮速信号)轮速信号不合理.");
+            break;
+        case 0x451300:
+            strcpy(strInfo, "(右后轮轮速信号)轮速信号不合理.");
+            break;
+        case 0xD10100:
+            strcpy(strInfo, "(ESP控制器CAN通讯)收到ESP信号或BSM信号异常.");
+            break;
+        case 0xC14000:
+            strcpy(strInfo, "(BCM控制器CAN通讯)未收到BCM信号.");
+            break;
+        case 0xD10400:
+            strcpy(strInfo, "(BCM控制器CAN通讯)收到BCM信号异常.");
+            break;
+        case 0xC15500:
+            strcpy(strInfo, "(IPC控制器CAN通讯)未收到IPC信号.");
+            break;
+        case 0xD10200:
+            strcpy(strInfo, "(IPC控制器CAN通讯)收到IPC信号异常.");
+            break;
+        case 0xC13900:
+            strcpy(strInfo, "(AC控制器CAN通讯)未收到AC信号.");
+            break;
+        case 0xC13400:
+            strcpy(strInfo, "(EPS控制器CAN通讯)未收到EPS信号.");
+            break;
+        case 0xC07400:
+            strcpy(strInfo, "(SDM控制器 CAN通讯)未收到SDM信号.");
+            break;
+        case 0xC12800:
+            strcpy(strInfo, "(EPB控制器CAN通讯)未收到EPB信号.");
+            break;
+        case 0x070000:
+            strcpy(strInfo, "(TCU需求点亮MIL灯)TCU因为异常需求点亮MIL灯.");
+            break;
+        case 0xC10100:
+            strcpy(strInfo, "(TCU控制器CAN通讯)未收到TCU信号.");
+            break;
+        case 0xD10300:
+            strcpy(strInfo, "(TCU控制器CAN通讯)收到TCU信号异常.");
+            break;
+        case 0xC00100:
+            strcpy(strInfo, "(CAN总线通讯中断)CAN总线Bus off /  / (PUNCH)CAN bus off.");
+            break;
+        case 0x160700:
+            strcpy(strInfo, "(ECU计时器)ECU内部停机计时器监测到停机时间过短，不合理.");
+            break;
+        case 0x060400:
+            strcpy(strInfo, "(随机存储器)每次Keyon时自我诊断，写入失败时报错 / (PUNCH)Data check of internal RAM failed.");
+            break;
+        case 0x060500:
+            strcpy(strInfo, "(只读存储器)ROM Safey区域存在错误 / (PUNCH)Checksum for the data area in ROM.");
+            break;
+        case 0x110600:
+            strcpy(strInfo, "(只读存储器)ROM区域存在错误.");
+            break;
+        case 0x062F00:
+            strcpy(strInfo, "(EEPROM)RAM与EEPROM通信不正常.");
+            break;
+        case 0x1D5800:
+            strcpy(strInfo, "(微处理器)微处理器存在硬件故障1.");
+            break;
+        case 0x060700:
+            strcpy(strInfo, "(微处理器)微处理器存在硬件故障2.");
+            break;
+        case 0xC42700:
+            strcpy(strInfo, "(防盗器)防盗器未没有响应.");
+            break;
+        case 0xC42600:
+            strcpy(strInfo, "(防盗器)防盗码未正常写入EEPROM.");
+            break;
+        case 0x060B00:
+            strcpy(strInfo, "(A/D控制器)ECU内部A/D转换模块错误.");
+            break;
+        case 0x060C00:
+            strcpy(strInfo, "(安全功能监测)发动机因为安全监控原因熄火.");
+            break;
+        case 0x060300:
+            strcpy(strInfo, "(PUNCH)EEPROM error (checksum).");
+            break;
+        case 0x071000:
+            strcpy(strInfo, "(PUNCH)Oil temperature sensor fault.");
+            break;
+        case 0x276500:
+            strcpy(strInfo, "(PUNCH)Primary pulley speed sensor fault.");
+            break;
+        case 0x072000:
+            strcpy(strInfo, "(PUNCH)Secondary pulley speed sensor fault.");
+            break;
+        case 0x084000:
+            strcpy(strInfo, "(PUNCH)Secondary pressure sensor fault.");
+            break;
+        case 0x065900:
+            strcpy(strInfo, "(PUNCH)High side SCB.");
+            break;
+        case 0x065800:
+            strcpy(strInfo, "(PUNCH)High side SCG or OC.");
+            break;
+        case 0x070200:
+            strcpy(strInfo, "(PUNCH)Watchdog test failed (during init).");
+            break;
+        case 0x096200:
+            strcpy(strInfo, "(PUNCH)EDS1 (primary pulley) SCG.");
+            break;
+        case 0x096600:
+            strcpy(strInfo, "(PUNCH)EDS2 (secondary pulley) SCG.");
+            break;
+        case 0x090200:
+            strcpy(strInfo, "(PUNCH)EDS3 (clutch) SCG.");
+            break;
+        case 0x176800:
+            strcpy(strInfo, "(PUNCH)Backlight SCG.");
+            break;
+        case 0x176900:
+            strcpy(strInfo, "(PUNCH)Backlight SCB or OC.");
+            break;
+        case 0x086800:
+            strcpy(strInfo, "(PUNCH)Operation readiness time-out.");
+            break;
+        case 0x081100:
+            strcpy(strInfo, "(PUNCH)Clutch (forward or reverse) slipping.");
+            break;
+        case 0x073000:
+            strcpy(strInfo, "(PUNCH)Ratio control fault.");
+            break;
+        case 0x176500:
+            strcpy(strInfo, "(PUNCH)Secondary pulley pressure too low.");
+            break;
+        case 0x176600:
+            strcpy(strInfo, "(PUNCH)Secondary pulley pressure too high.");
+            break;
+        case 0x070100:
+            strcpy(strInfo, "(PUNCH)Double fault requiring high side open.");
+            break;
+        case 0x021800:
+            strcpy(strInfo, "(PUNCH)High oil temperature.");
+            break;
+        case 0x176700:
+            strcpy(strInfo, "(PUNCH)Critical oil temperature.");
+            break;
+        case 0x276600:
+            strcpy(strInfo, "(PUNCH)Primary pulley speed unplausible.");
+            break;
+        case 0x072100:
+            strcpy(strInfo, "(PUNCH)Secondary pulley speed unplausible.");
+            break;
+        case 0x094400:
+            strcpy(strInfo, "(PUNCH)Insufficient clamping force (VSM).");
+            break;
+        case 0x080A00:
+            strcpy(strInfo, "(PUNCH)EOL Clutch Adaption Not Finished.");
+            break;
+        case 0x177000:
+            strcpy(strInfo, "(PUNCH)Engine speed too low.");
+            break;
+        case 0x177400:
+            strcpy(strInfo, "(PUNCH)End Of Line (EOL) clutch adaption error.");
+            break;
+        case 0x177500:
+            strcpy(strInfo, "(PUNCH)Invalid or no XCU production data.");
+            break;
+        case 0x177600:
+            strcpy(strInfo, "(PUNCH)Board failure - internal hardware problem.");
+            break;
+        case 0x060200:
+            strcpy(strInfo, "(PUNCH)Software compatibility.");
+            break;
+        case 0x176200:
+            strcpy(strInfo, "(PUNCH)Current stuck.");
+            break;
+        case 0x088200:
+            strcpy(strInfo, "(PUNCH)Battery or high side voltage too low.");
+            break;
+        case 0x088300:
+            strcpy(strInfo, "(PUNCH)Battery or high side voltage too high.");
+            break;
+        case 0x278700:
+            strcpy(strInfo, "(PUNCH)Clutch temperature too high.");
+            break;
+        case 0x072700:
+            strcpy(strInfo, "(PUNCH)Hardwired engine speed unplausible.");
+            break;
+        case 0xC30100:
+            strcpy(strInfo, "(PUNCH)Vehicle configuration mismatch.");
+            break;
+        case 0x070600:
+            strcpy(strInfo, "(PUNCH)Drive mode sensor single line error.");
+            break;
+        case 0x070500:
+            strcpy(strInfo, "(PUNCH)Drive mode sensor multiple lines error.");
+            break;
+        case 0x095500:
+            strcpy(strInfo, "(PUNCH)Tip mode signals error.");
+            break;
+        case 0xC41500:
+            strcpy(strInfo, "(PUNCH)ABS function error.");
+            break;
+        case 0xC10000:
+            strcpy(strInfo, "(PUNCH)CAN ECU communication failed.");
+            break;
+        case 0xD01200:
+            strcpy(strInfo, "(PUNCH)CAN engine speed signal error.");
+            break;
+        case 0xD01300:
+            strcpy(strInfo, "(PUNCH)CAN accelerator pedal signal error.");
+            break;
+        case 0xD01400:
+            strcpy(strInfo, "(PUNCH)CAN engine torque signals error.");
+            break;
+        case 0xD01600:
+            strcpy(strInfo, "(PUNCH)CAN wheel speed error - front left.");
+            break;
+        case 0xD01700:
+            strcpy(strInfo, "(PUNCH)CAN wheel speed error - front right.");
+            break;
+        case 0xD01800:
+            strcpy(strInfo, "(PUNCH)CAN wheel speed error - rear left.");
+            break;
+        case 0xD01900:
+            strcpy(strInfo, "(PUNCH)CAN wheel speed error - rear right.");
+            break;
 
-        default:strcpy(strInfo, "未定义的DTC，请查看DTC列表！");
+        default:
+            strcpy(strInfo, "未定义的DTC，请查看DTC列表！");
     }
 }
 //DTC文本
 /* End BUSMASTER generated function - Utils_getDTCInfo */
 
 /* Start BUSMASTER generated function - Utils_getDTCStatus */
-void Utils_getDTCStatus(long DTCStatus)
-{
+void Utils_getDTCStatus(long DTCStatus) {
     bool a = DTCStatus & 0b1;
     bool b = DTCStatus & 0b10;
     bool c = DTCStatus & 0b100;
@@ -1965,7 +3294,7 @@ void Utils_getDTCStatus(long DTCStatus)
     bool f = DTCStatus & 0b100000;
     bool g = DTCStatus & 0b1000000;
     bool h = DTCStatus & 0b10000000;
-    char s0[50] = "" ;
+    char s0[50] = "";
     char s1[50] = "";
     char s2[50] = "";
     char s3[50] = "";
@@ -1974,32 +3303,31 @@ void Utils_getDTCStatus(long DTCStatus)
     char s6[50] = "";
     char s7[50] = "";
 
-    if (a)  {strcpy(s0,"Test failed/") ;}
-    if (b)  {strcpy(s1,"Test failed this operation cycle/") ;}
-    if (c)  {strcpy(s2,"Pending DTC/") ;}
-    if (d)  {strcpy(s3,"Confirmed DTC/") ;}
-    if (e)  {strcpy(s4,"Test not completed since last clear/") ;}
-    if (f)  {strcpy(s5,"Test failed since last clear/") ;}
-    if (g)  {strcpy(s6,"Test not completed this operation cycle/") ;}
-    if (h)  {strcpy(s7,"Warning indicator requested/") ;}
-    Trace("                %s%s%s%s%s%s%s%s",s0,s1,s2,s3,s4,s5,s6,s7);
+    if (a) { strcpy(s0, "Test failed/"); }
+    if (b) { strcpy(s1, "Test failed this operation cycle/"); }
+    if (c) { strcpy(s2, "Pending DTC/"); }
+    if (d) { strcpy(s3, "Confirmed DTC/"); }
+    if (e) { strcpy(s4, "Test not completed since last clear/"); }
+    if (f) { strcpy(s5, "Test failed since last clear/"); }
+    if (g) { strcpy(s6, "Test not completed this operation cycle/"); }
+    if (h) { strcpy(s7, "Warning indicator requested/"); }
+    Trace("                %s%s%s%s%s%s%s%s", s0, s1, s2, s3, s4, s5, s6, s7);
 }
 //DTC文本
 /* End BUSMASTER generated function - Utils_getDTCStatus */
 
 /* Start BUSMASTER generated function - Utils_getDTC */
-void Utils_getDTC()
-{
+void Utils_getDTC() {
     static long DTC_date;
     static long DTC_status;
     static char DTC_str[100];
 //    Trace("DTC_bytes=%d",DTC_bytes);
     mSID = 0x59;
-    for (int i = 0; 4 * i + 6 < DTC_bytes ; i++) {
+    for (int i = 0; 4 * i + 6 < DTC_bytes; i++) {
         DTC_date = (DTC_info[4 * i + 3] << 16) | (DTC_info[4 * i + 4] << 8) | DTC_info[4 * i + 5];
-        DTC_status = DTC_info[4 * i+ 6];
-        Utils_getDTCInfo(DTC_date,DTC_str);
-        Trace(">> DTC %d: %06X %02X %s",i+1,DTC_date,DTC_status,DTC_str);
+        DTC_status = DTC_info[4 * i + 6];
+        Utils_getDTCInfo(DTC_date, DTC_str);
+        Trace(">> DTC %d: %06X %02X %s", i + 1, DTC_date, DTC_status, DTC_str);
         Utils_getDTCStatus(DTC_status);
         WriteToLogFile(DTC_str);
     }
@@ -2008,82 +3336,94 @@ void Utils_getDTC()
 /* End BUSMASTER generated function - Utils_getDTC */
 
 /* Start BUSMASTER generated function - Utils_getInformation */
-void Utils_getInformation()
-{
-    static unsigned char str[100];
-    memset(str,0, sizeof(str));
+void Utils_getInformation() {
+    static unsigned char str[100], hexnumber[300];
+    memset(str, 0, sizeof(str));
+    memset(hexnumber, 0, sizeof(hexnumber));
 //    Trace("mSID=%X,Options=%X,rInformation_type=%X,rInformation_Options=%X",mSID,Options,rInformation_type,rInformation_Options);
     mSID = rInformation_type;//用于校验mSID
     Options = rInformation_Options;//用于校验Options
     if (rInformation_type == 0x62) {
-        for (int i = 0; i < byteCount-3 ; ++i) {//减去22F190等3字节
-            str[i] = rInformation[i+3];
+        for (int i = 0; i < byteCount - 3; ++i) {//减去22F190等3字节
+            str[i] = rInformation[i + 3];
         }
+        Utils_ascii2hex(str, hexnumber);//转为Hex显示的ascii
         switch (rInformation_Options) {
             case 0xf190:
-                Trace("22F190 VIN: %s", str);
+                Trace("22F190 VIN: %s（%s）", str, hexnumber);
                 return;
             case 0xf187:
-                Trace("22F187 零件号: %s", str);
+                Trace("22F187 零件号: %s（%s）", str, hexnumber);
                 return;
             case 0xf197:
-                Trace("22F197 系统名称: %s", str);
+                Trace("22F197 系统名称: %s（%s）", str, hexnumber);
                 return;
             case 0xf18a:
-                Trace("22F18A 供应商代码: %s", str);
+                Trace("22F18A 供应商代码: %s（%s）", str, hexnumber);
                 return;
             case 0xf193:
-                Trace("22F193 硬件号: %s", str);
+                Trace("22F193 硬件号: %s（%s）", str, hexnumber);
                 return;
             case 0xf195:
-                Trace("22F195 软件号: %s", str);
+                Trace("22F195 软件号: %s（%s）", str, hexnumber);
                 return;
             case 0xf199:
-                Trace("22F199 刷写时间: %s", str);
+                Trace("22F199 刷写时间: %s（%s）", str, hexnumber);
+                return;
+            case 0xf18c:
+                Trace("22F18C 序列号: %s（%s）", str, hexnumber);
+                return;
+            case 0xf1a8:
+                Trace("22F1A8 车辆配置代码: %s（%s）", str, hexnumber);
+                return;
+            case 0xf100:
+                Trace("22F100 诊断软件版本: %s（%s）", str, hexnumber);
                 return;
             default:
                 return;
         }
     }
     if (rInformation_type == 0x49) {
-        for (int i = 0; i < byteCount-3 ; ++i) {//减去0904等及标志位3字节
-            str[i] = rInformation[i+3];
+        for (int i = 0; i < byteCount - 3; ++i) {//减去0904等及标志位3字节
+            str[i] = rInformation[i + 3];
         }
+        Utils_ascii2hex(str, hexnumber);//转为Hex显示的ascii
         switch (rInformation_Options) {
             case 0x04:
-                Trace("0904 CALID: %s", str);
+                Trace("0904 CALID: %s（%s）", str, hexnumber);
                 return;
             case 0x06:
-                Trace("0906 CVN: %02X%02X%02X%02X", str[0], str[1], str[2], str[3]);
+//                Trace("0906 CVN: %02X%02X%02X%02X", str[0], str[1], str[2], str[3]);
+                Trace("0906 CVN: %s", hexnumber);
                 return;
             case 0x02:
-                Trace("0902 VIN: %s", str);
+                Trace("0902 VIN: %s（%s）", str, hexnumber);
                 return;
             case 0x0A:
-                for (int i = 0; i < byteCount-3 ; ++i) {//防止00直接结束
+                for (int i = 0; i < byteCount - 3; ++i) {//防止00直接结束
                     if (str[i] == 0x00) {
                         str[i] = 0x1f;//改为^_单元分隔符
                     }
                 }
-                Trace("090A ECUNAME: %s", str);
+                Trace("090A ECUNAME: %s（%s）", str, hexnumber);
 //                Trace("byteCount=%d",byteCount);//有00，导致显示不完全
                 return;
             case 0x08:
                 int IUPR[64];
-                memset(IUPR,0x00, sizeof(IUPR));
+                memset(IUPR, 0x00, sizeof(IUPR));
                 IUPR[0] = rInformation[2];//诊断数
                 IUPR[1] = str[0] << 8 | str[1];//通用分母
                 IUPR[2] = str[2] << 8 | str[3];//点火数
-                for (int i = 0; i < IUPR[0]-2; ++i) {
-                    IUPR[i+3] = str[2*i+4] << 8 | str[2*i+5];
+                for (int i = 0; i < IUPR[0] - 2; ++i) {
+                    IUPR[i + 3] = str[2 * i + 4] << 8 | str[2 * i + 5];
                 }
                 Trace("0908 iupt: 诊断数=%d, 通用分母=%d, 点火数=%d, 催化器1=%d/%d, 催化器2=%d/%d, 前氧传感器1=%d/%d, "
                       "前氧传感器2=%d/%d, EGR/VVT=%d/%d, 二次空气系统=%d/%d, 蒸发泄露诊断=%d/%d, 后氧传感器1=%d/%d, "
                       "后氧传感器2=%d/%d, 空燃比1=%d/%d, 空燃比2=%d/%d, GPF1=%d/%d, GPF2=%d/%d",
-                        IUPR[0], IUPR[1], IUPR[2], IUPR[3], IUPR[4], IUPR[5], IUPR[6], IUPR[7], IUPR[8], IUPR[9],
-                        IUPR[10], IUPR[11], IUPR[12], IUPR[13], IUPR[14], IUPR[15], IUPR[16], IUPR[17], IUPR[18],
-                        IUPR[19], IUPR[20], IUPR[21], IUPR[22], IUPR[23], IUPR[24], IUPR[25], IUPR[26], IUPR[27],
-                        IUPR[28] );
+                      IUPR[0], IUPR[1], IUPR[2], IUPR[3], IUPR[4], IUPR[5], IUPR[6], IUPR[7], IUPR[8], IUPR[9],
+                      IUPR[10], IUPR[11], IUPR[12], IUPR[13], IUPR[14], IUPR[15], IUPR[16], IUPR[17], IUPR[18],
+                      IUPR[19], IUPR[20], IUPR[21], IUPR[22], IUPR[23], IUPR[24], IUPR[25], IUPR[26], IUPR[27],
+                      IUPR[28]);
                 return;
             default:
                 return;
@@ -2097,15 +3437,12 @@ void Utils_getInformation()
 /* End BUSMASTER generated function - Utils_getInformation */
 
 /* Start BUSMASTER generated function - Utils_checkMessage */
-void Utils_checkMessage(STCAN_MSG & msg)
-{
+void Utils_checkMessage(STCAN_MSG &msg) {
     static unsigned char msgType;
     msgType = msg.data[0] >> 4;
-    switch (msgType)
-    {
+    switch (msgType) {
         case 0x00:
-            if (msg.data[1] != 0x7e)
-            {
+            if (msg.data[1] != 0x7e) {
                 mSID = msg.data[1];
                 byteCount = msg.data[0];
                 msgCount = 0;
@@ -2134,21 +3471,18 @@ void Utils_checkMessage(STCAN_MSG & msg)
             settimer_CAPL(MSEC_TIMER, msgSend_30, 10);
             return;
         case 0x02:
-            if (msgCount > 0)
-            {
+            if (msgCount > 0) {
 //                msgCount++;
                 msgCount = (msg.data[0] & 0b1111) + 1;
 //                Trace("流控响应完成：%d", msgCount);
 //                Trace("DTC_rst=%02X",DTC_rst);
-                if (DTC_rst == True)
-                {
-                    for (int i = 0; i < 7 ; i++) {
+                if (DTC_rst == True) {
+                    for (int i = 0; i < 7; i++) {
                         DTC_info[7 * msgCount - 8 + i] = msg.data[i + 1];
                     }
                 }
 //                Trace("DTC：%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X", DTC_info[0], DTC_info[1], DTC_info[2], DTC_info[3], DTC_info[4], DTC_info[5], DTC_info[6], DTC_info[7], DTC_info[8], DTC_info[9], DTC_info[10], DTC_info[11], DTC_info[12], DTC_info[13], DTC_info[14], DTC_info[15]  );
-                if (rInformation_rst == True)
-                {
+                if (rInformation_rst == True) {
                     for (int i = 0; i < 7; i++) {
                         rInformation[7 * msgCount - 8 + i] = msg.data[i + 1];
                     }
@@ -2162,7 +3496,7 @@ void Utils_checkMessage(STCAN_MSG & msg)
             mSID = msg.data[0];
             CFTime = msg.data[2];
             CFCount = msg.data[1];
-            if (CFTime == 0){CFTime = 10;}
+            if (CFTime == 0) { CFTime = 10; }
             Trace("收到流控帧，延时要求%dms", CFTime);
             return;
         default:
@@ -2174,17 +3508,14 @@ void Utils_checkMessage(STCAN_MSG & msg)
 /* End BUSMASTER generated function - Utils_checkMessage */
 
 /* Start BUSMASTER generated function - Utils_RunFlowControl */
-void Utils_RunFlowControl()
-{
-    if (ReSendMsg == True)
-    {
+void Utils_RunFlowControl() {
+    if (ReSendMsg == True) {
         Step--;
         ReSendMsg = False;
         Trace("ReSendMsg,STEP = %d", Step);
     }
 
-    switch (Mode)
-    {
+    switch (Mode) {
         case 0x01:
             Utils_doSecAccess();//EMS安全认证
             break;
@@ -2229,8 +3560,7 @@ void Utils_RunFlowControl()
 /* End BUSMASTER generated function - Utils_RunFlowControl */
 
 /* Start BUSMASTER generated function - Utils_setTimerWithResp */
-void Utils_setTimerWithResp(char *t, long duration, unsigned short wSID)
-{
+void Utils_setTimerWithResp(char *t, long duration, unsigned short wSID) {
     WaitForRespSID = wSID;
     //Trace("WaitForRespSID:%02X",WaitForRespSID)//测试使用
     settimer_CAPL(MSEC_TIMER, t, duration);
@@ -2240,8 +3570,7 @@ void Utils_setTimerWithResp(char *t, long duration, unsigned short wSID)
 /* End BUSMASTER generated function - Utils_setTimerWithResp */
 
 /* Start BUSMASTER generated function - Utils_setTimerWithRespOptions */
-void Utils_setTimerWithRespOptions(char *t, long duration, unsigned short wSID, unsigned long wOptions)
-{
+void Utils_setTimerWithRespOptions(char *t, long duration, unsigned short wSID, unsigned long wOptions) {
     WaitForRespSID = wSID;
     WaitForRespOptions = wOptions;
     //Trace("WaitForRespSID:%02X",WaitForRespSID)//测试使用
@@ -2252,8 +3581,7 @@ void Utils_setTimerWithRespOptions(char *t, long duration, unsigned short wSID, 
 /* End BUSMASTER generated function - Utils_setTimerWithRespOptions */
 
 /* Start BUSMASTER generated function - Utils_setTimerWaiting */
-void Utils_setTimerWaiting(char *t, long duration, unsigned short wSID, unsigned long wOptions, unsigned char jS)
-{
+void Utils_setTimerWaiting(char *t, long duration, unsigned short wSID, unsigned long wOptions, unsigned char jS) {
     WaitForRespSID = wSID;
     WaitForRespOptions = wOptions;
     jStep = jS;
@@ -2266,71 +3594,57 @@ void Utils_setTimerWaiting(char *t, long duration, unsigned short wSID, unsigned
 
 
 /* Start BUSMASTER generated function - Utils_ReadVIN */
-short Utils_ReadVIN()
-{
+short Utils_ReadVIN() {
     static unsigned long vHandle;
     static int i, k, c, check;
     static char checkNum[34] = "0123456789ABCDEFGHJKLMNPRSTUVWXYZ";
     static char chr[2] = "0";
     static int m[33] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 7, 9, 2, 3, 4, 5, 6, 7,
-                          8, 9};
+                        8, 9};
     static int n[17] = {8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2};
     k = 0;
     c = 0;
     check = 0;
 //    vHandle = openfileread_CAPL("D:\\vin.Txt", 0);//固定路径
     vHandle = openfileread_CAPL("vin.Txt", 0);
-    if (vHandle != 0)
-    {
+    if (vHandle != 0) {
         filegetstring_CAPL(VIN, sizeof(VIN), vHandle);
         fileclose_CAPL(vHandle);
-        for (i = 0; i < 17; i++)
-        {
-            VIN[i]=(char)toupper(VIN[i]);
+        for (i = 0; i < 17; i++) {
+            VIN[i] = (char) toupper(VIN[i]);
         }
-        if (strlen(VIN) != 17)
-        {
+        if (strlen(VIN) != 17) {
             return 0x04; // ErrCode: 0x04 = VIN长度不对
         }
 
-        for (i = 0; i < 17; i++)
-        {
+        for (i = 0; i < 17; i++) {
             if ((VIN[i] >= 65 && VIN[i] <= 90 && VIN[i] != 73 && VIN[i] != 79 && VIN[i] != 81) ||
-                (VIN[i] >= 48 && VIN[i] <= 57))
-            {
+                (VIN[i] >= 48 && VIN[i] <= 57)) {
                 vinArr[i] = VIN[i];
                 chr[0] = VIN[i];//
                 k = strstr_CAPL(checkNum, chr);//
                 c += n[i] * m[k];//
-            }
-            else
-                {
+            } else {
                 return 0x02; //ErrCode: 0x02 = VIN有非法字符
-                }
+            }
         }
         check = c % 11;//校验位
-        if ((check == 10 && vinArr[8] == 88) || check == (short) vinArr[8] - 48)
-        {
+        if ((check == 10 && vinArr[8] == 88) || check == (short) vinArr[8] - 48) {
             return 0x00; //0x00: 正常
-        }
-        else
-            {
+        } else {
             Trace("check:%d,%c", check, vinArr[8]);
             return 0x03;//0x03: 第9位校验位出错
 //            return 0x00;//取消校验位
-            }
-    }
-    else
-        {
-        return 0x01;//0x01: 读取失败，请检查VIN.txt路径
         }
+    } else {
+        return 0x01;//0x01: 读取失败，请检查VIN.txt路径
+    }
 }
 
 /* End BUSMASTER generated function - Utils_ReadVIN */
 
 /* Start BUSMASTER generated function - Utils_VINtoPIN */
-short Utils_VINtoPIN(const char rVin[], unsigned char rstPIN[])
-{
+short Utils_VINtoPIN(const char rVin[], unsigned char rstPIN[]) {
     static char PinCode[34] = "0123456789ABCDEFGHJKLMNPRSTUVWXYZ";
     //static char str[18];
     static char Chr[2] = "0";
@@ -2338,21 +3652,16 @@ short Utils_VINtoPIN(const char rVin[], unsigned char rstPIN[])
     static unsigned short PinArr[8];
     static short i;
 
-    for (i = 0; i < 17; i++)
-    {
+    for (i = 0; i < 17; i++) {
         Chr[0] = rVin[i];
         VinArr[i] = strstr_CAPL(PinCode, Chr);
     }
-    for (i = 1; i <= 8; i++)
-    {
-        if (i < 7)
-        {
+    for (i = 1; i <= 8; i++) {
+        if (i < 7) {
             PinArr[i - 1] = (VinArr[i - 1] + VinArr[8] + VinArr[17 - i]) % 16;
-        }
-        else
-            {
+        } else {
             PinArr[i - 1] = (VinArr[i - 1] + VinArr[8]) % 16;
-            }
+        }
     }
     rstPIN[0] = PinArr[0] * 16 + PinArr[1];
     rstPIN[1] = PinArr[2] * 16 + PinArr[3];
@@ -2369,8 +3678,7 @@ short Utils_VINtoPIN(const char rVin[], unsigned char rstPIN[])
 /* End BUSMASTER generated function - Utils_VINtoPIN */
 
 /* Start BUSMASTER generated function - Utils_VINtoESK */
-short Utils_VINtoESK(const char rVin[], unsigned char rstESK[], char BCcode[])
-{
+short Utils_VINtoESK(const char rVin[], unsigned char rstESK[], char BCcode[]) {
     static unsigned short SN;
     static short i;
     static short BClen = 0;
@@ -2380,32 +3688,26 @@ short Utils_VINtoESK(const char rVin[], unsigned char rstESK[], char BCcode[])
     static unsigned short VinArr[17];
     SN = 0x00;
     BClen = strlen(BCcode);
-    for (i = 0; i < BClen; i++)
-    {
+    for (i = 0; i < BClen; i++) {
         SN = SN + (short) BCcode[i];
     }
     Trace("SN = %d", SN);
 
 
-    for (i = 0; i < 17; i++)
-    {
+    for (i = 0; i < 17; i++) {
         Chr[0] = rVin[i];
         VinArr[i] = strstr_CAPL(PinCode, Chr);
     }
-    for (i = 0; i < 16; i++)
-    {
-        if (i < 8)
-        {
+    for (i = 0; i < 16; i++) {
+        if (i < 8) {
             rstESK[i] = VinArr[i] + SN + VinArr[8];
-        }
-        else
-            {
+        } else {
             rstESK[i] = VinArr[i + 1] + SN + VinArr[8];
-            }
+        }
     }
     Trace("ESK_H32B: %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X ",
-            rstESK[0], rstESK[1], rstESK[2], rstESK[3], rstESK[4], rstESK[5], rstESK[6], rstESK[7], rstESK[8],
-            rstESK[9], rstESK[10], rstESK[11], rstESK[12], rstESK[13], rstESK[14], rstESK[15], rstESK[16]);
+          rstESK[0], rstESK[1], rstESK[2], rstESK[3], rstESK[4], rstESK[5], rstESK[6], rstESK[7], rstESK[8],
+          rstESK[9], rstESK[10], rstESK[11], rstESK[12], rstESK[13], rstESK[14], rstESK[15], rstESK[16]);
     return 0;
 }
 /*
@@ -2416,8 +3718,7 @@ short Utils_VINtoESK(const char rVin[], unsigned char rstESK[], char BCcode[])
 /* End BUSMASTER generated function - Utils_VINtoESK */
 
 /* Start BUSMASTER generated function - Utils_VINtoESK_H33D */
-short Utils_VINtoESK_H33D(const char rVin[], unsigned char rstESK[])
-{
+short Utils_VINtoESK_H33D(const char rVin[], unsigned char rstESK[]) {
     static unsigned short SN;
     static short i;
     static short BClen = 0;
@@ -2428,32 +3729,26 @@ short Utils_VINtoESK_H33D(const char rVin[], unsigned char rstESK[])
 
     SN = 0x00;
     BClen = strlen(BCcode);
-    for (i = 0; i < BClen; i++)
-    {
+    for (i = 0; i < BClen; i++) {
         SN = SN + (short) BCcode[i];
     }
     Trace("SN = %d", SN);
 
 
-    for (i = 0; i < 17; i++)
-    {
+    for (i = 0; i < 17; i++) {
         Chr[0] = rVin[i];
         VinArr[i] = strstr_CAPL(PinCode, Chr);
     }
-    for (i = 0; i < 16; i++)
-    {
-        if (i < 9)
-        {
+    for (i = 0; i < 16; i++) {
+        if (i < 9) {
             rstESK[i] = VinArr[i] + SN + VinArr[9];
-        }
-        else
-            {
+        } else {
             rstESK[i] = VinArr[i + 1] + SN + VinArr[9];
-            }
+        }
     }
     Trace("ESK_H33D: %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X ",
-            rstESK[0], rstESK[1], rstESK[2], rstESK[3], rstESK[4], rstESK[5], rstESK[6], rstESK[7], rstESK[8],
-            rstESK[9], rstESK[10], rstESK[11], rstESK[12], rstESK[13], rstESK[14], rstESK[15], rstESK[16]);
+          rstESK[0], rstESK[1], rstESK[2], rstESK[3], rstESK[4], rstESK[5], rstESK[6], rstESK[7], rstESK[8],
+          rstESK[9], rstESK[10], rstESK[11], rstESK[12], rstESK[13], rstESK[14], rstESK[15], rstESK[16]);
     return 0;
 }
 /*
@@ -2463,12 +3758,33 @@ short Utils_VINtoESK_H33D(const char rVin[], unsigned char rstESK[])
 */
 /* End BUSMASTER generated function - Utils_VINtoESK_H33D */
 
+/* Start BUSMASTER generated function - Utils_ascii2hex */
+void Utils_ascii2hex(const unsigned char chr[], unsigned char hexnumber[]) {
+    static long a, b;
+    for (int i = 0; i < byteCount - 3; ++i) {
+        a = chr[i] >> 4 & 0x0F;
+        b = chr[i] & 0x0F;
+        if (a <= 0x09) {
+            a += 0x30;
+        } else {
+            a += 0x37;
+        }
+        if (b <= 0x09) {
+            b += 0x30;
+        } else {
+            b += 0x37;
+        }
+        hexnumber[3 * i] = a;
+        hexnumber[3 * i + 1] = b;
+        hexnumber[3 * i + 2] = 0x20;
+    }
+}
+/* End BUSMASTER generated function - Utils_ascii2hex */
+
 /* Start BUSMASTER generated function - Utils_doSecAccess */
-void Utils_doSecAccess()
-{
+void Utils_doSecAccess() {
 //    Trace("STEP = %d", Step);//测试使用
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -2504,14 +3820,12 @@ void Utils_doSecAccess()
 /* End BUSMASTER generated function - Utils_doSecAccess */
 
 /* Start BUSMASTER generated function - Utils_checkVIN */
-short Utils_checkVIN()
-{
-    static short rst1, rst2, rst3,rst4;
+short Utils_checkVIN() {
+    static short rst1, rst2, rst3, rst4;
 
     rst1 = Utils_ReadVIN();
     Trace("读取VIN：%s", VIN);
-    switch (rst1)
-    {
+    switch (rst1) {
         case 0x01:
             Trace("0x01：读取失败，请检查VIN.txt路径");
             return False;
@@ -2528,18 +3842,15 @@ short Utils_checkVIN()
             rst2 = Utils_VINtoPIN(VIN, PIN);
             rst3 = Utils_VINtoESK(VIN, ESK, "H32B");//H32B ESK算法
             rst4 = Utils_VINtoESK_H33D(VIN, ESK2);//H33D ESK算法
-            if (rst2 + rst3 + rst4  == 0)
-            {
+            if (rst2 + rst3 + rst4 == 0) {
                 Trace("VIN读取完成");
                 Trace("o:确认VIN  p:EMS安全认证  q:EMS写入VIN  r:停止  s:EMS清除SC_H32B  t:EMS写入SC、ESK_H32B  u:EOL_H40D  "
                       "v:清除EMS学习值_H40D  w:EMS再学习_H40D  x:EOL钥匙学习_H40D  y:售后钥匙学习_H40D  z:获取ECU信息");
                 return True;
-            }
-            else
-                {
-                Trace("PIN/ESK转换错误,errCode=%h/%h/%h", rst2, rst3,rst4);
+            } else {
+                Trace("PIN/ESK转换错误,errCode=%h/%h/%h", rst2, rst3, rst4);
                 return False;
-                }
+            }
         default:
             return False;
     }
@@ -2548,11 +3859,9 @@ short Utils_checkVIN()
 /* End BUSMASTER generated function - Utils_checkVIN */
 
 /* Start BUSMASTER generated function - Utils_doWriteVIN */
-void Utils_doWriteVIN()
-{
+void Utils_doWriteVIN() {
 //    Trace("STEP = %d", Step);//测试使用
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -2619,20 +3928,20 @@ void Utils_doWriteVIN()
             settimer_CAPL(MSEC_TIMER, msgSend, CFTime);
             Trace(">> STEP7：2EF190第三帧");
             return;
-       /* case 8:
-            rstMsg_EMS.dlc = 8;
-            rstMsg_EMS.id = 0x7e0;
-            rstMsg_EMS.data[0] = 0x20 + CFSend;
-            rstMsg_EMS.data[1] = 0xff;
-            rstMsg_EMS.data[2] = 0xff;
-            rstMsg_EMS.data[3] = 0xff;
-            rstMsg_EMS.data[4] = 0xff;
-            rstMsg_EMS.data[5] = 0xff;
-            rstMsg_EMS.data[6] = 0xff;
-            rstMsg_EMS.data[7] = 0xff;
-            settimer_CAPL(MSEC_TIMER, msgSend_CF, CFTime);
-            Trace(">> STEP7：2EF190第%d帧",CFSend+1);
-            return;*/
+            /* case 8:
+                 rstMsg_EMS.dlc = 8;
+                 rstMsg_EMS.id = 0x7e0;
+                 rstMsg_EMS.data[0] = 0x20 + CFSend;
+                 rstMsg_EMS.data[1] = 0xff;
+                 rstMsg_EMS.data[2] = 0xff;
+                 rstMsg_EMS.data[3] = 0xff;
+                 rstMsg_EMS.data[4] = 0xff;
+                 rstMsg_EMS.data[5] = 0xff;
+                 rstMsg_EMS.data[6] = 0xff;
+                 rstMsg_EMS.data[7] = 0xff;
+                 settimer_CAPL(MSEC_TIMER, msgSend_CF, CFTime);
+                 Trace(">> STEP7：2EF190第%d帧",CFSend+1);
+                 return;*/
         case 8://如加入多帧case8，这处改为9
             Utils_setTimerWaiting(waiting, 1000, 0x6e, 0xf190, 5);
             Trace(">> STEP8：等待ECU反馈");
@@ -2651,11 +3960,9 @@ void Utils_doWriteVIN()
 /* End BUSMASTER generated function - Utils_doWriteVIN */
 
 /* Start BUSMASTER generated function - Utils_doClearSC_H32B */
-void Utils_doClearSC_H32B()
-{
+void Utils_doClearSC_H32B() {
 //    Trace("STEP = %d", Step);//测试使用
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -2694,12 +4001,11 @@ void Utils_doClearSC_H32B()
             //settimer_CAPL(MSEC_TIMER, msgSend, 100);
             Utils_SendMsg();
             Trace(">> STEP5：查询ECU学习状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62,0x0605);/*马瑞利30响应10ms*/
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62, 0x0605);/*马瑞利30响应10ms*/
             return;
         case 6:
 //            Trace("IMMO_Status=%02X",IMMO_Status);//测试使用
-            switch (IMMO_Status)
-            {
+            switch (IMMO_Status) {
                 case 0x00:
                     Trace(">> STEP6：无需清除ECU学习值");
                     Utils_Stop();
@@ -2718,7 +4024,7 @@ void Utils_doClearSC_H32B()
                     //settimer_CAPL(MSEC_TIMER, msgSend, 100);
                     Utils_SendMsg();
                     Trace(">> STEP6：清除ECU学习值");
-                    Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x01FF08);
+                    Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x01FF08);
                     return;
                 default:
                     return;
@@ -2739,11 +4045,9 @@ void Utils_doClearSC_H32B()
 /* End BUSMASTER generated function - Utils_doClearSC_H32B */
 
 /* Start BUSMASTER generated function - Utils_doLearnSC_H32B */
-void Utils_doLearnSC_H32B()
-{
+void Utils_doLearnSC_H32B() {
 //    Trace("STEP = %d", Step);//测试使用
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -2782,12 +4086,11 @@ void Utils_doLearnSC_H32B()
             //settimer_CAPL(MSEC_TIMER, msgSend, 100);
             Utils_SendMsg();
             Trace(">> STEP5：查询ECU学习状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62,0x0605);/*马瑞利30响应10ms*/
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62, 0x0605);/*马瑞利30响应10ms*/
             return;
         case 6:
 //            Trace("IMMO_Status=%02X",IMMO_Status);//测试使用
-            switch (IMMO_Status)
-            {
+            switch (IMMO_Status) {
                 case 0x01:
                     Trace(">> STEP6：请先清除ECU学习值");
                     Utils_Stop();
@@ -2806,7 +4109,7 @@ void Utils_doLearnSC_H32B()
                     //settimer_CAPL(MSEC_TIMER, msgSend, 100);
                     Utils_SendMsg();
                     Trace(">> STEP6：写入ECU SC");
-                    Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6e,0x5855);
+                    Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6e, 0x5855);
                     return;
                 default:
                     return;
@@ -2875,11 +4178,9 @@ void Utils_doLearnSC_H32B()
 /* End BUSMASTER generated function - Utils_doLearnSC_H32B */
 
 /* Start BUSMASTER generated function - Utils_doEOL_H40D */
-void Utils_doEOL_H40D()
-{
+void Utils_doEOL_H40D() {
 //    Trace("STEP = %d", Step);//测试使用
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -2901,14 +4202,14 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP1：确认车辆配置状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62,0x5c15);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62, 0x5c15);
             return;
         case 2:
             settimer_CAPL(MSEC_TIMER, msgSend_1001, 100);
             Trace(">> STEP2：进入正常会话模式");
             return;
         case 3:
-            settimer_CAPL(MSEC_TIMER,msgSend_1101,100);
+            settimer_CAPL(MSEC_TIMER, msgSend_1101, 100);
             Trace(">> STEP3：重置ECU");
             return;
         case 4:
@@ -2949,7 +4250,7 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP7：开始EOL流程");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc0);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc0);
             return;
         case 8:
             rstMsg_EMS.dlc = 8;
@@ -2964,7 +4265,7 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP8：开始PEPS EOL流程");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc1);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc1);
             return;
         case 9:
             IMMO_Status = 0xff;
@@ -2980,12 +4281,11 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP9：确认控制器状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x035cc1);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x035cc1);
             return;
         case 10:
 //            Trace("IMMO_Status=%02X",IMMO_Status);//测试使用
-            if (IMMO_Status == 0x0A)
-            {
+            if (IMMO_Status == 0x0A) {
                 rstMsg_EMS.dlc = 8;
                 rstMsg_EMS.id = 0x729;
                 rstMsg_EMS.data[0] = 0x06;
@@ -2998,9 +4298,9 @@ void Utils_doEOL_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP10：写入 SC");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6e,0x5CB1);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6e, 0x5CB1);
                 return;
-            } else{
+            } else {
                 Trace(">> STEP10：请检查控制器学习状态");
                 Utils_Stop();
                 return;
@@ -3049,7 +4349,7 @@ void Utils_doEOL_H40D()
             Trace(">> STEP13：写入 SKC 第三帧");
             return;
         case 14:
-            Utils_setTimerWaiting(waiting, 500, 0x6E, 0x5CB0,14);/*等待响应*/
+            Utils_setTimerWaiting(waiting, 500, 0x6E, 0x5CB0, 14);/*等待响应*/
             Trace(">> STEP14：等待PEPS反馈");
             return;
         case 15:
@@ -3065,7 +4365,7 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP15：完成PEPS学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025CC1);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025CC1);
             return;
         case 16:
             rstMsg_EMS.dlc = 8;
@@ -3080,7 +4380,7 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP16：开始ESCL EOL流程");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x015cc2);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x015cc2);
             return;
         case 17:
             IMMO_Status = 0xff;
@@ -3096,11 +4396,10 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP17：确认ESCL学习状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc2);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc2);
             return;
         case 18:
-            if (IMMO_Status == 0x0c)
-            {
+            if (IMMO_Status == 0x0c) {
                 rstMsg_EMS.dlc = 8;
                 rstMsg_EMS.id = 0x729;
                 rstMsg_EMS.data[0] = 0x04;
@@ -3113,10 +4412,10 @@ void Utils_doEOL_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP18：完成ESCL学习");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025CC2);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025CC2);
                 return;
             } else {
-                Step --;
+                Step--;
                 Utils_doEOL_H40D();
                 return;
             }
@@ -3133,14 +4432,14 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP19：开始EMS EOL流程");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 300, 0x71,0x015cc3);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 300, 0x71, 0x015cc3);
             return;
         case 20:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGOFF,300);//共延时600ms
+            settimer_CAPL(MSEC_TIMER, msgSend_IGOFF, 300);//共延时600ms
             Trace(">> STEP20：IG OFF");
             return;
         case 21:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGON,9250);//10s后IG ON
+            settimer_CAPL(MSEC_TIMER, msgSend_IGON, 9250);//10s后IG ON
             Trace(">> STEP21：IG ON");
             return;
         case 22:
@@ -3157,11 +4456,10 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP22：确认EMS学习状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc3);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc3);
             return;
         case 23:
-            if (IMMO_Status == 0x0f)
-            {
+            if (IMMO_Status == 0x0f) {
                 rstMsg_EMS.dlc = 8;
                 rstMsg_EMS.id = 0x729;
                 rstMsg_EMS.data[0] = 0x04;
@@ -3174,15 +4472,13 @@ void Utils_doEOL_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP23：完成EMS学习");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025CC3);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025CC3);
                 return;
-            }
-            else
-                {
-                Step --;
+            } else {
+                Step--;
                 Utils_doEOL_H40D();
                 return;
-                }
+            }
         case 24:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x729;
@@ -3196,14 +4492,14 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP24：设置学习状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E,0x5CB4);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E, 0x5CB4);
             return;
         case 25:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGOFF,200);
+            settimer_CAPL(MSEC_TIMER, msgSend_IGOFF, 200);
             Trace(">> STEP25：IG OFF");
             return;
         case 26:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGON,9250);//10s后IG ON
+            settimer_CAPL(MSEC_TIMER, msgSend_IGON, 9250);//10s后IG ON
             Trace(">> STEP26：IG ON");
             return;
         case 27:
@@ -3220,11 +4516,10 @@ void Utils_doEOL_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP27：确认CAPE学习状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc0);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc0);
             return;
         case 28:
-            if (IMMO_Status == 0x09)
-            {
+            if (IMMO_Status == 0x09) {
                 rstMsg_EMS.dlc = 8;
                 rstMsg_EMS.id = 0x729;
                 rstMsg_EMS.data[0] = 0x04;
@@ -3237,16 +4532,15 @@ void Utils_doEOL_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP28：完成CAPE学习");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025CC0);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025CC0);
                 return;
-            } else
-                {
-                Step --;
+            } else {
+                Step--;
                 Utils_doEOL_H40D();
                 return;
-                }
+            }
         case 29:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGOFF,200);
+            settimer_CAPL(MSEC_TIMER, msgSend_IGOFF, 200);
             Trace(">> STEP29：IG OFF");
             return;
         case 30:
@@ -3270,11 +4564,9 @@ void Utils_doEOL_H40D()
 /* End BUSMASTER generated function - Utils_doEOL_H40D */
 
 /* Start BUSMASTER generated function - Utils_doClearEMSLearning_H40D */
-void Utils_doClearEMSLearning_H40D()
-{
+void Utils_doClearEMSLearning_H40D() {
 //    Trace("STEP = %d", Step);//测试使用
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -3287,7 +4579,7 @@ void Utils_doClearEMSLearning_H40D()
             Trace(">> STEP1：进入正常会话模式");
             return;
         case 2:
-            settimer_CAPL(MSEC_TIMER,msgSend_1101,100);
+            settimer_CAPL(MSEC_TIMER, msgSend_1101, 100);
             Trace(">> STEP2：重置ECU");
             return;
         case 3:
@@ -3328,14 +4620,14 @@ void Utils_doClearEMSLearning_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP6：清除EMS学习状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 150, 0x6e,0x5cb7);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 150, 0x6e, 0x5cb7);
             return;
         case 7:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGOFF,50);//SC确认成功200ms后IG OFF
+            settimer_CAPL(MSEC_TIMER, msgSend_IGOFF, 50);//SC确认成功200ms后IG OFF
             Trace(">> STEP7：IG OFF");
             return;
         case 8:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGON,9250);//10s后IG ON
+            settimer_CAPL(MSEC_TIMER, msgSend_IGON, 9250);//10s后IG ON
             Trace(">> STEP8：IG ON");
             return;
         case 9:
@@ -3354,13 +4646,12 @@ void Utils_doClearEMSLearning_H40D()
             Trace(">> STEP9：确认EMS学习状态");
             return;
         case 10:
-            Utils_setTimerWaiting(waiting, 200, 0x62,0x5c14,9);//会反馈7F 22 78，防止重新发送，增加等待步
+            Utils_setTimerWaiting(waiting, 200, 0x62, 0x5c14, 9);//会反馈7F 22 78，防止重新发送，增加等待步
             Trace(">> STEP10：等待响应");
             return;
         case 11:
 //            Trace("IMMO_Status = %02X",IMMO_Status);//测试使用
-            if (IMMO_Status == 0x04 || IMMO_Status == 0x06 || IMMO_Status == 0x08)
-            {
+            if (IMMO_Status == 0x04 || IMMO_Status == 0x06 || IMMO_Status == 0x08) {
                 Trace(">> STEP11：完成EMS学习值清除");
                 Utils_Stop();
                 return;
@@ -3381,11 +4672,9 @@ void Utils_doClearEMSLearning_H40D()
 /* End BUSMASTER generated function - Utils_doClearEMSLearning_H40D */
 
 /* Start BUSMASTER generated function - Utils_doReLearningEMS_H40D */
-void Utils_doReLearningEMS_H40D()
-{
+void Utils_doReLearningEMS_H40D() {
 //    Trace("STEP = %d", Step);
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -3407,22 +4696,21 @@ void Utils_doReLearningEMS_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP1：确认车辆配置状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62,0x5c15);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x62, 0x5c15);
             return;
         case 2:
-            if (Vehicle_Status != 0x02)
-            {
+            if (Vehicle_Status != 0x02) {
                 settimer_CAPL(MSEC_TIMER, msgSend_1001, 100);
                 Trace(">> STEP2：进入正常会话模式");
                 return;
-            } else{
+            } else {
                 Trace("ERROR：请确认整车配置");
                 Utils_Stop();
                 return;
             }
 
         case 3:
-            settimer_CAPL(MSEC_TIMER,msgSend_1101,100);
+            settimer_CAPL(MSEC_TIMER, msgSend_1101, 100);
             Trace(">> STEP3：重置ECU");
             return;
         case 4:
@@ -3450,10 +4738,10 @@ void Utils_doReLearningEMS_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP7：开始EMS返修流程");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc7);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc7);
             return;
         case 8:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGON,200);
+            settimer_CAPL(MSEC_TIMER, msgSend_IGON, 200);
             Trace(">> STEP8：等待IG ON");
             return;
         case 9:
@@ -3470,7 +4758,7 @@ void Utils_doReLearningEMS_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP9：确认控制器状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc7);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc7);
             return;
         case 10:
             if (IMMO_Status == 0x04 || IMMO_Status == 0x06 || IMMO_Status == 0x08)//EMS is Virgin
@@ -3508,13 +4796,13 @@ void Utils_doReLearningEMS_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP11：确认控制器状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x035cc7);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x035cc7);
             return;
         case 12:
 //            Trace("IMMO_Status = %02X",IMMO_Status);//测试使用
             if (IMMO_Status == 0x12)//0x12:SC Access is Ok
             {
-                settimer_CAPL(MSEC_TIMER,msgSend_IGOFF,800);//确认成功1s后IG OFF
+                settimer_CAPL(MSEC_TIMER, msgSend_IGOFF, 800);//确认成功1s后IG OFF
                 Trace(">> STEP12：IG OFF");
                 return;
             } else {
@@ -3523,7 +4811,7 @@ void Utils_doReLearningEMS_H40D()
                 return;
             }
         case 13:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGON,9250);//10s后IG ON
+            settimer_CAPL(MSEC_TIMER, msgSend_IGON, 9250);//10s后IG ON
             Trace(">> STEP13：IG ON");
             return;
         case 14:
@@ -3540,7 +4828,7 @@ void Utils_doReLearningEMS_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP14：确认控制器状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc7);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc7);
             return;
         case 15:
             if (IMMO_Status == 0x14)//0x14:Verification is ok
@@ -3557,19 +4845,19 @@ void Utils_doReLearningEMS_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP15：设置学习状态");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E,0x5CB4);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E, 0x5CB4);
                 return;
             } else {
-                Step --;
+                Step--;
                 Utils_doReLearningEMS_H40D();
                 return;
             }
         case 16:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGOFF,300);//确认成功500ms后IG OFF
+            settimer_CAPL(MSEC_TIMER, msgSend_IGOFF, 300);//确认成功500ms后IG OFF
             Trace(">> STEP16：IG OFF");
             return;
         case 17:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGON,9250);//10s后IG ON
+            settimer_CAPL(MSEC_TIMER, msgSend_IGON, 9250);//10s后IG ON
             Trace(">> STEP17：IG ON");
             return;
         case 18:
@@ -3586,7 +4874,7 @@ void Utils_doReLearningEMS_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP18：确认控制器状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 1000, 0x71,0x035cc7);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 1000, 0x71, 0x035cc7);
             return;
         case 19:
             if (IMMO_Status == 0x03 || IMMO_Status == 0x05 || IMMO_Status == 0x07 || IMMO_Status == 0x09)//EMS is Learnt
@@ -3603,15 +4891,15 @@ void Utils_doReLearningEMS_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP19：停止例程控制");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025cc7);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025cc7);
                 return;
             } else {
-                Step --;
+                Step--;
                 Utils_doReLearningEMS_H40D();
                 return;
             }
         case 20:
-            settimer_CAPL(MSEC_TIMER,msgSend_IGOFF,300);
+            settimer_CAPL(MSEC_TIMER, msgSend_IGOFF, 300);
             Trace(">> STEP20：IG OFF");
             return;
         case 21:
@@ -3627,7 +4915,7 @@ void Utils_doReLearningEMS_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP21：设置普通状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E,0x5CB3);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E, 0x5CB3);
             return;
         case 22:
             settimer_CAPL(MSEC_TIMER, msgSend_1001, 100);
@@ -3649,11 +4937,9 @@ void Utils_doReLearningEMS_H40D()
 /* End BUSMASTER generated function - Utils_doReLearningEMS_H40D */
 
 /* Start BUSMASTER generated function - Utils_doEOLKEY_H40D */
-void Utils_doEOLKEY_H40D()
-{
+void Utils_doEOLKEY_H40D() {
 //    Trace("STEP = %d", Step);
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -3666,7 +4952,7 @@ void Utils_doEOLKEY_H40D()
             Trace(">> STEP1：进入正常会话模式");
             return;
         case 2:
-            settimer_CAPL(MSEC_TIMER,msgSend_1101,10000);
+            settimer_CAPL(MSEC_TIMER, msgSend_1101, 10000);
             Trace(">> STEP2：重置ECU,请将钥匙1放至天线处，10s后开始学习");
             return;
         case 3:
@@ -3694,7 +4980,7 @@ void Utils_doEOLKEY_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP6：开始钥匙学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc4);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc4);
             return;
         case 7:
             rstMsg_EMS.dlc = 8;
@@ -3709,7 +4995,7 @@ void Utils_doEOLKEY_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP7：开始钥匙1学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc5);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc5);
             return;
         case 8:
             IMMO_Status = 0xff;
@@ -3725,7 +5011,7 @@ void Utils_doEOLKEY_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP8：确认钥匙1状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc5);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc5);
             return;
         case 9:
             if (IMMO_Status == 0x17)//0x17:UID 1 learning finished
@@ -3742,15 +5028,15 @@ void Utils_doEOLKEY_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP9：完成钥匙1学习");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025cc5);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025cc5);
                 return;
             } else {
-                Step --;
+                Step--;
                 Utils_doEOLKEY_H40D();
                 return;
             }
         case 10:
-            Utils_setTimerWaiting(waiting,10000,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 10000, 0xff, 0xff, ++Step);
             Trace(">> STEP10：请移开钥匙1并将钥匙2放至天线处，10s后开始学习");
             return;
         case 11:
@@ -3766,7 +5052,7 @@ void Utils_doEOLKEY_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP11：开始钥匙2学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc5);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc5);
             return;
         case 12:
             IMMO_Status = 0xff;
@@ -3782,7 +5068,7 @@ void Utils_doEOLKEY_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP12：确认钥匙2状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc5);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc5);
             return;
         case 13:
             if (IMMO_Status == 0x18)//0x18:UID 2 learning finished
@@ -3799,15 +5085,15 @@ void Utils_doEOLKEY_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP13：完成钥匙2学习");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025cc5);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025cc5);
                 return;
             } else {
-                Step --;
+                Step--;
                 Utils_doEOLKEY_H40D();
                 return;
             }
         case 14:
-            Utils_setTimerWaiting(waiting,10000,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 10000, 0xff, 0xff, ++Step);
             Trace(">> STEP14：请移开钥匙2，10s后完成学习");
             return;
         case 15:
@@ -3823,7 +5109,7 @@ void Utils_doEOLKEY_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP15：完成钥匙学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025cc4);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025cc4);
             return;
         case 16:
             settimer_CAPL(MSEC_TIMER, msgSend_1001, 100);
@@ -3844,11 +5130,9 @@ void Utils_doEOLKEY_H40D()
 /* End BUSMASTER generated function - Utils_doEOLKEY_H40D */
 
 /* Start BUSMASTER generated function - Utils_doReLearningKey_H40D */
-void Utils_doReLearningKey_H40D()
-{
+void Utils_doReLearningKey_H40D() {
 //    Trace("STEP = %d", Step);
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
             SetTimerVal(msgSend_3E, testPresentCycle);
             StartTimer(msgSend_3E, 1);
@@ -3861,7 +5145,7 @@ void Utils_doReLearningKey_H40D()
             Trace(">> STEP1：进入正常会话模式");
             return;
         case 2:
-            settimer_CAPL(MSEC_TIMER,msgSend_1101,10000);
+            settimer_CAPL(MSEC_TIMER, msgSend_1101, 10000);
             Trace(">> STEP2：重置ECU,请将钥匙1放至天线处，10s后开始学习");
             return;
         case 3:
@@ -3889,7 +5173,7 @@ void Utils_doReLearningKey_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP6：开始钥匙学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc8);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc8);
             return;
         case 7:
             rstMsg_EMS.dlc = 8;
@@ -3904,7 +5188,7 @@ void Utils_doReLearningKey_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP7：输入 SC");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E,0x5CB2);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x6E, 0x5CB2);
             return;
         case 8:
             rstMsg_EMS.dlc = 8;
@@ -3919,7 +5203,7 @@ void Utils_doReLearningKey_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP8：开始钥匙1学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc9);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc9);
             return;
         case 9:
             IMMO_Status = 0xff;
@@ -3935,7 +5219,7 @@ void Utils_doReLearningKey_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP8：确认钥匙1状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc9);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc9);
             return;
         case 10:
             if (IMMO_Status == 0x17)//0x17:UID 1 learning finished
@@ -3952,15 +5236,15 @@ void Utils_doReLearningKey_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP10：完成钥匙1学习");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025cc9);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025cc9);
                 return;
             } else {
-                Step --;
+                Step--;
                 Utils_doReLearningKey_H40D();
                 return;
             }
         case 11:
-            Utils_setTimerWaiting(waiting,10000,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 10000, 0xff, 0xff, ++Step);
             Trace(">> STEP11：请移开钥匙1并将钥匙2放至天线处，10s后开始学习");
             return;
         case 12:
@@ -3976,7 +5260,7 @@ void Utils_doReLearningKey_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP12：开始钥匙2学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x015cc9);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x015cc9);
             return;
         case 13:
             IMMO_Status = 0xff;
@@ -3992,7 +5276,7 @@ void Utils_doReLearningKey_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP13：确认钥匙2状态");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71,0x035cc9);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x71, 0x035cc9);
             return;
         case 14:
             if (IMMO_Status == 0x18)//0x18:UID 2 learning finished
@@ -4009,15 +5293,15 @@ void Utils_doReLearningKey_H40D()
                 rstMsg_EMS.data[7] = 0xff;
                 Utils_SendMsg();
                 Trace(">> STEP14：完成钥匙2学习");
-                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025cc9);
+                Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025cc9);
                 return;
             } else {
-                Step --;
+                Step--;
                 Utils_doReLearningKey_H40D();
                 return;
             }
         case 15:
-            Utils_setTimerWaiting(waiting,10000,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 10000, 0xff, 0xff, ++Step);
             Trace(">> STEP15：请移开钥匙2，10s后完成学习");
             return;
         case 16:
@@ -4033,7 +5317,7 @@ void Utils_doReLearningKey_H40D()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             Trace(">> STEP16：完成钥匙学习");
-            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71,0x025cc8);
+            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 200, 0x71, 0x025cc8);
             return;
         case 17:
             settimer_CAPL(MSEC_TIMER, msgSend_1001, 100);
@@ -4054,11 +5338,9 @@ void Utils_doReLearningKey_H40D()
 /* End BUSMASTER generated function - Utils_doReLearningKey_H40D */
 
 /* Start BUSMASTER generated function - Utils_doGetInformation */
-void Utils_doGetInformation()
-{
+void Utils_doGetInformation() {
 //    Trace("STEP = %d", Step);
-    switch (Step)
-    {
+    switch (Step) {
         case 0:
 //            SetTimerVal(msgSend_3E, testPresentCycle);//取消3E，减少对30的影响
 //            StartTimer(msgSend_3E, 1);
@@ -4067,7 +5349,7 @@ void Utils_doGetInformation()
             settimer_CAPL(MSEC_TIMER, msgSend_1003, 200);
             return;
         case 1:
-            Utils_setTimerWaiting(waiting,200,0xff,0xff,++Step);//等待5003响应
+            Utils_setTimerWaiting(waiting, 200, 0xff, 0xff, ++Step);//延时200ms
             return;
         case 2:
             rstMsg_EMS.dlc = 8;
@@ -4081,7 +5363,7 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf190);//延时需要大于checkInformation的延时,容易导致7F Pending如需要校验最好还是拆2步，以免重新发送
             return;
         case 3:
@@ -4096,7 +5378,7 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf187);
             return;
         case 4:
@@ -4111,7 +5393,7 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf197);
             return;
         case 5:
@@ -4126,7 +5408,7 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf18a);
             return;
         case 6:
@@ -4141,7 +5423,7 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf193);
             return;
         case 7:
@@ -4156,7 +5438,7 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf195);
             return;
         case 8:
@@ -4171,10 +5453,55 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf199);
             return;
         case 9:
+            rstMsg_EMS.dlc = 8;
+            rstMsg_EMS.id = 0x7E0;
+            rstMsg_EMS.data[0] = 0x03;
+            rstMsg_EMS.data[1] = 0x22;
+            rstMsg_EMS.data[2] = 0xf1;
+            rstMsg_EMS.data[3] = 0x8c;
+            rstMsg_EMS.data[4] = 0xff;
+            rstMsg_EMS.data[5] = 0xff;
+            rstMsg_EMS.data[6] = 0xff;
+            rstMsg_EMS.data[7] = 0xff;
+            Utils_SendMsg();
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
+//            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf199);
+            return;
+        case 10:
+            rstMsg_EMS.dlc = 8;
+            rstMsg_EMS.id = 0x7E0;
+            rstMsg_EMS.data[0] = 0x03;
+            rstMsg_EMS.data[1] = 0x22;
+            rstMsg_EMS.data[2] = 0xf1;
+            rstMsg_EMS.data[3] = 0xa8;
+            rstMsg_EMS.data[4] = 0xff;
+            rstMsg_EMS.data[5] = 0xff;
+            rstMsg_EMS.data[6] = 0xff;
+            rstMsg_EMS.data[7] = 0xff;
+            Utils_SendMsg();
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
+//            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf199);
+            return;
+        case 11:
+            rstMsg_EMS.dlc = 8;
+            rstMsg_EMS.id = 0x7E0;
+            rstMsg_EMS.data[0] = 0x03;
+            rstMsg_EMS.data[1] = 0x22;
+            rstMsg_EMS.data[2] = 0xf1;
+            rstMsg_EMS.data[3] = 0x00;
+            rstMsg_EMS.data[4] = 0xff;
+            rstMsg_EMS.data[5] = 0xff;
+            rstMsg_EMS.data[6] = 0xff;
+            rstMsg_EMS.data[7] = 0xff;
+            Utils_SendMsg();
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
+//            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x62,0xf199);
+            return;
+        case 12:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x7DF;
             rstMsg_EMS.data[0] = 0x02;
@@ -4187,10 +5514,10 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             rstMsg_EMS.id = 0x7E0;
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x49,0x04);
             return;
-        case 10:
+        case 13:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x7DF;
             rstMsg_EMS.data[0] = 0x02;
@@ -4203,10 +5530,10 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             rstMsg_EMS.id = 0x7E0;
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x49,0x06);
             return;
-        case 11:
+        case 14:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x7DF;
             rstMsg_EMS.data[0] = 0x02;
@@ -4219,10 +5546,10 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             rstMsg_EMS.id = 0x7E0;
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x49,0x02);
             return;
-        case 12:
+        case 15:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x7DF;
             rstMsg_EMS.data[0] = 0x02;
@@ -4235,10 +5562,10 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             rstMsg_EMS.id = 0x7E0;
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x49,0x0a);
             return;
-        case 13:
+        case 16:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x7DF;
             rstMsg_EMS.data[0] = 0x02;
@@ -4251,10 +5578,10 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
             rstMsg_EMS.id = 0x7E0;
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x49,0x08);
             return;
-        case 14:
+        case 17:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x7E0;
             rstMsg_EMS.data[0] = 0x03;
@@ -4266,10 +5593,10 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x59,0x02);//延时需要大于checkDTC的延时
             return;
-        case 15:
+        case 18:
             rstMsg_EMS.dlc = 8;
             rstMsg_EMS.id = 0x7E1;
             rstMsg_EMS.data[0] = 0x03;
@@ -4281,10 +5608,10 @@ void Utils_doGetInformation()
             rstMsg_EMS.data[6] = 0xff;
             rstMsg_EMS.data[7] = 0xff;
             Utils_SendMsg();
-            Utils_setTimerWaiting(waiting,500,0xff,0xff,++Step);
+            Utils_setTimerWaiting(waiting, 500, 0xff, 0xff, ++Step);
 //            Utils_setTimerWithRespOptions(WaitForRespTimer_Options, 500, 0x59,0x02);//延时需要大于checkDTC的延时
             return;
-        case 16:
+        case 19:
             rstMsg_EMS.id = 0x7E0;
             Utils_Stop();
             return;
@@ -4299,13 +5626,12 @@ void Utils_doGetInformation()
 /* End BUSMASTER generated function - Utils_doGetInformation */
 
 /* Start BUSMASTER generated function - Utils_initialize */
-void Utils_initialize()
-{
+void Utils_initialize() {
     Mode = 0x00;
     ReSendMsg = False;
     Step = 0;
     mSID = 0x00;
-    Options =0x00;
+    Options = 0x00;
     IMMO_Status = 0xff;
     Vehicle_Status = 0xff;
     StopTimer(checkDTC);
@@ -4328,15 +5654,13 @@ void Utils_initialize()
 /* End BUSMASTER generated function - Utils_initialize */
 
 /* Start BUSMASTER generated function - Utils_PreStart */
-void Utils_PreStart()
-{
+void Utils_PreStart() {
     Utils_initialize();
 }
 /* End BUSMASTER generated function - Utils_PreStart */
 
 /* Start BUSMASTER generated function - OnBus_Connect */
-void OnBus_Connect()
-{
+void OnBus_Connect() {
     Utils_initialize();
     initialize(&rstMsg_EMS, 0x7e0, false, 0, 1);
     initialize(&present_EMS, 0x7e0, false, 8, 1, 0x02, 0x3e, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff);
@@ -4346,16 +5670,14 @@ void OnBus_Connect()
 
 
 /* Start BUSMASTER generated function - OnKey_o */
-void OnKey_o(unsigned char KeyValue)
-{
+void OnKey_o() {
     Utils_initialize();
     Utils_checkVIN();//读取VIN
 }
 /* End BUSMASTER generated function - OnKey_o */
 
 /* Start BUSMASTER generated function - OnKey_p */
-void OnKey_p(unsigned char KeyValue)
-{
+void OnKey_p() {
     rstMsg_EMS.id = 0x7e0;//EMS
     present_EMS.id = 0x7e0;//EMS
 //    rstMsg_EMS.cluster = 1;
@@ -4363,16 +5685,14 @@ void OnKey_p(unsigned char KeyValue)
     Utils_initialize();
     settimer_CAPL(MSEC_TIMER, timer_Stop, 2500);//超时
     Mode = 0x01;//
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_p */
 
 /* Start BUSMASTER generated function - OnKey_q */
-void OnKey_q(unsigned char KeyValue)
-{
+void OnKey_q() {
     rstMsg_EMS.id = 0x7e0;//EMS
     present_EMS.id = 0x7e0;//EMS
 //    rstMsg_EMS.cluster = 1;
@@ -4382,16 +5702,14 @@ void OnKey_q(unsigned char KeyValue)
 //    Step = 5;//跳过安全访问改为5
 //    CFSend = 0x03;//第3帧开始补帧
     Mode = 0x02;//EMS写入VIN
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_q */
 
 /* Start BUSMASTER generated function - OnKey_r */
-void OnKey_r(unsigned char KeyValue)
-{
+void OnKey_r() {
     Utils_initialize();
 //    settimer_CAPL(MSEC_TIMER, timer_Stop, 50);
     Trace("停止");
@@ -4399,8 +5717,7 @@ void OnKey_r(unsigned char KeyValue)
 /* End BUSMASTER generated function - OnKey_r */
 
 /* Start BUSMASTER generated function - OnKey_s */
-void OnKey_s(unsigned char KeyValue)
-{
+void OnKey_s() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x7e0;//EMS
     present_EMS.id = 0x7e0;//EMS
@@ -4410,16 +5727,14 @@ void OnKey_s(unsigned char KeyValue)
     settimer_CAPL(MSEC_TIMER, timer_Stop, 5000);//超时
 //    Step = 5;//跳过安全访问改为5
     Mode = 0x03;//清除ECU学习值_H32B
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_s */
 
 /* Start BUSMASTER generated function - OnKey_t */
-void OnKey_t(unsigned char KeyValue)
-{
+void OnKey_t() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x7e0;//EMS
     present_EMS.id = 0x7e0;//EMS
@@ -4429,16 +5744,14 @@ void OnKey_t(unsigned char KeyValue)
     settimer_CAPL(MSEC_TIMER, timer_Stop, 5000);//超时
 //    Step = 5;//跳过安全访问改为5
     Mode = 0x04;//写入ECU学习值_H32B
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_t */
 
 /* Start BUSMASTER generated function - OnKey_u */
-void OnKey_u(unsigned char KeyValue)
-{
+void OnKey_u() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x729;//PEPS
     present_EMS.id = 0x729;//PEPS
@@ -4447,16 +5760,14 @@ void OnKey_u(unsigned char KeyValue)
     Utils_initialize();
     settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
     Mode = 0x05;//PEPS EOL_H40D
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_u */
 
 /* Start BUSMASTER generated function - OnKey_v */
-void OnKey_v(unsigned char KeyValue)
-{
+void OnKey_v() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x729;//PEPS
     present_EMS.id = 0x729;//PEPS
@@ -4465,16 +5776,14 @@ void OnKey_v(unsigned char KeyValue)
     Utils_initialize();
     settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
     Mode = 0x06;//清除EMS学习值_H40D
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_v */
 
 /* Start BUSMASTER generated function - OnKey_w */
-void OnKey_w(unsigned char KeyValue)
-{
+void OnKey_w() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x729;//PEPS
     present_EMS.id = 0x729;//PEPS
@@ -4483,16 +5792,14 @@ void OnKey_w(unsigned char KeyValue)
     Utils_initialize();
     settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
     Mode = 0x07;//EMS再学习_H40D
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_w */
 
 /* Start BUSMASTER generated function - OnKey_x */
-void OnKey_x(unsigned char KeyValue)
-{
+void OnKey_x() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x729;//PEPS
     present_EMS.id = 0x729;//PEPS
@@ -4501,16 +5808,14 @@ void OnKey_x(unsigned char KeyValue)
     Utils_initialize();
     settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
     Mode = 0x08;//EOL KEY_H40D
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_x */
 
 /* Start BUSMASTER generated function - OnKey_y */
-void OnKey_y(unsigned char KeyValue)
-{
+void OnKey_y() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x729;//PEPS
     present_EMS.id = 0x729;//PEPS
@@ -4519,15 +5824,13 @@ void OnKey_y(unsigned char KeyValue)
     Utils_initialize();
     settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
     Mode = 0x09;//AfterSales KEY_H40D
-    if (Utils_checkVIN() == True)
-    {
+    if (Utils_checkVIN() == True) {
         Utils_RunFlowControl();
     }
 }
 /* End BUSMASTER generated function - OnKey_y */
 /* Start BUSMASTER generated function - OnKey_z */
-void OnKey_z(unsigned char KeyValue)
-{
+void OnKey_z() {
     StopTimer(msgSend_3E);
     rstMsg_EMS.id = 0x7E0;//EMS
     present_EMS.id = 0x7E0;//EMS
