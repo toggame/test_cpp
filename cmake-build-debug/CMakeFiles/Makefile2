@@ -53,11 +53,13 @@ CMAKE_BINARY_DIR = D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug
 
 # The main recursive "all" target.
 all: CMakeFiles/test_cpp.dir/all
+all: CMakeFiles/test_cpp_simple.dir/all
 
 .PHONY : all
 
 # The main recursive "clean" target.
 clean: CMakeFiles/test_cpp.dir/clean
+clean: CMakeFiles/test_cpp_simple.dir/clean
 
 .PHONY : clean
 
@@ -92,6 +94,33 @@ test_cpp: CMakeFiles/test_cpp.dir/rule
 CMakeFiles/test_cpp.dir/clean:
 	$(MAKE) -f CMakeFiles\test_cpp.dir\build.make CMakeFiles/test_cpp.dir/clean
 .PHONY : CMakeFiles/test_cpp.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_cpp_simple.dir
+
+# All Build rule for target.
+CMakeFiles/test_cpp_simple.dir/all:
+	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/depend
+	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug\CMakeFiles --progress-num=3,4 "Built target test_cpp_simple"
+.PHONY : CMakeFiles/test_cpp_simple.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_cpp_simple.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug\CMakeFiles 2
+	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/test_cpp_simple.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/test_cpp_simple.dir/rule
+
+# Convenience name for target.
+test_cpp_simple: CMakeFiles/test_cpp_simple.dir/rule
+
+.PHONY : test_cpp_simple
+
+# clean rule for target.
+CMakeFiles/test_cpp_simple.dir/clean:
+	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/clean
+.PHONY : CMakeFiles/test_cpp_simple.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

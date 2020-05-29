@@ -122,6 +122,19 @@ test_cpp/fast:
 	$(MAKE) -f CMakeFiles\test_cpp.dir\build.make CMakeFiles/test_cpp.dir/build
 .PHONY : test_cpp/fast
 
+#=============================================================================
+# Target rules for targets named test_cpp_simple
+
+# Build rule for target.
+test_cpp_simple: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 test_cpp_simple
+.PHONY : test_cpp_simple
+
+# fast build rule for target.
+test_cpp_simple/fast:
+	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/build
+.PHONY : test_cpp_simple/fast
+
 test_cpp.obj: test_cpp.cpp.obj
 
 .PHONY : test_cpp.obj
@@ -149,6 +162,33 @@ test_cpp.cpp.s:
 	$(MAKE) -f CMakeFiles\test_cpp.dir\build.make CMakeFiles/test_cpp.dir/test_cpp.cpp.s
 .PHONY : test_cpp.cpp.s
 
+test_cpp_simple.obj: test_cpp_simple.cpp.obj
+
+.PHONY : test_cpp_simple.obj
+
+# target to build an object file
+test_cpp_simple.cpp.obj:
+	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/test_cpp_simple.cpp.obj
+.PHONY : test_cpp_simple.cpp.obj
+
+test_cpp_simple.i: test_cpp_simple.cpp.i
+
+.PHONY : test_cpp_simple.i
+
+# target to preprocess a source file
+test_cpp_simple.cpp.i:
+	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/test_cpp_simple.cpp.i
+.PHONY : test_cpp_simple.cpp.i
+
+test_cpp_simple.s: test_cpp_simple.cpp.s
+
+.PHONY : test_cpp_simple.s
+
+# target to generate assembly for a file
+test_cpp_simple.cpp.s:
+	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/test_cpp_simple.cpp.s
+.PHONY : test_cpp_simple.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -156,11 +196,15 @@ help:
 	@echo ... clean
 	@echo ... depend
 	@echo ... test_cpp
+	@echo ... test_cpp_simple
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... test_cpp.obj
 	@echo ... test_cpp.i
 	@echo ... test_cpp.s
+	@echo ... test_cpp_simple.obj
+	@echo ... test_cpp_simple.i
+	@echo ... test_cpp_simple.s
 .PHONY : help
 
 

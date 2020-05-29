@@ -4,8 +4,11 @@
       <w>abcdefghjklmnprstuvwxyz</w>
       <w>busmaster</w>
       <w>ccode</w>
+      <w>cinfo</w>
       <w>clen</w>
       <w>openfileread</w>
+      <w>stcan</w>
+      <w>strlen</w>
     </words>
   </dictionary>
 </component>
