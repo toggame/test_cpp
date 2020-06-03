@@ -1,27 +1,12 @@
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:1:0: warning: ignoring #pragma clang diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:1:0: warning: ignoring #pragma clang diagnostic [-Wunknown-pragmas]
  #pragma clang diagnostic push
  ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:2:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:2:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
  #pragma ide diagnostic ignored "hicpp-signed-bitwise"//位操作校验
  ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:3:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:3:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
  #pragma ide diagnostic ignored "cert-err58-cpp"//STCAN_MSG报错
  ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:4:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:4:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
  #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"//未使用全局变量，取消对部分BUSMASTER功能检查
  ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:105:17: warning: 'global::VIN' defined but not used [-Wunused-variable]
-     static char VIN[20];
-                 ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:106:26: warning: 'global::vinArr' defined but not used [-Wunused-variable]
-     static unsigned char vinArr[17];
-                          ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:107:26: warning: 'global::PIN' defined but not used [-Wunused-variable]
-     static unsigned char PIN[4];
-                          ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:108:26: warning: 'global::ESK' defined but not used [-Wunused-variable]
-     static unsigned char ESK[16];//H32B算法
-                          ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~1.CPP:109:26: warning: 'global::ESK2' defined but not used [-Wunused-variable]
-     static unsigned char ESK2[16];//H33D算法
-                          ^

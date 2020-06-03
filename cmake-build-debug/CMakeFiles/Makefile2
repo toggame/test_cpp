@@ -54,12 +54,14 @@ CMAKE_BINARY_DIR = D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug
 # The main recursive "all" target.
 all: CMakeFiles/test_cpp.dir/all
 all: CMakeFiles/test_cpp_simple.dir/all
+all: CMakeFiles/test_cpp_simple_AECS.dir/all
 
 .PHONY : all
 
 # The main recursive "clean" target.
 clean: CMakeFiles/test_cpp.dir/clean
 clean: CMakeFiles/test_cpp_simple.dir/clean
+clean: CMakeFiles/test_cpp_simple_AECS.dir/clean
 
 .PHONY : clean
 
@@ -121,6 +123,33 @@ test_cpp_simple: CMakeFiles/test_cpp_simple.dir/rule
 CMakeFiles/test_cpp_simple.dir/clean:
 	$(MAKE) -f CMakeFiles\test_cpp_simple.dir\build.make CMakeFiles/test_cpp_simple.dir/clean
 .PHONY : CMakeFiles/test_cpp_simple.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_cpp_simple_AECS.dir
+
+# All Build rule for target.
+CMakeFiles/test_cpp_simple_AECS.dir/all:
+	$(MAKE) -f CMakeFiles\test_cpp_simple_AECS.dir\build.make CMakeFiles/test_cpp_simple_AECS.dir/depend
+	$(MAKE) -f CMakeFiles\test_cpp_simple_AECS.dir\build.make CMakeFiles/test_cpp_simple_AECS.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug\CMakeFiles --progress-num=5,6 "Built target test_cpp_simple_AECS"
+.PHONY : CMakeFiles/test_cpp_simple_AECS.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_cpp_simple_AECS.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug\CMakeFiles 2
+	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/test_cpp_simple_AECS.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\EMSDATA\CAPL\test\busmaster\test_cpp\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/test_cpp_simple_AECS.dir/rule
+
+# Convenience name for target.
+test_cpp_simple_AECS: CMakeFiles/test_cpp_simple_AECS.dir/rule
+
+.PHONY : test_cpp_simple_AECS
+
+# clean rule for target.
+CMakeFiles/test_cpp_simple_AECS.dir/clean:
+	$(MAKE) -f CMakeFiles\test_cpp_simple_AECS.dir\build.make CMakeFiles/test_cpp_simple_AECS.dir/clean
+.PHONY : CMakeFiles/test_cpp_simple_AECS.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

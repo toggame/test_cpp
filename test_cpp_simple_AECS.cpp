@@ -992,37 +992,47 @@ void Utils_SendMsg() {
 
 /* Start BUSMASTER generated function - Utils_Seed2Key_EMS */
 void Utils_Seed2Key_EMS(const unsigned char seedArr[], unsigned char keyArr[]) {
-    static unsigned short moveStep, i;
-    static unsigned long Seed;
-    static unsigned long Mask, calKey;
+    static unsigned short num_rounds;
+    static unsigned long v0, v1, i, sum, delta;
+    static unsigned long k[4], calKey;
 
-    Mask = 0x2459D1A3;
-    moveStep = 30;
+//    k[0] = 0xA94D71A1;
+//    k[1] = 0x452C1B79;
+//    k[2] = 0xD50E4863;
+//    k[3] = 0xA9564F69;
+//    测试用
+    k[0] = 0x82D6DE52;
+    k[1] = 0x5899F96D;
+    k[2] = 0x419B0999;
+    k[3] = 0xAA571108;
 
-    Seed = seedArr[3];
-    Seed = Seed | (seedArr[2] << 8);
-    Seed = Seed | (seedArr[1] << 16);
-    Seed = Seed | (seedArr[0] << 24);
-    Trace("EMS seed: %08X", Seed);
+    num_rounds = 2;
+    sum = 0;
+    delta = 0x9E3779B9;
 
-    if (Seed != 0) {
-        for (i = 0; i < moveStep; i++) {
-            if (Seed & 0x80000000) {
-                Seed = Seed << 1;
-                Seed = Seed ^ Mask;
-            } else {
-                Seed = Seed << 1;
-            }
-        }
-        calKey = Seed;
-        Trace("EMS key: %08X", calKey);
-        keyArr[0] = (calKey >> 24) & 0xFF;
-        keyArr[1] = (calKey >> 16) & 0xFF;
-        keyArr[2] = (calKey >> 8) & 0xFF;
-        keyArr[3] = (calKey) & 0xFF;
+    v0 = seedArr[3];
+    v0 = v0 | (seedArr[2] << 8);
+    v0 = v0 | (seedArr[1] << 16);
+    v0 = v0 | (seedArr[0] << 24);
+    v1 = ~seedArr[3] & 0xFF;
+    v1 = v1 | ((~seedArr[2] & 0xFF) << 8);
+    v1 = v1 | ((~seedArr[1] & 0xFF) << 16);
+    v1 = v1 | ((~seedArr[0] & 0xFF) << 24);
+    Trace("EMS seed: %08X", v0);
+    Trace("EMS N_seed: %08X", v1);
+    for (i = 0; i < num_rounds; ++i) {
+        v0 += (((v1 << 4) ^ (v1 >> 5)) + v1) ^ (sum + k[sum & 3]);
+        sum += delta;
+        v1 += (((v0 << 4) ^ (v0 >> 5)) + v0) ^ (sum + k[(sum >> 11) & 3]);
     }
-
-
+//    Trace("EMS v0: %08X", v0);
+//    Trace("EMS v1: %08X", v1);
+    calKey = v0;
+    Trace("EMS key: %08X", calKey);
+    keyArr[0] = (calKey >> 24) & 0xFF;
+    keyArr[1] = (calKey >> 16) & 0xFF;
+    keyArr[2] = (calKey >> 8) & 0xFF;
+    keyArr[3] = (calKey) & 0xFF;
 }
 //EMS安全算法
 
