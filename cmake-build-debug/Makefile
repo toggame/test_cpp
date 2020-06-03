@@ -148,6 +148,19 @@ test_cpp_simple_AECS/fast:
 	$(MAKE) -f CMakeFiles\test_cpp_simple_AECS.dir\build.make CMakeFiles/test_cpp_simple_AECS.dir/build
 .PHONY : test_cpp_simple_AECS/fast
 
+#=============================================================================
+# Target rules for targets named test_cpp_AECS
+
+# Build rule for target.
+test_cpp_AECS: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 test_cpp_AECS
+.PHONY : test_cpp_AECS
+
+# fast build rule for target.
+test_cpp_AECS/fast:
+	$(MAKE) -f CMakeFiles\test_cpp_AECS.dir\build.make CMakeFiles/test_cpp_AECS.dir/build
+.PHONY : test_cpp_AECS/fast
+
 test_cpp.obj: test_cpp.cpp.obj
 
 .PHONY : test_cpp.obj
@@ -174,6 +187,33 @@ test_cpp.s: test_cpp.cpp.s
 test_cpp.cpp.s:
 	$(MAKE) -f CMakeFiles\test_cpp.dir\build.make CMakeFiles/test_cpp.dir/test_cpp.cpp.s
 .PHONY : test_cpp.cpp.s
+
+test_cpp_AECS.obj: test_cpp_AECS.cpp.obj
+
+.PHONY : test_cpp_AECS.obj
+
+# target to build an object file
+test_cpp_AECS.cpp.obj:
+	$(MAKE) -f CMakeFiles\test_cpp_AECS.dir\build.make CMakeFiles/test_cpp_AECS.dir/test_cpp_AECS.cpp.obj
+.PHONY : test_cpp_AECS.cpp.obj
+
+test_cpp_AECS.i: test_cpp_AECS.cpp.i
+
+.PHONY : test_cpp_AECS.i
+
+# target to preprocess a source file
+test_cpp_AECS.cpp.i:
+	$(MAKE) -f CMakeFiles\test_cpp_AECS.dir\build.make CMakeFiles/test_cpp_AECS.dir/test_cpp_AECS.cpp.i
+.PHONY : test_cpp_AECS.cpp.i
+
+test_cpp_AECS.s: test_cpp_AECS.cpp.s
+
+.PHONY : test_cpp_AECS.s
+
+# target to generate assembly for a file
+test_cpp_AECS.cpp.s:
+	$(MAKE) -f CMakeFiles\test_cpp_AECS.dir\build.make CMakeFiles/test_cpp_AECS.dir/test_cpp_AECS.cpp.s
+.PHONY : test_cpp_AECS.cpp.s
 
 test_cpp_simple.obj: test_cpp_simple.cpp.obj
 
@@ -239,10 +279,14 @@ help:
 	@echo ... test_cpp_simple
 	@echo ... test_cpp_simple_AECS
 	@echo ... edit_cache
+	@echo ... test_cpp_AECS
 	@echo ... rebuild_cache
 	@echo ... test_cpp.obj
 	@echo ... test_cpp.i
 	@echo ... test_cpp.s
+	@echo ... test_cpp_AECS.obj
+	@echo ... test_cpp_AECS.i
+	@echo ... test_cpp_AECS.s
 	@echo ... test_cpp_simple.obj
 	@echo ... test_cpp_simple.i
 	@echo ... test_cpp_simple.s

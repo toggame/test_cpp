@@ -153,6 +153,48 @@
 					<DistClean command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="test_cpp_AECS">
+				<Option output="D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/test_cpp_AECS.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include/c++"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include/c++/mingw32"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include/c++/backward"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/../../../../include"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 test_cpp_AECS"/>
+					<CompileFile command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_cpp_AECS/fast">
+				<Option output="D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/test_cpp_AECS.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include/c++"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include/c++/mingw32"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include/c++/backward"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/../../../../include"/>
+					<Add directory="C:/TDM-GCC-32/bin/../lib/gcc/mingw32/5.1.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 test_cpp_AECS/fast"/>
+					<CompileFile command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/TDM-GCC-32/bin/mingw32-make.exe -f &quot;D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="D:/EMSDATA/CAPL/test/busmaster/test_cpp/cmake-build-debug"/>
 				<Option type="4"/>
@@ -166,6 +208,9 @@
 		</Build>
 		<Unit filename="D:/EMSDATA/CAPL/test/busmaster/test_cpp/test_cpp.cpp">
 			<Option target="test_cpp"/>
+		</Unit>
+		<Unit filename="D:/EMSDATA/CAPL/test/busmaster/test_cpp/test_cpp_AECS.cpp">
+			<Option target="test_cpp_AECS"/>
 		</Unit>
 		<Unit filename="D:/EMSDATA/CAPL/test/busmaster/test_cpp/test_cpp_simple.cpp">
 			<Option target="test_cpp_simple"/>

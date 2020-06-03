@@ -114,11 +114,6 @@ GCC_EXTERN void GCC_EXPORT OnKey_q();
 GCC_EXTERN void GCC_EXPORT OnKey_r();
 GCC_EXTERN void GCC_EXPORT OnKey_s();
 GCC_EXTERN void GCC_EXPORT OnKey_t();
-GCC_EXTERN void GCC_EXPORT OnKey_u();
-GCC_EXTERN void GCC_EXPORT OnKey_v();
-GCC_EXTERN void GCC_EXPORT OnKey_w();
-GCC_EXTERN void GCC_EXPORT OnKey_x();
-GCC_EXTERN void GCC_EXPORT OnKey_y();
 GCC_EXTERN void GCC_EXPORT OnKey_z();
 /* End BUSMASTER Function Prototype  */
 
@@ -1021,37 +1016,47 @@ void Utils_SendMsg() {
 
 /* Start BUSMASTER generated function - Utils_Seed2Key_EMS */
 void Utils_Seed2Key_EMS(const unsigned char seedArr[], unsigned char keyArr[]) {
-    static unsigned short moveStep, i;
-    static unsigned long Seed;
-    static unsigned long Mask, calKey;
+    static unsigned short num_rounds;
+    static unsigned long v0, v1, i, sum, delta;
+    static unsigned long k[4], calKey;
 
-    Mask = 0x2459D1A3;
-    moveStep = 30;
+//    k[0] = 0xA94D71A1;
+//    k[1] = 0x452C1B79;
+//    k[2] = 0xD50E4863;
+//    k[3] = 0xA9564F69;
+//    测试用
+    k[0] = 0x82D6DE52;
+    k[1] = 0x5899F96D;
+    k[2] = 0x419B0999;
+    k[3] = 0xAA571108;
 
-    Seed = seedArr[3];
-    Seed = Seed | (seedArr[2] << 8);
-    Seed = Seed | (seedArr[1] << 16);
-    Seed = Seed | (seedArr[0] << 24);
-    Trace("EMS seed: %08X", Seed);
+    num_rounds = 2;
+    sum = 0;
+    delta = 0x9E3779B9;
 
-    if (Seed != 0) {
-        for (i = 0; i < moveStep; i++) {
-            if (Seed & 0x80000000) {
-                Seed = Seed << 1;
-                Seed = Seed ^ Mask;
-            } else {
-                Seed = Seed << 1;
-            }
-        }
-        calKey = Seed;
-        Trace("EMS key: %08X", calKey);
-        keyArr[0] = (calKey >> 24) & 0xFF;
-        keyArr[1] = (calKey >> 16) & 0xFF;
-        keyArr[2] = (calKey >> 8) & 0xFF;
-        keyArr[3] = (calKey) & 0xFF;
+    v0 = seedArr[3];
+    v0 = v0 | (seedArr[2] << 8);
+    v0 = v0 | (seedArr[1] << 16);
+    v0 = v0 | (seedArr[0] << 24);
+    v1 = ~seedArr[3] & 0xFF;
+    v1 = v1 | ((~seedArr[2] & 0xFF) << 8);
+    v1 = v1 | ((~seedArr[1] & 0xFF) << 16);
+    v1 = v1 | ((~seedArr[0] & 0xFF) << 24);
+    Trace("EMS seed: %08X", v0);
+    Trace("EMS N_seed: %08X", v1);
+    for (i = 0; i < num_rounds; ++i) {
+        v0 += (((v1 << 4) ^ (v1 >> 5)) + v1) ^ (sum + k[sum & 3]);
+        sum += delta;
+        v1 += (((v0 << 4) ^ (v0 >> 5)) + v0) ^ (sum + k[(sum >> 11) & 3]);
     }
-
-
+//    Trace("EMS v0: %08X", v0);
+//    Trace("EMS v1: %08X", v1);
+    calKey = v0;
+    Trace("EMS key: %08X", calKey);
+    keyArr[0] = (calKey >> 24) & 0xFF;
+    keyArr[1] = (calKey >> 16) & 0xFF;
+    keyArr[2] = (calKey >> 8) & 0xFF;
+    keyArr[3] = (calKey) & 0xFF;
 }
 //EMS安全算法
 
@@ -3528,21 +3533,21 @@ void Utils_RunFlowControl() {
         case 0x04:
             Utils_doLearnSC_H32B();//EMS写入SC、ESK_H32B
             break;
-        case 0x05:
-            Utils_doEOL_H40D();//EOL下线流程_H40D
-            break;
-        case 0x06:
-            Utils_doClearEMSLearning_H40D();//清除EMS学习值_H40D
-            break;
-        case 0x07:
-            Utils_doReLearningEMS_H40D();//EMS再学习_H40D
-            break;
-        case 0x08:
-            Utils_doEOLKEY_H40D();//EOL 钥匙学习
-            break;
-        case 0x09:
-            Utils_doReLearningKey_H40D();//钥匙再学习
-            break;
+//        case 0x05:
+//            Utils_doEOL_H40D();//EOL下线流程_H40D
+//            break;
+//        case 0x06:
+//            Utils_doClearEMSLearning_H40D();//清除EMS学习值_H40D
+//            break;
+//        case 0x07:
+//            Utils_doReLearningEMS_H40D();//EMS再学习_H40D
+//            break;
+//        case 0x08:
+//            Utils_doEOLKEY_H40D();//EOL 钥匙学习
+//            break;
+//        case 0x09:
+//            Utils_doReLearningKey_H40D();//钥匙再学习
+//            break;
         case 0x0a:
             Utils_doGetInformation();
             break;
@@ -3844,8 +3849,7 @@ short Utils_checkVIN() {
             rst4 = Utils_VINtoESK_H33D(VIN, ESK2);//H33D ESK算法
             if (rst2 + rst3 + rst4 == 0) {
                 Trace("VIN读取完成");
-                Trace("o:确认VIN  p:EMS安全认证  q:EMS写入VIN  r:停止  s:EMS清除SC_H32B  t:EMS写入SC、ESK_H32B  u:EOL_H40D  "
-                      "v:清除EMS学习值_H40D  w:EMS再学习_H40D  x:EOL钥匙学习_H40D  y:售后钥匙学习_H40D  z:获取ECU信息");
+                Trace("o:确认VIN  p:EMS安全认证  q:EMS写入VIN  r:停止  s:EMS清除SC_H32B  t:EMS写入SC、ESK_H32B  z:获取ECU信息");
                 return True;
             } else {
                 Trace("PIN/ESK转换错误,errCode=%h/%h/%h", rst2, rst3, rst4);
@@ -4127,7 +4131,7 @@ void Utils_doLearnSC_H32B() {
             rstMsg_EMS.data[7] = ESK[2];
             //settimer_CAPL(MSEC_TIMER, msgSend, 100);
             Utils_SendMsg();
-            Trace(">> STEP7：2E5853首帧");
+            Trace(">> STEP7：写入SKC，2E5853首帧");
             Utils_setTimerWithResp(WaitForRespTimer, 40, 0x30);/*马瑞利30响应10ms*/
             return;
         case 8:
@@ -4142,7 +4146,7 @@ void Utils_doLearnSC_H32B() {
             rstMsg_EMS.data[6] = ESK[8];
             rstMsg_EMS.data[7] = ESK[9];
             settimer_CAPL(MSEC_TIMER, msgSend, CFTime);
-            Trace(">> STEP8：写入SKC，2E5853第二帧");
+            Trace(">> STEP8：2E5853第二帧");
             return;
         case 9:
             rstMsg_EMS.dlc = 8;
@@ -5750,85 +5754,6 @@ void OnKey_t() {
 }
 /* End BUSMASTER generated function - OnKey_t */
 
-/* Start BUSMASTER generated function - OnKey_u */
-void OnKey_u() {
-    StopTimer(msgSend_3E);
-    rstMsg_EMS.id = 0x729;//PEPS
-    present_EMS.id = 0x729;//PEPS
-//    rstMsg_EMS.cluster = 2;
-//    present_EMS.cluster = 2;
-    Utils_initialize();
-    settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
-    Mode = 0x05;//PEPS EOL_H40D
-    if (Utils_checkVIN() == True) {
-        Utils_RunFlowControl();
-    }
-}
-/* End BUSMASTER generated function - OnKey_u */
-
-/* Start BUSMASTER generated function - OnKey_v */
-void OnKey_v() {
-    StopTimer(msgSend_3E);
-    rstMsg_EMS.id = 0x729;//PEPS
-    present_EMS.id = 0x729;//PEPS
-//    rstMsg_EMS.cluster = 2;
-//    present_EMS.cluster = 2;
-    Utils_initialize();
-    settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
-    Mode = 0x06;//清除EMS学习值_H40D
-    if (Utils_checkVIN() == True) {
-        Utils_RunFlowControl();
-    }
-}
-/* End BUSMASTER generated function - OnKey_v */
-
-/* Start BUSMASTER generated function - OnKey_w */
-void OnKey_w() {
-    StopTimer(msgSend_3E);
-    rstMsg_EMS.id = 0x729;//PEPS
-    present_EMS.id = 0x729;//PEPS
-//    rstMsg_EMS.cluster = 1;
-//    present_EMS.cluster = 1;
-    Utils_initialize();
-    settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
-    Mode = 0x07;//EMS再学习_H40D
-    if (Utils_checkVIN() == True) {
-        Utils_RunFlowControl();
-    }
-}
-/* End BUSMASTER generated function - OnKey_w */
-
-/* Start BUSMASTER generated function - OnKey_x */
-void OnKey_x() {
-    StopTimer(msgSend_3E);
-    rstMsg_EMS.id = 0x729;//PEPS
-    present_EMS.id = 0x729;//PEPS
-//    rstMsg_EMS.cluster = 1;
-//    present_EMS.cluster = 1;
-    Utils_initialize();
-    settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
-    Mode = 0x08;//EOL KEY_H40D
-    if (Utils_checkVIN() == True) {
-        Utils_RunFlowControl();
-    }
-}
-/* End BUSMASTER generated function - OnKey_x */
-
-/* Start BUSMASTER generated function - OnKey_y */
-void OnKey_y() {
-    StopTimer(msgSend_3E);
-    rstMsg_EMS.id = 0x729;//PEPS
-    present_EMS.id = 0x729;//PEPS
-//    rstMsg_EMS.cluster = 1;
-//    present_EMS.cluster = 1;
-    Utils_initialize();
-    settimer_CAPL(MSEC_TIMER, timer_Stop, 40000);//超时
-    Mode = 0x09;//AfterSales KEY_H40D
-    if (Utils_checkVIN() == True) {
-        Utils_RunFlowControl();
-    }
-}
-/* End BUSMASTER generated function - OnKey_y */
 /* Start BUSMASTER generated function - OnKey_z */
 void OnKey_z() {
     StopTimer(msgSend_3E);
