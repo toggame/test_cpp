@@ -3323,14 +3323,18 @@ void Utils_getDTC() {
     static char DTC_str[100];
 //    Trace("DTC_bytes=%d",DTC_bytes);
     mSID = 0x59;
+//    FILE *fp;
+//    fp = fopen("D:\\information.txt", "a");  //拓展输入到information文本中
     for (int i = 0; 4 * i + 6 < DTC_bytes; i++) {
         DTC_date = (DTC_info[4 * i + 3] << 16) | (DTC_info[4 * i + 4] << 8) | DTC_info[4 * i + 5];
         DTC_status = DTC_info[4 * i + 6];
         Utils_getDTCInfo(DTC_date, DTC_str);
         Trace(">> DTC %d: %06X %02X %s", i + 1, DTC_date, DTC_status, DTC_str);
+//        fprintf(fp,">> DTC %d: %06lX %02lX %s", i + 1, DTC_date, DTC_status, DTC_str);
         Utils_getDTCStatus(DTC_status);
-        WriteToLogFile(DTC_str);
+//        WriteToLogFile(DTC_str);
     }
+//    fclose(fp);
 }
 //DTC文本
 /* End BUSMASTER generated function - Utils_getDTC */
@@ -3340,6 +3344,8 @@ void Utils_getInformation() {
     static unsigned char str[100], hexnumber[300];
     memset(str, 0, sizeof(str));
     memset(hexnumber, 0, sizeof(hexnumber));
+//    FILE *fp;
+//    fp = fopen("D:\\information.txt", "a");  //拓展输入到information文本中
 //    Trace("mSID=%X,Options=%X,rInformation_type=%X,rInformation_Options=%X",mSID,Options,rInformation_type,rInformation_Options);
     mSID = rInformation_type;//用于校验mSID
     Options = rInformation_Options;//用于校验Options
@@ -3351,36 +3357,46 @@ void Utils_getInformation() {
         switch (rInformation_Options) {
             case 0xf190:
                 Trace("22F190 VIN: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F190 VIN: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf187:
                 Trace("22F187 零件号: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F187 零件号: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf197:
                 Trace("22F197 系统名称: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F197 系统名称: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf18a:
                 Trace("22F18A 供应商代码: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F18A 供应商代码: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf193:
                 Trace("22F193 硬件号: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F193 硬件号: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf195:
                 Trace("22F195 软件号: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F195 软件号: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf199:
                 Trace("22F199 刷写时间: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F199 刷写时间: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf18c:
                 Trace("22F18C 序列号: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F18C 序列号: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf1a8:
                 Trace("22F1A8 车辆配置代码: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F1A8 车辆配置代码: %s（%s）\n", str, hexnumber);
+                break;
             case 0xf100:
                 Trace("22F100 诊断软件版本: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"22F100 诊断软件版本: %s（%s）\n", str, hexnumber);
+                break;
             default:
-                return;
+                break;
         }
     }
     if (rInformation_type == 0x49) {
@@ -3391,14 +3407,17 @@ void Utils_getInformation() {
         switch (rInformation_Options) {
             case 0x04:
                 Trace("0904 CALID: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"0904 CALID: %s（%s）\n", str, hexnumber);
+                break;
             case 0x06:
 //                Trace("0906 CVN: %02X%02X%02X%02X", str[0], str[1], str[2], str[3]);
                 Trace("0906 CVN: %s", hexnumber);
-                return;
+//                fprintf(fp,"0906 CVN: %s\n", hexnumber);
+                break;
             case 0x02:
                 Trace("0902 VIN: %s（%s）", str, hexnumber);
-                return;
+//                fprintf(fp,"0902 VIN: %s（%s）\n", str, hexnumber);
+                break;
             case 0x0A:
                 for (int i = 0; i < byteCount - 3; ++i) {//防止00直接结束
                     if (str[i] == 0x00) {
@@ -3406,29 +3425,61 @@ void Utils_getInformation() {
                     }
                 }
                 Trace("090A ECUNAME: %s（%s）", str, hexnumber);
+//                fprintf(fp,"090A ECUNAME: %s（%s）\n", str, hexnumber);
 //                Trace("byteCount=%d",byteCount);//有00，导致显示不完全
-                return;
+                break;
             case 0x08:
                 int IUPR[64];
+                float IUPRATE[64];
                 memset(IUPR, 0x00, sizeof(IUPR));
+                memset(IUPRATE, 0x00, sizeof(IUPRATE));
                 IUPR[0] = rInformation[2];//诊断数
                 IUPR[1] = str[0] << 8 | str[1];//通用分母
                 IUPR[2] = str[2] << 8 | str[3];//点火数
                 for (int i = 0; i < IUPR[0] - 2; ++i) {
                     IUPR[i + 3] = str[2 * i + 4] << 8 | str[2 * i + 5];
                 }
-                Trace("0908 iupt: 诊断数=%d, 通用分母=%d, 点火数=%d, 催化器1=%d/%d, 催化器2=%d/%d, 前氧传感器1=%d/%d, "
-                      "前氧传感器2=%d/%d, EGR/VVT=%d/%d, 二次空气系统=%d/%d, 蒸发泄露诊断=%d/%d, 后氧传感器1=%d/%d, "
-                      "后氧传感器2=%d/%d, 空燃比1=%d/%d, 空燃比2=%d/%d, GPF1=%d/%d, GPF2=%d/%d",
-                      IUPR[0], IUPR[1], IUPR[2], IUPR[3], IUPR[4], IUPR[5], IUPR[6], IUPR[7], IUPR[8], IUPR[9],
-                      IUPR[10], IUPR[11], IUPR[12], IUPR[13], IUPR[14], IUPR[15], IUPR[16], IUPR[17], IUPR[18],
-                      IUPR[19], IUPR[20], IUPR[21], IUPR[22], IUPR[23], IUPR[24], IUPR[25], IUPR[26], IUPR[27],
-                      IUPR[28]);
-                return;
+                for (int i = 0; i < IUPR[0] - 2; ++i) {
+                    if (IUPR[2 * i + 4] != 0)
+                        IUPRATE[i] = float(IUPR[2 * i + 3]) / float(IUPR[2 * i + 4]);
+                    else IUPRATE[i] = 0;
+                }
+//                Trace("0908 iupt: 诊断数=%d, 通用分母=%d, 点火数=%d, 催化器1=%d/%d, 催化器2=%d/%d, 前氧传感器1=%d/%d, "
+//                      "前氧传感器2=%d/%d, EGR/VVT=%d/%d, 二次空气系统=%d/%d, 蒸发泄露诊断=%d/%d, 后氧传感器1=%d/%d, "
+//                      "后氧传感器2=%d/%d, 空燃比1=%d/%d, 空燃比2=%d/%d, GPF1=%d/%d, GPF2=%d/%d",
+//                      IUPR[0], IUPR[1], IUPR[2], IUPR[3], IUPR[4], IUPR[5], IUPR[6], IUPR[7], IUPR[8], IUPR[9],
+//                      IUPR[10], IUPR[11], IUPR[12], IUPR[13], IUPR[14], IUPR[15], IUPR[16], IUPR[17], IUPR[18],
+//                      IUPR[19], IUPR[20], IUPR[21], IUPR[22], IUPR[23], IUPR[24], IUPR[25], IUPR[26], IUPR[27],
+//                      IUPR[28]);
+//                Trace("        iupr: 催化器1=%3.3f, 催化器2=%3.3f, 前氧传感器1=%3.3f, "
+//                      "前氧传感器2=%3.3f, EGR/VVT=%3.3f, 二次空气系统=%3.3f, 蒸发泄露诊断=%3.3f, 后氧传感器1=%3.3f, "
+//                      "后氧传感器2=%3.3f, 空燃比1=%3.3f, 空燃比2=%3.3f, GPF1=%3.3f, GPF2=%3.3f",
+//                      IUPRATE[0], IUPRATE[1], IUPRATE[2], IUPRATE[3], IUPRATE[4], IUPRATE[5], IUPRATE[6], IUPRATE[7],
+//                      IUPRATE[8], IUPRATE[9], IUPRATE[10], IUPRATE[11], IUPRATE[12]);
+                Trace("0908 iupt: 诊断数=%d, 通用分母=%d, 点火数=%d, 催化器1=%d/%d(%3.3f), 催化器2=%d/%d(%3.3f),"
+                      " 前氧传感器1=%d/%d(%3.3f), 前氧传感器2=%d/%d(%3.3f), EGR/VVT=%d/%d(%3.3f), 二次空气系统=%d/%d(%3.3f),"
+                      " 蒸发泄露诊断=%d/%d(%3.3f), 后氧传感器1=%d/%d(%3.3f), 后氧传感器2=%d/%d(%3.3f), 空燃比1=%d/%d(%3.3f),"
+                      " 空燃比2=%d/%d(%3.3f), GPF1=%d/%d(%3.3f), GPF2=%d/%d(%3.3f)",
+                      IUPR[0], IUPR[1], IUPR[2], IUPR[3], IUPR[4], IUPRATE[0], IUPR[5], IUPR[6], IUPRATE[1], IUPR[7],
+                      IUPR[8], IUPRATE[2], IUPR[9], IUPR[10], IUPRATE[3], IUPR[11], IUPR[12], IUPRATE[4], IUPR[13],
+                      IUPR[14], IUPRATE[5], IUPR[15], IUPR[16], IUPRATE[6], IUPR[17], IUPR[18], IUPRATE[7], IUPR[19],
+                      IUPR[20], IUPRATE[8], IUPR[21], IUPR[22], IUPRATE[9], IUPR[23], IUPR[24], IUPRATE[10], IUPR[25],
+                      IUPR[26], IUPRATE[11], IUPR[27], IUPR[28], IUPRATE[12]);
+//                fprintf(fp,"0908 iupt: 诊断数=%d, 通用分母=%d, 点火数=%d, 催化器1=%d/%d(%3.3f), 催化器2=%d/%d(%3.3f),"
+//                      " 前氧传感器1=%d/%d(%3.3f), 前氧传感器2=%d/%d(%3.3f), EGR/VVT=%d/%d(%3.3f), 二次空气系统=%d/%d(%3.3f),"
+//                      " 蒸发泄露诊断=%d/%d(%3.3f), 后氧传感器1=%d/%d(%3.3f), 后氧传感器2=%d/%d(%3.3f), 空燃比1=%d/%d(%3.3f),"
+//                      " 空燃比2=%d/%d(%3.3f), GPF1=%d/%d(%3.3f), GPF2=%d/%d(%3.3f) \n\n",
+//                      IUPR[0], IUPR[1], IUPR[2], IUPR[3], IUPR[4], IUPRATE[0], IUPR[5], IUPR[6], IUPRATE[1], IUPR[7],
+//                      IUPR[8], IUPRATE[2], IUPR[9], IUPR[10], IUPRATE[3], IUPR[11], IUPR[12], IUPRATE[4], IUPR[13],
+//                      IUPR[14], IUPRATE[5], IUPR[15], IUPR[16], IUPRATE[6], IUPR[17], IUPR[18], IUPRATE[7], IUPR[19],
+//                      IUPR[20], IUPRATE[8], IUPR[21], IUPR[22], IUPRATE[9], IUPR[23], IUPR[24], IUPRATE[10], IUPR[25],
+//                      IUPR[26], IUPRATE[11], IUPR[27], IUPR[28], IUPRATE[12]);
+                break;
             default:
-                return;
+                break;
         }
     }
+//    fclose(fp);
     byteCount = 0;
     rInformation_type = 0x00;
     rInformation_Options = 0x00;
@@ -3605,8 +3656,8 @@ short Utils_ReadVIN() {
     k = 0;
     c = 0;
     check = 0;
-//    vHandle = openfileread_CAPL("D:\\vin.Txt", 0);//固定路径
-    vHandle = openfileread_CAPL("vin.Txt", 0);
+    vHandle = openfileread_CAPL("D:\\vin.txt", 0);//固定路径
+//    vHandle = openfileread_CAPL("vin.Txt", 0);
     if (vHandle != 0) {
         filegetstring_CAPL(VIN, sizeof(VIN), vHandle);
         fileclose_CAPL(vHandle);
@@ -3810,6 +3861,7 @@ void Utils_doSecAccess() {
             return;
         case 5:
             Trace(">> STEP5：安全访问验证通过");
+            Utils_Stop();
             return;
         default:
             return;
@@ -5664,6 +5716,8 @@ void OnBus_Connect() {
     Utils_initialize();
     initialize(&rstMsg_EMS, 0x7e0, false, 0, 1);
     initialize(&present_EMS, 0x7e0, false, 8, 1, 0x02, 0x3e, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff);
+    Trace("o:确认VIN  p:EMS安全认证  q:EMS写入VIN  r:停止  s:EMS清除SC_H32B  t:EMS写入SC、ESK_H32B  u:EOL_H40D  "
+          "v:清除EMS学习值_H40D  w:EMS再学习_H40D  x:EOL钥匙学习_H40D  y:售后钥匙学习_H40D  z:获取ECU信息");
     Utils_checkVIN();
 }
 /* End BUSMASTER generated function - OnBus_Connect */
