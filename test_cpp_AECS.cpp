@@ -3815,6 +3815,7 @@ void Utils_doSecAccess() {
             return;
         case 5:
             Trace(">> STEP5：安全访问验证通过");
+            Utils_Stop();
             return;
         default:
             return;
@@ -5668,6 +5669,7 @@ void OnBus_Connect() {
     Utils_initialize();
     initialize(&rstMsg_EMS, 0x7e0, false, 0, 1);
     initialize(&present_EMS, 0x7e0, false, 8, 1, 0x02, 0x3e, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff);
+    Trace("o:确认VIN  p:EMS安全认证  q:EMS写入VIN  r:停止  s:EMS清除SC_H32B  t:EMS写入SC、ESK_H32B  z:获取ECU信息");
     Utils_checkVIN();
 }
 /* End BUSMASTER generated function - OnBus_Connect */

@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\test_cpp_simple.dir/objects.a
+C:\TDM-GCC-32\bin\ar.exe cr CMakeFiles\test_cpp_simple.dir/objects.a @CMakeFiles\test_cpp_simple.dir\objects1.rsp
+C:\TDM-GCC-32\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\test_cpp_simple.dir/objects.a -Wl,--no-whole-archive  -o test_cpp_simple.exe -Wl,--out-implib,libtest_cpp_simple.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\test_cpp_simple.dir\linklibs.rsp

@@ -1,12 +1,12 @@
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~3.CPP:1:0: warning: ignoring #pragma clang diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:1:0: warning: ignoring #pragma clang diagnostic [-Wunknown-pragmas]
  #pragma clang diagnostic push
  ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~3.CPP:2:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:2:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
  #pragma ide diagnostic ignored "hicpp-signed-bitwise"//位操作校验
  ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~3.CPP:3:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:3:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
  #pragma ide diagnostic ignored "cert-err58-cpp"//STCAN_MSG报错
  ^
-D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/TEST_C~3.CPP:4:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
+D:/EMSDATA/CAPL/test/BUSMAS~1/test_cpp/test_cpp.cpp:4:0: warning: ignoring #pragma ide diagnostic [-Wunknown-pragmas]
  #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"//未使用全局变量，取消对部分BUSMASTER功能检查
  ^
